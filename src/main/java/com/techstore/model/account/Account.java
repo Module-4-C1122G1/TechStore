@@ -1,5 +1,7 @@
 package com.techstore.model.account;
 
+import com.techstore.model.general.InitialDate;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,15 +16,19 @@ public class Account {
     private String password;
     @ManyToMany
     private List<Role> role;
+    @Embedded
+    private InitialDate initialDate;
 
     public Account() {
+        initialDate = new InitialDate();
     }
 
-    public Account(int id, String userName, String password, List<Role> role) {
+    public Account(int id, String userName, String password, List<Role> role, InitialDate initialDate) {
         this.id = id;
         this.userName = userName;
         this.password = password;
         this.role = role;
+        this.initialDate = initialDate;
     }
 
     public int getId() {
@@ -55,5 +61,13 @@ public class Account {
 
     public void setRole(List<Role> role) {
         this.role = role;
+    }
+
+    public InitialDate getInitialDate() {
+        return initialDate;
+    }
+
+    public void setInitialDate(InitialDate initialDate) {
+        this.initialDate = initialDate;
     }
 }
