@@ -2,6 +2,7 @@ package com.techstore.model.order;
 
 import com.techstore.model.customer.Customer;
 import com.techstore.model.employee.Employee;
+import com.techstore.model.general.InitialDate;
 import com.techstore.model.product.Product;
 import com.techstore.model.voucher.Voucher;
 
@@ -30,11 +31,14 @@ public class Order {
     private Customer customer;
     @ManyToMany
     private List<Voucher> voucher;
+    @Embedded
+    private InitialDate initialDate;
 
     public Order() {
+        initialDate = new InitialDate();
     }
 
-    public Order(int id, Date dateOrder, int amountOrder, String destination, int statusOrder, List<Product> products, Employee employee, Customer customer, List<Voucher> voucher) {
+    public Order(int id, Date dateOrder, int amountOrder, String destination, int statusOrder, List<Product> products, Employee employee, Customer customer, List<Voucher> voucher, InitialDate initialDate) {
         this.id = id;
         this.dateOrder = dateOrder;
         this.amountOrder = amountOrder;
@@ -44,6 +48,7 @@ public class Order {
         this.employee = employee;
         this.customer = customer;
         this.voucher = voucher;
+        this.initialDate = initialDate;
     }
 
     public int getId() {
@@ -116,5 +121,13 @@ public class Order {
 
     public void setVoucher(List<Voucher> voucher) {
         this.voucher = voucher;
+    }
+
+    public InitialDate getInitialDate() {
+        return initialDate;
+    }
+
+    public void setInitialDate(InitialDate initialDate) {
+        this.initialDate = initialDate;
     }
 }

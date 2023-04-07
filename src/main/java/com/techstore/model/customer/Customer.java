@@ -1,5 +1,8 @@
 package com.techstore.model.customer;
 
+import com.techstore.model.general.Gender;
+import com.techstore.model.general.InitialDate;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -18,17 +21,24 @@ public class Customer {
     private Date dateOfBirth;
     @ManyToOne
     private TypeCustomer typeCustomer;
+    @ManyToOne
+    private Gender gender;
+    @Embedded
+    private InitialDate initialDate;
 
     public Customer() {
+        initialDate = new InitialDate();
     }
 
-    public Customer(int id, String nameCustomer, String address, String phoneNumber, Date dateOfBirth, TypeCustomer typeCustomer) {
+    public Customer(int id, String nameCustomer, String address, String phoneNumber, Date dateOfBirth, TypeCustomer typeCustomer, Gender gender, InitialDate initialDate) {
         this.id = id;
         this.nameCustomer = nameCustomer;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.dateOfBirth = dateOfBirth;
         this.typeCustomer = typeCustomer;
+        this.gender = gender;
+        this.initialDate = initialDate;
     }
 
     public int getId() {
@@ -77,5 +87,21 @@ public class Customer {
 
     public void setTypeCustomer(TypeCustomer typeCustomer) {
         this.typeCustomer = typeCustomer;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public InitialDate getInitialDate() {
+        return initialDate;
+    }
+
+    public void setInitialDate(InitialDate initialDate) {
+        this.initialDate = initialDate;
     }
 }
