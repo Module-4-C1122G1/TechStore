@@ -1,6 +1,7 @@
 package com.techstore.model.product;
 
 import com.techstore.model.categories.Categories;
+import com.techstore.model.general.InitialDate;
 
 import javax.persistence.*;
 import java.util.List;
@@ -46,11 +47,14 @@ public class Product {
     private List<Utilities> utilities;
     @ManyToOne(targetEntity = Categories.class)
     private Categories categories;
+    @Embedded
+    private InitialDate initialDate;
 
     public Product() {
+        initialDate = new InitialDate();
     }
 
-    public Product(int id, String nameProduct, String image, Double price, String screenTechnology, String operatingSystem, String chip, Double cpu_speed, Integer ram, Integer capacity, Integer pin, String material, Double weight, Double size, String description, String timePublic, Manufacturer manufacturer, List<Utilities> utilities, Categories categories) {
+    public Product(int id, String nameProduct, String image, Double price, String screenTechnology, String operatingSystem, String chip, Double cpu_speed, Integer ram, Integer capacity, Integer pin, String material, Double weight, Double size, String description, String timePublic, Manufacturer manufacturer, List<Utilities> utilities, Categories categories, InitialDate initialDate) {
         this.id = id;
         this.nameProduct = nameProduct;
         this.image = image;
@@ -70,6 +74,7 @@ public class Product {
         this.manufacturer = manufacturer;
         this.utilities = utilities;
         this.categories = categories;
+        this.initialDate = initialDate;
     }
 
     public int getId() {
@@ -222,5 +227,13 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public InitialDate getInitialDate() {
+        return initialDate;
+    }
+
+    public void setInitialDate(InitialDate initialDate) {
+        this.initialDate = initialDate;
     }
 }

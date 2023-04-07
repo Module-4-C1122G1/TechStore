@@ -1,8 +1,10 @@
 package com.techstore.model.employee;
 
+import com.techstore.model.general.Gender;
+import com.techstore.model.general.InitialDate;
+
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class Employee {
@@ -21,11 +23,16 @@ public class Employee {
     private Position position;
     @ManyToOne
     private Department department;
+    @ManyToOne
+    private Gender gender;
+    @Embedded
+    private InitialDate initialDate;
 
     public Employee() {
+        initialDate = new InitialDate();
     }
 
-    public Employee(int id, String nameEmployee, String phoneNumber, Date dateOfBirth, String address, Position position, Department department) {
+    public Employee(int id, String nameEmployee, String phoneNumber, Date dateOfBirth, String address, Position position, Department department, Gender gender, InitialDate initialDate) {
         this.id = id;
         this.nameEmployee = nameEmployee;
         this.phoneNumber = phoneNumber;
@@ -33,6 +40,8 @@ public class Employee {
         this.address = address;
         this.position = position;
         this.department = department;
+        this.gender = gender;
+        this.initialDate = initialDate;
     }
 
     public int getId() {
@@ -89,5 +98,21 @@ public class Employee {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public InitialDate getInitialDate() {
+        return initialDate;
+    }
+
+    public void setInitialDate(InitialDate initialDate) {
+        this.initialDate = initialDate;
     }
 }
