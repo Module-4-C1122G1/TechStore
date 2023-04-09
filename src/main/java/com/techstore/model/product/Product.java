@@ -4,6 +4,7 @@ import com.techstore.model.categories.Categories;
 import com.techstore.model.general.InitialDate;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @Entity
@@ -221,8 +222,8 @@ public class Product {
         this.image = image;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getPrice() {
+        return new DecimalFormat("#").format(price);
     }
 
     public void setPrice(Double price) {
