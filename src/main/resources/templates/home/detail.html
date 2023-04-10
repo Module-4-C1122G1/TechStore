@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="home/home :: head">
+</head>
+<head>
+    <link rel="stylesheet" th:href="@{/css/detail.css}">
+</head>
+<body>
+<div class="header" th:replace="/home/home :: header"></div>
+<div class="main">
+    <div class="container">
+        <div class="title d-flex justify-content-between align-items-center">
+            <div class="name-product d-flex">
+                <h1 style="font-size: 24px; color: #212529; font-weight: 700"
+                    th:text="'Điện thoại ' + ${product.getNameProduct()}"></h1>
+            </div>
+            <div class="modify d-flex justify-content-end">
+                <p>Đánh giá</p>
+                <p>Hỏi đáp</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <img alt="" class="w-100" th:src="${product.getImage()}">
+                <div class="description">
+                    <p class="content-description mt-5 fw-bold" th:text="${product.getDescription()}"></p>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="d-flex align-items-center mt-4 mb-3">
+                    <label
+                            style="font-size: 24px;font-weight: 700;line-height: 28px;margin-right: 10px">
+                        Giá tại Tech Store: </label>
+                    <p class="price-product fw-bold"
+                       th:text="${#numbers.formatInteger(product.getPrice(), 3, 'POINT')}"></p>
+                </div>
+                <button class="buy-now btn btn-lg"><i class="fa-solid fa-truck-fast"></i> Mua ngay</button>
+                <button class="add-cart btn btn-lg"
+                        th:onclick="|window.location = '/product/add-cart/'+${product.getId()}|"><i
+                        class="fa-solid fa-cart-shopping"></i> Thêm vào giỏ hàng
+                </button>
+                <div class="advanced mt-3">
+                    <h2 style="font-size: 20px; line-height: 28px; color: #212529;"
+                        th:text="'Cấu hình máy ' + ${product.getNameProduct()}"></h2>
+                    <table class="table table-striped table-bordered">
+                        <tbody>
+                        <tr>
+                            <th>Công nghệ màn hình</th>
+                            <td th:text="${product.getScreenTechnology()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Dung lượng lưu trữ</th>
+                            <td th:text="${product.getCapacity() + 'GB, ' + product.getRam() + 'GB'}"></td>
+                        </tr>
+                        <tr>
+                            <th>Hệ điều hành</th>
+                            <td th:text="${product.getOperatingSystem()}"></td>
+                        </tr>
+                        <tr>
+                            <th>CPU</th>
+                            <td th:text="${product.getChip()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Tốc độ xung nhịp</th>
+                            <td th:text="${product.getCpu_speed() + 'Ghz'}"></td>
+                        </tr>
+                        <tr>
+                            <th>Dung lượng Pin</th>
+                            <td th:text="${product.getPin()} + 'maH'"></td>
+                        </tr>
+                        <tr>
+                            <th>Kích thước & khối lượng</th>
+                            <td th:text="${product.getSize() + ' inch, ' + product.getWeight() + ' g'}"></td>
+                        </tr>
+                        <tr>
+                            <th>Chất liệu</th>
+                            <td th:text="${product.getMaterial()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Ra mắt</th>
+                            <td th:text="${product.getTimePublic()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer" th:replace="/home/home :: footer"></div>
+</body>
+</html>
