@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="head">
     <meta charset="UTF-8"/>
     <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -32,10 +32,10 @@
 </head>
 
 <body>
-<div class="header w-100">
+<div class="header w-100" th:fragment="header">
     <div class="container d-flex align-items-center h-100">
         <div class="logo-header">
-            <img alt="Logo" th:src="@{/images/logo.png}"/>
+            <img alt="Logo" th:onclick="|window.location = '/'|" th:src="@{/images/logo.png}"/>
         </div>
         <div class="search-header">
             <form class="w-100 d-flex justify-content-center align-items-center">
@@ -60,7 +60,7 @@
                     <i class="fa-regular fa-circle-user fs-18"></i>
                     <p>Tài khoản của tôi</p>
                 </li>
-                <li>
+                <li th:onclick="|window.location = '/shopping-cart'|">
                     <i class="fa-solid fa-cart-shopping fs-18"></i>
                     <p>Giỏ hàng</p>
                 </li>
@@ -193,9 +193,81 @@
                     </div>
                     <div class="product-btn mb-5 mt-auto">
                         <button class="btn btn-secondary detail-btn"
-                                th:onclick="|window.location = '/product/detail/' + ${product.getId()}|">Chi tiết
+                                data-bs-target="#exampleModal" data-bs-toggle="modal">Chi tiết
                         </button>
-                        <button class="btn btn-danger order-btn">Mua hàng</button>
+                        <button class="btn btn-danger order-btn"
+                                th:onclick="|window.location = '/product/detail/' + ${product.getId()}|">Mua hàng
+                        </button>
+                    </div>
+                    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
+                         tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel"
+                                        th:text="${product.getNameProduct()}"></h1>
+                                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                            type="button"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="img-detail-product w-100">
+                                        <img alt="" class="w-100" th:src="${product.getImage()}">
+                                    </div>
+                                    <div class="infomation mt-5">
+                                        <table class="table">
+                                            <thead class="table-dark">
+                                            <th colspan="2" style="text-align: center">Thông số kĩ thuật</th>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <th>Công nghệ màn hình</th>
+                                                <td th:text="${product.getScreenTechnology()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Dung lượng lưu trữ</th>
+                                                <td th:text="${product.getCapacity() + 'GB, ' + product.getRam() + 'GB'}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Hệ điều hành</th>
+                                                <td th:text="${product.getOperatingSystem()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>CPU</th>
+                                                <td th:text="${product.getChip()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Tốc độ xung nhịp</th>
+                                                <td th:text="${product.getCpu_speed() + 'Ghz'}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Dung lượng Pin</th>
+                                                <td th:text="${product.getPin()} + 'maH'"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Kích thước & khối lượng</th>
+                                                <td th:text="${product.getSize() + ' inch, ' + product.getWeight() + ' g'}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Chất liệu</th>
+                                                <td th:text="${product.getMaterial()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Ra mắt</th>
+                                                <td th:text="${product.getTimePublic()}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="more-info fw-bold" th:text="${product.getDescription()}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close
+                                    </button>
+                                    <button class="btn btn-danger" type="button" th:onclick="|window.location = '/product/add-cart/'+${product.getId()}|">Thêm vào giỏ hàng</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -226,7 +298,7 @@
         </div>
     </div>
 </div>
-<footer class="site-footer">
+<footer class="site-footer" th:fragment="footer">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-6">
