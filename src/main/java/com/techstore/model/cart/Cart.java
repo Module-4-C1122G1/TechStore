@@ -51,6 +51,15 @@ public class Cart {
         }
     }
 
+    public void subtractProduct(Product product) {
+        if (selectItemInCart(product).getValue() == 1) {
+            return;
+        } else {
+            Map.Entry<Product, Integer> item = selectItemInCart(product);
+            products.put(item.getKey(), item.getValue() - 1);
+        }
+    }
+
     public Integer countTotalProductQuantity() {
         Integer productsQuantity = 0;
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {

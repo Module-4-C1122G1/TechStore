@@ -22,15 +22,17 @@
                     <td><p class="title-name-product"
                            th:text="'Điện thoại ' + ${product.getKey().getNameProduct()}"></p></td>
                     <td>
-                        <button class="decrease-amount-btn">-</button>
+                        <button class="decrease-amount-btn"
+                                th:onclick="|subtractOneMoreProductTotal(${product.getKey().getId()})|">-
+                        </button>
                         <input class="amount-product" th:id="${'amount-product' + product.getKey().getId()}"
                                th:value="${product.getValue()}"/>
                         <button class="increase-amount-btn"
                                 th:onclick="|addOneMoreProductTotal(${product.getKey().getId()})|">+
                         </button>
                     </td>
-                    <td><p th:id="${'price-product' + product.getKey().getId()}"
-                           th:text="${product.getKey().getPrice()}"></p></td>
+                    <td><p class="price-product-cart" th:id="${'price-product' + product.getKey().getId()}"
+                           th:text="${#numbers.formatInteger(product.getKey().getPrice(), 3, 'POINT') + '₫'}"></p></td>
                 </tr>
                 </tbody>
             </table>
@@ -51,11 +53,37 @@
                 url: '/api/product/add-cart/' + id,
                 success: (data) => {
                     document.getElementById("amount-product" + id).value = data.amount;
-                    document.getElementById('price-product' + id).innerText = data.price;
+                    document.getElementById('price-product' + id).innerText = new Intl.NumberFormat('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }).format(data.price);
                 },
                 error: (error) => {
                     console.log(error);
                 }
+            }
+        )
+    }
+
+    function subtractOneMoreProductTotal(id) {
+        $.ajax({
+                type: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: '/api/product/subtract-cart/' + id,
+                success: (data) => {
+                    document.getElementById('amount-product' + id).value = data.amount;
+                    document.getElementById('price-product' + id).innerText = new Intl.NumberFormat('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }).format(data.price)
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+
             }
         )
     }
