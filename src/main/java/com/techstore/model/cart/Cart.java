@@ -70,4 +70,9 @@ public class Cart {
         }
         return payment;
     }
+
+    public Integer calculateTotalByProduct(Product product) {
+        Integer temp = products.get(product) * Integer.parseInt(product.getPrice());
+        return temp;
+    }
 }

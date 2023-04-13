@@ -10,11 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @SessionAttributes("cart")
 public class HomeController {
     @Autowired
     private IProductService productService;
+
     @ModelAttribute("cart")
     public Cart setupCart() {
         return new Cart();
@@ -46,12 +49,14 @@ public class HomeController {
         modelAndView.addObject("product", productService.findById(id));
         return modelAndView;
     }
+
     @GetMapping("/product/add-cart/{id}")
     public String addProductToCart(@PathVariable int id, @ModelAttribute Cart cart) {
         Product product = productService.findById(id);
         cart.addProduct(product);
         return "redirect:/";
     }
+
     @GetMapping("/shopping-cart")
     public ModelAndView showCart(@SessionAttribute("cart") Cart cart) {
         ModelAndView modelAndView = new ModelAndView("cart/cart");
