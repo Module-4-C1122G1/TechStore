@@ -167,6 +167,10 @@ body {
 /*FOOTER*/
 footer {
     margin-top: 8rem;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .site-footer {

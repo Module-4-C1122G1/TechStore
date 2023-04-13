@@ -37,4 +37,14 @@ public class HomeRestController {
         map.put("price", cart.calculateTotalByProduct(product));
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+
+    @GetMapping("/subtract-cart/{id}")
+    public ResponseEntity<Map<String, Integer>> subtractProductToCart(@PathVariable int id, @ModelAttribute Cart cart) {
+        Product product = productService.findById(id);
+        cart.subtractProduct(product);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("amount", cart.selectItemInCart(product).getValue());
+        map.put("price", cart.calculateTotalByProduct(product));
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
 }

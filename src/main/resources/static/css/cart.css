@@ -5,6 +5,7 @@
 .main .container {
     padding: 40px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    width: 776px;
 }
 
 .main .container .amount-items {
@@ -38,6 +39,7 @@
     text-align: center;
     outline: none;
 }
+
 .list-product .table .amount-product {
     border-right: none;
     border-left: none;
@@ -68,4 +70,10 @@
     border-radius: 0;
     background: #fff;
     font-size: 14px;
+}
+
+.price-product-cart {
+    font-size: 14px;
+    color: #cb1c22;
+    font-weight: 500;
 }
