@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/home :: head">
+</head>
+<body>
+<div th:replace="~{home/home::header}"></div>
+<div class="main">
+    <h2 style="text-align: center;color: #212529;font-size: 40px;font-weight: 500;
+padding: 10px 24px">Danh sách tài khoản</h2>
+    <h3 style="text-align: center;color: red" th:text="${msg}"></h3>
+    <div class="container">
+        <table class="table">
+            <thead class="table-dark">
+            <tr>
+                <th>STT</th>
+                <th>TÊN</th>
+                <th>MẬT KHẨU</th>
+                <th>QUYỀN</th>
+                <th>NGÀY TẠO</th>
+                <th colspan="3" style="text-align: center">CHỨC NĂNG</th>
+            </tr>
+            </thead>
+            <tbody th:each="account,loop :${listAccount}">
+            <tr>
+                <td th:text="${loop.count}"></td>
+                <td th:text="${account.userName}"></td>
+                <td th:text="${account.password}"></td>
+                <td th:text="${account.role}"></td>
+                <td th:text="${account.initialDate}"></td>
+                <td th:href="@{/update/{id}(id=${account.id})}">
+                    <button type="button" class="btn btn-warning">Chỉnh sửa</button>
+                </td>
+                <td>
+                    <button type="button" th:attr="onclick=|info('${account.id}','${account.userName}')|"
+                            class="btn btn-danger btn-sm"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Xóa
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="footer" th:replace="/home/home :: footer"></div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc muốn xóa tài khoản <span id="nameDelete" style="color: #3b5998"></span> ?</p>
+                <p style="color: red">Tác vụ này không thể hoàn tác.</p>
+            </div>
+            <div class="modal-footer">
+                <form action="account/delete" method="post">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="hidden" id="idDelete" name="id" class="btn btn-secondary">
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function info(id, name) {
+        document.getElementById("idDelete").value = id;
+        document.getElementById("nameDelete").innerText = name;
+    }
+
+</script>
+</body>
+</html>
