@@ -27,9 +27,10 @@
     border: 1px solid #cb1c22;
 }
 .add-cart {
-    background: rgb(252, 211, 75);
+    background: #ea9d02;
     color: #ffffff;
 }
 .add-cart:hover {
-    border: 1px solid rgba(252, 211, 75);
+    border: 1px solid #ea9d02;
+    color: #ea9d02;
 }

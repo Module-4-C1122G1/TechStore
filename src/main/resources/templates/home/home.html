@@ -56,9 +56,12 @@
                     <i class="fa-regular fa-credit-card fs-18"></i>
                     <p>Thanh toán $ tiện ích</p>
                 </li>
-                <li>
+                <li aria-expanded="false" data-bs-toggle="dropdown" type="button">
                     <i class="fa-regular fa-circle-user fs-18"></i>
                     <p>Tài khoản của tôi</p>
+                    <ul class="dropdown-menu">
+                        <li th:onclick="|window.location = '/login'|"><a class="dropdown-item">Đăng nhập</a></li>
+                    </ul>
                 </li>
                 <li th:onclick="|window.location = '/shopping-cart'|">
                     <i class="fa-solid fa-cart-shopping fs-18"></i>
@@ -69,25 +72,28 @@
     </div>
     <div class="nav">
         <div class="container d-flex justify-content-around align-items-center">
-            <div class="d-flex align-items-center h-100">
+            <div class="d-flex align-items-center h-100"
+                 th:onclick="|window.location.href = '/product?categories=1&page=0'|">
                 <i class="fa-solid fa-mobile-screen me-2"></i>
-                <p th:onclick="|window.location.href = '/product?categories=1&page=0'|">Điện thoại</p>
+                <p>Điện thoại</p>
             </div>
-            <div class="d-flex align-items-center h-100">
+            <div class="d-flex align-items-center h-100"
+                 th:onclick="|window.location.href = '/product?categories=2&page=0'|">
                 <i class="fa-solid fa-laptop me-2"></i>
-                <p th:onclick="|window.location.href = '/product?categories=2&page=0'|">Laptop</p>
+                <p>Laptop</p>
             </div>
-            <div class="d-flex align-items-center h-100">
+            <div class="d-flex align-items-center h-100" th:onclick="|window.location.href= '/product/manufacturer/1'|">
                 <i class="fa-brands fa-apple me-2"></i>
-                <p th:onclick="|window.location.href= '/product/manufacturer/1'|">Apple</p>
+                <p>Apple</p>
             </div>
-            <div class="d-flex align-items-center h-100">
+            <div class="d-flex align-items-center h-100" th:onclick="|window.location.href= '/product/manufacturer/2'|">
                 <i class="fa-solid fa-s me-2"></i>
-                <p th:onclick="|window.location.href= '/product/manufacturer/2'|">Samsung</p>
+                <p>Samsung</p>
             </div>
-            <div class="d-flex align-items-center h-100">
+            <div class="d-flex align-items-center h-100"
+                 th:onclick="|window.location.href = '/product?categories=3&page=0'|">
                 <i class="fa-solid fa-circle-stop me-2"></i>
-                <p th:onclick="|window.location.href = '/product?categories=3&page=0'|">Smartwatch</p>
+                <p>Smartwatch</p>
             </div>
             <div class="d-flex align-items-center h-100">
                 <i class="fa-solid fa-percent me-2"></i>

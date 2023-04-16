@@ -1,8 +1,8 @@
-package com.techstore.controller;
+package com.techstore.controller.home;
 
 import com.techstore.model.cart.Cart;
 import com.techstore.model.product.Product;
-import com.techstore.service.IProductService;
+import com.techstore.service.IProductService.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
