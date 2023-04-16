@@ -40,4 +40,12 @@ public class LoginController {
         customerService.saveCustomer(customer);
         return "redirect:/login";
     }
+    @GetMapping("/login-successful")
+    public String loginSuccessful() {
+        return "redirect:/";
+    }
+    @GetMapping("/logout")
+    public String logoutSuccessful() {
+        return "redirect:/";
+    }
 }
