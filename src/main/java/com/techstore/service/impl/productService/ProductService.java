@@ -1,8 +1,8 @@
-package com.techstore.service.impl;
+package com.techstore.service.impl.productService;
 
 import com.techstore.model.product.Product;
-import com.techstore.repository.IProductRepository;
-import com.techstore.service.IProductService;
+import com.techstore.repository.productRepository.IProductRepository;
+import com.techstore.service.IProductService.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

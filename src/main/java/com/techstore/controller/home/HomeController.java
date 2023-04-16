@@ -1,16 +1,14 @@
-package com.techstore.controller;
+package com.techstore.controller.home;
 
 import com.techstore.model.cart.Cart;
 import com.techstore.model.product.Product;
-import com.techstore.service.IProductService;
+import com.techstore.service.IProductService.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @SessionAttributes("cart")
@@ -61,6 +59,12 @@ public class HomeController {
     public ModelAndView showCart(@SessionAttribute("cart") Cart cart) {
         ModelAndView modelAndView = new ModelAndView("cart/cart");
         modelAndView.addObject("cart", cart);
+        return modelAndView;
+    }
+
+    @GetMapping("/login")
+    public ModelAndView showFormLogin() {
+        ModelAndView modelAndView = new ModelAndView("login/login");
         return modelAndView;
     }
 }

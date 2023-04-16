@@ -1,5 +1,6 @@
 package com.techstore.model.customer;
 
+import com.techstore.model.account.Account;
 import com.techstore.model.general.Gender;
 import com.techstore.model.general.InitialDate;
 
@@ -23,6 +24,8 @@ public class Customer {
     private TypeCustomer typeCustomer;
     @ManyToOne
     private Gender gender;
+    @OneToOne
+    private Account account;
     @Embedded
     private InitialDate initialDate;
 
@@ -30,7 +33,7 @@ public class Customer {
         initialDate = new InitialDate();
     }
 
-    public Customer(int id, String nameCustomer, String address, String phoneNumber, Date dateOfBirth, TypeCustomer typeCustomer, Gender gender, InitialDate initialDate) {
+    public Customer(int id, String nameCustomer, String address, String phoneNumber, Date dateOfBirth, TypeCustomer typeCustomer, Gender gender, Account account, InitialDate initialDate) {
         this.id = id;
         this.nameCustomer = nameCustomer;
         this.address = address;
@@ -38,6 +41,7 @@ public class Customer {
         this.dateOfBirth = dateOfBirth;
         this.typeCustomer = typeCustomer;
         this.gender = gender;
+        this.account = account;
         this.initialDate = initialDate;
     }
 
@@ -103,5 +107,13 @@ public class Customer {
 
     public void setInitialDate(InitialDate initialDate) {
         this.initialDate = initialDate;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
