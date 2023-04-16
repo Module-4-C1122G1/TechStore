@@ -20,8 +20,11 @@
         <input class="mb-3 username" id="dateOfBirth" name="dateofbirth" th:placeholder="${'Ngày sinh'}"
                type="text">
         <label th:text="${'Giới tính:'}"></label>
-        <input class="mb-3" name="gender" type="radio" value="0">
-        <input class="mb-3" name="gender" type="radio" value="1">
+        <div class="d-flex justify-content-center align-items-center mb-3">
+            <div class="me-3"><label>Nam</label><input name="gender" type="radio" value="2"></div>
+            <div class="me-3"><label>Nữ</label><input name="gender" type="radio" value="1"></div>
+            <div><label>Khác</label><input name="gender" type="radio" value="3"></div>
+        </div>
         <label th:text="${'Thành phố:'}"></label><select class="username" id="city" name="city"
                                                          th:onclick="selectDistrict()"></select>
         <label th:text="${'Quận huyện:'}"></label><select class="username" id="district" name="district"

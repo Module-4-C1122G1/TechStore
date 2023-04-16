@@ -60,7 +60,12 @@
                     <i class="fa-regular fa-circle-user fs-18"></i>
                     <p>Tài khoản của tôi</p>
                     <ul class="dropdown-menu">
-                        <li th:onclick="|window.location = '/login'|"><a class="dropdown-item">Đăng nhập</a></li>
+                        <li th:if="${#request.userPrincipal == null}" th:onclick="|window.location = '/login'|"><a
+                                class="dropdown-item">Đăng nhập</a></li>
+                        <li th:if="${#request.userPrincipal != null}" th:onclick="|window.location = '/'|"><a
+                                class="dropdown-item" th:text="${'Hi! ' + #request.userPrincipal.getName()}"></a></li>
+                        <li th:if="${#request.userPrincipal != null}" th:onclick="|window.location = '/'|"><a
+                                class="dropdown-item">Đăng xuất</a></li>
                     </ul>
                 </li>
                 <li th:onclick="|window.location = '/shopping-cart'|">
