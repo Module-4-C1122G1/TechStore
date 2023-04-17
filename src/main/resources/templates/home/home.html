@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link rel="stylesheet" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" th:href="@{/css/swipper.css}"/>
+    <link
+            href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+            rel="stylesheet"
+    />
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            referrerpolicy="no-referrer"
+            rel="stylesheet"
+    />
+    <link
+            crossorigin="anonymous"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+            integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+            rel="stylesheet"
+    />
+    <script
+            crossorigin="anonymous"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <title>Tech shop</title>
+</head>
+
+<body>
+<div class="header w-100" th:fragment="header">
+    <div class="container d-flex align-items-center h-100">
+        <div class="logo-header">
+            <img alt="Logo" th:onclick="|window.location = '/'|" th:src="@{/images/logo.png}"/>
+        </div>
+        <div class="search-header">
+            <form class="w-100 d-flex justify-content-center align-items-center">
+                <input
+                        placeholder="Nhập tên điện thoại, máy tính... cần tìm"
+                        type="text"
+                />
+                <button><i class="fa-solid fa-magnifying-glass fs-18"></i></button>
+            </form>
+        </div>
+        <div class="menu-header d-flex justify-content-around align-items-center h-100">
+            <ul class="d-flex justify-content-around align-items-center w-100 list-unstyled mb-0 ms-5">
+                <li>
+                    <i class="fa-solid fa-file-lines fs-18"></i>
+                    <p>Thông tin hay</p>
+                </li>
+                <li>
+                    <i class="fa-regular fa-credit-card fs-18"></i>
+                    <p>Thanh toán $ tiện ích</p>
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-user fs-18"></i>
+                    <p>Tài khoản của tôi</p>
+                </li>
+                <li th:onclick="|window.location = '/shopping-cart'|">
+                    <i class="fa-solid fa-cart-shopping fs-18"></i>
+                    <p>Giỏ hàng</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="nav">
+        <div class="container d-flex justify-content-around align-items-center">
+            <div class="d-flex align-items-center h-100">
+                <i class="fa-solid fa-mobile-screen me-2"></i>
+                <p th:onclick="|window.location.href = '/product?categories=1&page=0'|">Điện thoại</p>
+            </div>
+            <div class="d-flex align-items-center h-100">
+                <i class="fa-solid fa-laptop me-2"></i>
+                <p th:onclick="|window.location.href = '/product?categories=2&page=0'|">Laptop</p>
+            </div>
+            <div class="d-flex align-items-center h-100">
+                <i class="fa-brands fa-apple me-2"></i>
+                <p th:onclick="|window.location.href= '/product/manufacturer/1'|">Apple</p>
+            </div>
+            <div class="d-flex align-items-center h-100">
+                <i class="fa-solid fa-s me-2"></i>
+                <p th:onclick="|window.location.href= '/product/manufacturer/2'|">Samsung</p>
+            </div>
+            <div class="d-flex align-items-center h-100">
+                <i class="fa-solid fa-circle-stop me-2"></i>
+                <p th:onclick="|window.location.href = '/product?categories=3&page=0'|">Smartwatch</p>
+            </div>
+            <div class="d-flex align-items-center h-100">
+                <i class="fa-solid fa-percent me-2"></i>
+                <p>Khuyến mãi</p>
+            </div>
+            <div class="d-flex align-items-center h-100">
+                <i class="fa-solid fa-arrow-rotate-right me-2"></i>
+                <p>Máy cũ giá rẻ</p>
+            </div>
+            <div class="d-flex align-items-center h-100">
+                <i class="fa-solid fa-house-laptop me-2"></i>
+                <p>Đồ gia dụng</p>
+            </div>
+            <div class="d-flex align-items-center h-100">
+                <i class="fa-solid fa-keyboard me-2"></i>
+                <p>PC - phụ kiện</p>
+            </div>
+            <div class="d-flex align-items-center h-100">
+                <i class="fa-solid fa-headphones me-2"></i>
+                <p>Phụ kiện</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main">
+    <div class="container">
+        <div class="img-intro d-flex justify-content-around">
+            <div class="left">
+                <swiper-container autoplay-delay="2500"
+                        autoplay-disable-on-interaction="false"
+                        centered-slides="true"
+                        class="mySwiper"
+                        navigation="true"
+                        pagination="true"
+                        pagination-clickable="true"
+                        space-between="30"
+                >
+                    <swiper-slide
+                    ><img alt="" th:src="@{/images/slide1.png}"
+                    /></swiper-slide>
+                    <swiper-slide
+                    ><img alt="" th:src="@{/images/slide2.png}"
+                    /></swiper-slide>
+                    <swiper-slide
+                    ><img alt="" th:src="@{/images/slide3.png}"
+                    /></swiper-slide>
+                    <swiper-slide
+                    ><img alt="" th:src="@{/images/slide4.png}"
+                    /></swiper-slide>
+                    <swiper-slide
+                    ><img alt="" th:src="@{/images/slide5.png}"
+                    /></swiper-slide>
+                    <div class="autoplay-progress" slot="container-end">
+                        <svg viewBox="0 0 48 48">
+                            <circle cx="24" cy="24" r="20"></circle>
+                        </svg>
+                        <span></span>
+                    </div>
+                </swiper-container>
+            </div>
+            <div class="right d-flex flex-column justify-content-between">
+                <div>
+                    <img alt="" th:src="@{/images/638108452578436423_F-H2_385x100.png}"/>
+                </div>
+                <div>
+                    <img alt="" th:src="@{/images/638161145635495042_F-H2_385x100.png}"/>
+                </div>
+                <div>
+                    <img alt="" th:src="@{/images/638108452578436423_F-H2_385x100.png}"/>
+                </div>
+            </div>
+        </div>
+        <div class="img-intro-more">
+            <img
+                    alt=""
+                    class="w-100 mt-3 mb-5"
+                    th:src="@{/images/pr-samsung.png}"
+            />
+        </div>
+        <div class="content mt-3 p-2">
+            <div class="row align-items-start">
+                <div class="col-3 mb-3 mt-3 d-flex flex-column" style="height: 440px"
+                     th:each="product : ${productList}">
+                    <div class="img-product">
+                        <img alt="" class="w-100" th:src="${product.getImage()}">
+                    </div>
+                    <div class="info-product">
+                        <p class="name-product" th:text="${product.getNameProduct()}"></p>
+                        <p class="price-product"
+                           th:text="${#numbers.formatInteger(product.getPrice(), 3, 'POINT')} + ' đ'"></p>
+                        <p class="specifications-product mt-3 mb-3">
+                            <label class="mb-2 me-2"><i class="fa-solid fa-microchip me-1"></i><label
+                                    th:text="${product.getChip()}"></label></label>
+                            <label class="mb-2 me-2"><i class="fa-solid fa-mobile-screen-button me-1"></i></i><label
+                                    th:text="${product.getSize()} + 'inch'"></label></label>
+                            <label class="mb-2 me-2" th:if="${product.getRam() != null}"><i
+                                    class="fa-solid fa-memory me-1"></i></i><label
+                                    th:text="${product.getRam()} + 'GB'"></label></label>
+                            <label class="mb-2 me-2"><i class="fa-solid fa-database me-1"></i><label
+                                    th:text="${product.getCapacity()} + 'GB'"></label></label>
+                        </p>
+                    </div>
+                    <div class="product-btn mb-5 mt-auto">
+                        <button class="btn btn-secondary detail-btn"
+                                data-bs-target="#exampleModal" data-bs-toggle="modal"
+                                th:onclick="|showDetailProduct(${product.getId()})|">Chi tiết
+                        </button>
+                        <button class="btn btn-danger order-btn"
+                                th:onclick="|window.location = '/product/detail/' + ${product.getId()}|">Mua hàng
+                        </button>
+                    </div>
+                    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
+                         tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel"
+                                        th:text="${product.getNameProduct()}"></h1>
+                                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                            type="button"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="img-detail-product w-100">
+                                        <img alt="" class="w-100" id="img-product-modal">
+                                    </div>
+                                    <div class="infomation mt-5">
+                                        <table class="table">
+                                            <thead class="table-dark">
+                                            <th colspan="2" style="text-align: center">Thông số kĩ thuật</th>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <th>Công nghệ màn hình</th>
+                                                <td id="screen-technology-product-modal"
+                                                    th:text="${product.getScreenTechnology()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Dung lượng lưu trữ</th>
+                                                <td id="capacity-product-modal"
+                                                    th:text="${product.getCapacity() + 'GB, ' + product.getRam() + 'GB'}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Hệ điều hành</th>
+                                                <td id="operating-system-product-modal"
+                                                    th:text="${product.getOperatingSystem()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>CPU</th>
+                                                <td id="chip-product-modal" th:text="${product.getChip()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Tốc độ xung nhịp</th>
+                                                <td id="cpu-speed-product-modal"
+                                                    th:text="${product.getCpu_speed() + 'Ghz'}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Dung lượng Pin</th>
+                                                <td id="pin-product-modal" th:text="${product.getPin()} + 'maH'"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Kích thước & khối lượng</th>
+                                                <td id="size-weight-product-modal"
+                                                    th:text="${product.getSize() + ' inch, ' + product.getWeight() + ' g'}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Chất liệu</th>
+                                                <td id="material-product-modal" th:text="${product.getMaterial()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Ra mắt</th>
+                                                <td id="time-public-modal" th:text="${product.getTimePublic()}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="more-info fw-bold" id="desc-product-modal"
+                                             th:text="${product.getDescription()}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close
+                                    </button>
+                                    <button class="btn btn-danger"
+                                            id="add-product-to-cart-btn"
+                                            type="button">
+                                        Thêm vào giỏ hàng
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="paging d-flex justify-content-center align-items-center"
+             th:style="(${categories}!= null) ? '':'display:none!important'">
+            <a class="m-3" th:href="@{'/product?categories='+${categories} + '&page='+${productList.number - 1}}"
+               th:if="${productList.hasPrevious()}">Trước</a>
+            <a class="m-3" th:each="page, index: ${#numbers.sequence(0, productList.totalPages - 2)}"
+               th:href="@{'/product?categories='+${categories} + '&page='+${index.count}}"
+               th:if="${productList.totalPages > 1}"
+               th:style="(${pageCurrent} == ${index.count}) ? 'color: black' : ''"
+               th:text="${index.count}"></a>
+            <a class="m-3" th:href="@{'/product?categories='+${categories} + '&page='+${productList.number + 1}}"
+               th:if="${productList.hasNext()}">Sau</a>
+        </div>
+        <div class="paging d-flex justify-content-center align-items-center"
+             th:style="(${manufacturer}!= null) ? '':'display:none!important'">
+            <a class="m-3" th:href="@{'/product/manufacturer/'+${manufacturer} + '?page='+${productList.number - 1}}"
+               th:if="${productList.hasPrevious()}">Trước</a>
+            <a class="m-3" th:each="page, index: ${#numbers.sequence(0, productList.totalPages - 2)}"
+               th:href="@{'/product/manufacturer/'+${manufacturer} + '?page='+${index.count}}"
+               th:if="${productList.totalPages > 1}"
+               th:style="(${pageCurrent} == ${index.count}) ? 'color: black' : ''"
+               th:text="${index.count}"></a>
+            <a class="m-3" th:href="@{'/product/manufacturer/'+${manufacturer} + '?page='+${productList.number + 1}}"
+               th:if="${productList.hasNext()}">Sau</a>
+        </div>
+    </div>
+</div>
+<footer class="site-footer" th:fragment="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <h6>About</h6>
+                <p class="text-justify">Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative to help the
+                    upcoming programmers with the code. Scanfcode focuses on providing the most efficient code or
+                    snippets as the code wants to be simple. We will help programmers build up concepts in different
+                    programming languages that include C, C++, Java, HTML, CSS, Bootstrap, JavaScript, PHP, Android, SQL
+                    and Algorithm.</p>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+                <h6>Categories</h6>
+                <ul class="footer-links">
+                    <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
+                    <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
+                    <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
+                    <li><a href="http://scanfcode.com/category/java-programming-language/">Java</a></li>
+                    <li><a href="http://scanfcode.com/category/android/">Android</a></li>
+                    <li><a href="http://scanfcode.com/category/templates/">Templates</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+                <h6>Quick Links</h6>
+                <ul class="footer-links">
+                    <li><a href="http://scanfcode.com/about/">About Us</a></li>
+                    <li><a href="http://scanfcode.com/contact/">Contact Us</a></li>
+                    <li><a href="http://scanfcode.com/contribute-at-scanfcode/">Contribute</a></li>
+                    <li><a href="http://scanfcode.com/privacy-policy/">Privacy Policy</a></li>
+                    <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+                <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved by
+                    <a href="#">Scanfcode</a>.
+                </p>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <ul class="social-icons">
+                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                    <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+    const progressCircle = document.querySelector(".autoplay-progress svg");
+    const progressContent = document.querySelector(".autoplay-progress span");
+
+    const swiperEl = document.querySelector("swiper-container");
+    swiperEl.addEventListener("autoplaytimeleft", (e) => {
+        const [swiper, time, progress] = e.detail;
+        progressCircle.style.setProperty("--progress", 1 - progress);
+        progressContent.textContent = `${Math.ceil(time / 1000)}s`;
+    });
+</script>
+<script>
+    function showDetailProduct(id) {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            url: '/api/product/detail/' + id,
+            success: (data) => {
+                inputValueProductToModal(data)
+            },
+            error: (e) => {
+                console.log(e.error());
+            }
+        })
+    }
+
+    function inputValueProductToModal(product) {
+        console.log(product)
+        document.getElementById("exampleModalLabel").innerText = "Điện thoại " + product.nameProduct;
+        document.getElementById("img-product-modal").src = product.image;
+        document.getElementById("screen-technology-product-modal").innerText = product.screenTechnology;
+        document.getElementById("capacity-product-modal").innerText = product.capacity;
+        document.getElementById("operating-system-product-modal").innerText = product.operatingSystem;
+        document.getElementById("chip-product-modal").innerText = product.chip;
+        document.getElementById("cpu-speed-product-modal").innerText = product.cpu_speed;
+        document.getElementById("pin-product-modal").innerText = product.pin + "maH";
+        document.getElementById("size-weight-product-modal").innerText = product.size + ' inch, ' + product.weight + ' g';
+        document.getElementById("material-product-modal").innerText = product.material;
+        document.getElementById("time-public-modal").innerText = product.timePublic;
+        document.getElementById("desc-product-modal").innerText = product.description;
+        document.getElementById("add-product-to-cart-btn").addEventListener('click', () => {
+            window.location = '/product/add-cart/' + product.id;
+        })
+    }
+
+</script>
+</html>

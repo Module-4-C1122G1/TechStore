@@ -1,0 +1,125 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/home :: head"></head>
+<head>
+    <title>Danh Sách Nhân Viên</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="header" th:replace="/home/home :: header"></div>
+<h2 class="text-center" style="color: #212529;font-size: 20px;
+    font-weight: 500; padding: 10px 24px;">Danh Sách Nhân Viên</h2>
+<div class="main">
+    <form th:action="@{/admin/employee}" method="get" style="width: 400px">
+        <div class="d-flex">
+            <input class="form-control me-2" type="search" id="name" name="name" placeholder="Tìm Kiếm"
+                   th:value="${name}">
+            <input type="submit" class="btn btn-outline-warning"
+                   style="width: 100px" value="Tìm kiếm">
+        </div>
+    </form>
+    <a href="/admin/employee/create" class="btn btn-primary">Thêm Mới Nhân Viên</a>
+    <table class="table mt-5">
+        <thead class="table-dark">
+        <tr>
+            <th>Mã Nhân Viên</th>
+            <th>Tên Nhân Viên</th>
+            <th>Số Điện Thoại</th>
+            <th>Ngày Sinh</th>
+            <th>Địa Chỉ</th>
+            <th>Chức Vụ</th>
+            <th>Phòng Ban</th>
+            <th>Giới Tính</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee , iterStat : ${employeeList}">
+            <td th:text="*{iterStat.count}"></td>
+            <td th:text="*{employee.nameEmployee}"></td>
+            <td th:text="*{employee.phoneNumber}"></td>
+            <td th:text="*{#dates.format(employee.dateOfBirth, 'dd-MM-yyyy')}"></td>
+            <td th:text="*{employee.address}"></td>
+            <td th:text="*{employee.position?.namePosition}"></td>
+            <td th:text="*{employee.department?.nameDepartment}"></td>
+            <td th:text="*{employee.gender?.nameGender}"></td>
+            <td><a th:href="@{/admin/employee/detail?id=__*{employee.id}__}" class="btn btn-primary btn-sm">Thông Tin
+                Chi Tiết</a></td>
+            <td><a th:href="@{/admin/employee/edit?id=__*{employee.id}__}" class="btn btn-primary btn-sm">Sửa</a></td>
+            <td>
+            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modelId"
+                    th:attr="onclick=|infoDelete('${employee.id}', '${employee.nameEmployee}')|">
+                Xóa
+            </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!--    Modal Xóa-->
+    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Xóa nhân viên </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/admin/employee/delete">
+                    <div class="modal-body">
+                        <input type="hidden" name="deleteId" id="deleteId">
+                        <span>Bạn Có Chắc Chắn Xóa Nhân Viên</span><span style="color: red" id="deleteName"></span>
+                        Không ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                        <button type="submit" class="btn btn-danger">Xoá</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function infoDelete(id, name) {
+            document.getElementById("deleteId").value = id;
+            document.getElementById("deleteName").innerText = name;
+        }
+    </script>
+    <!--Phân trang-->
+    <div class="text-center container">
+        <a class="page-item btn btn-dark page-item" th:if="${employeeList.hasPrevious()}"
+           th:href="@{/admin/employee(page = ${employeeList.number - 1})}">
+            <i class="ti-angle-left">Trước</i>
+        </a>
+
+        <a class="page-item number btn btn-dark page-item"
+           th:classappend="${pageNumber == employeeList.number + 1} ? 'active' : ''"
+           th:each="pageNumber : ${pageNumberList}"
+           th:href="@{/admin/employee(page = ${pageNumber - 1})}"
+           th:text="${pageNumber}">
+        </a>
+
+        <a class="page-item btn btn-dark page-item" th:if="${employeeList.hasNext()}"
+           th:href="@{/admin/employee(page = ${employeeList.number + 1})}">
+            <i class="ti-angle-right">Sau</i>
+        </a>
+    </div>
+</div>
+<div class="site-footer" th:replace="/home/home :: footer"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

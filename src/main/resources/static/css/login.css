@@ -1,0 +1,32 @@
+#form-login {
+    width: 500px;
+    margin-top: 10rem;
+}
+#form-login .title {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 34px;
+    color: #B22222;
+}
+#form-login .username,
+#form-login .password {
+    height: 40px;
+    background: #f0f2f5;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    line-height: 16px;
+    color: rgba(62,62,62,.6);
+}
+#form-login .login-submit-btn {
+    height: 65px;
+    background: #B22222;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 26px;
+    margin-top: 10px;
+    color: #fff;
+}

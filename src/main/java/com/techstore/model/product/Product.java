@@ -4,7 +4,9 @@ import com.techstore.model.categories.Categories;
 import com.techstore.model.general.InitialDate;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Product {
@@ -75,6 +77,19 @@ public class Product {
         this.utilities = utilities;
         this.categories = categories;
         this.initialDate = initialDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public int getId() {
@@ -221,8 +236,8 @@ public class Product {
         this.image = image;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getPrice() {
+        return new DecimalFormat("#").format(price);
     }
 
     public void setPrice(Double price) {

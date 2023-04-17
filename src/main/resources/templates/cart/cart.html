@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/home :: head">
+    <meta charset="UTF-8">
+</head>
+<head>
+    <title>Cart</title>
+    <link rel="stylesheet" th:href="@{/css/cart.css}">
+</head>
+<body>
+<div class="header" th:replace="/home/home :: header"></div>
+<div class="main">
+    <div class="container">
+        <div class="total-item">
+            <h2 class="amount-items" th:text="'Có '+ ${cart.countItemQuantity()} +' sản phẩm trong giỏ hàng'"></h2>
+        </div>
+        <div class="list-product">
+            <table class="table">
+                <tbody>
+                <tr th:each="product: ${cart.products}">
+                    <td><img alt="" class="img-product-cart" th:src="${product.getKey().getImage()}"></td>
+                    <td><p class="title-name-product"
+                           th:text="'Điện thoại ' + ${product.getKey().getNameProduct()}"></p></td>
+                    <td>
+                        <button class="decrease-amount-btn">-</button>
+                        <input class="amount-product" th:id="${'amount-product' + product.getKey().getId()}"
+                               th:value="${product.getValue()}"/>
+                        <button class="increase-amount-btn"
+                                th:onclick="|addOneMoreProductTotal(${product.getKey().getId()})|">+
+                        </button>
+                    </td>
+                    <td><p th:id="${'price-product' + product.getKey().getId()}"
+                           th:text="${product.getKey().getPrice()}"></p></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="footer" th:replace="/home/home :: footer"></div>
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    function addOneMoreProductTotal(id) {
+        $.ajax({
+                type: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: '/api/product/add-cart/' + id,
+                success: (data) => {
+                    document.getElementById("amount-product" + id).value = data.amount;
+                    document.getElementById('price-product' + id).innerText = data.price;
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            }
+        )
+    }
+</script>
+</html>
