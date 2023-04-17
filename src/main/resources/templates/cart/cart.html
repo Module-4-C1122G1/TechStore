@@ -11,7 +11,7 @@
 <div class="header" th:replace="/home/home :: header"></div>
 <div class="main">
     <div class="d-flex justify-content-center align-items-center flex-column" id="x-cart"
-         th:style="${cart.countItemQuantity() == 0 ? 'display: block' : 'display: none!important'}">
+         th:style="${cart.countItemQuantity() == 0 ? 'display: block; height: 300px' : 'display: none!important'}">
         <img alt="" th:src="@{/images/empty-cart.png}">
         <p class="mb-3">Không có sản phẩm nào trong giỏ hàng</p>
         <button class="go-home-btn" th:onclick="|window.location = '/'|">Về trang chủ</button>

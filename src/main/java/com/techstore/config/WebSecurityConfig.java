@@ -37,30 +37,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin")
                 .access("hasRole('ROLE_ADMIN')");
-        // Cấu hình cho Login Form.
         http.authorizeRequests().and().formLogin()//
-                // Submit URL của trang login
                 .loginProcessingUrl("/check-account") // Submit URL
                 .loginPage("/login")//
-                .defaultSuccessUrl("/")//
+                .defaultSuccessUrl("/login-successful")//
                 .failureUrl("/login?error=true")//
                 .usernameParameter("username")//
                 .passwordParameter("password")
-                // Cấu hình cho Logout Page.
-                .and().logout().logoutUrl("/logout").invalidateHttpSession(true).deleteCookies("JSESSIONID").logoutSuccessUrl("/logout-successful");
-
-        // Cấu hình Remember Me.
-//        http.authorizeRequests().and() //
-//                .rememberMe().tokenRepository(this.persistentTokenRepository()) //
-//                .tokenValiditySeconds(5 * 24 * 60 * 60);
-
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logout-successful");
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        // Sét đặt dịch vụ để tìm kiếm User trong Database.
-        // Và sét đặt PasswordEncoder.
         auth.userDetailsService(accountService).passwordEncoder(passwordEncoder());
     }
 

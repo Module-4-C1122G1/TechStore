@@ -1,5 +1,6 @@
 package com.techstore.service.impl.customerService;
 
+import com.techstore.model.account.Account;
 import com.techstore.model.customer.Customer;
 import com.techstore.repository.customerRepository.ICustomerRepository;
 import com.techstore.service.ICustomerService.ICustomerService;
@@ -30,5 +31,10 @@ public class CustomerService implements ICustomerService {
     @Override
     public void deleteCustomerById(int id) {
         customerRepository.deleteById(id);
+    }
+
+    @Override
+    public Customer findByAccount(Account account) {
+        return customerRepository.findByAccount(account);
     }
 }

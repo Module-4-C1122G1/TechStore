@@ -2,6 +2,7 @@ package com.techstore.repository.accountRepository;
 
 import com.techstore.model.account.Account;
 import com.techstore.model.account.Role;
+import com.techstore.model.customer.Customer;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
