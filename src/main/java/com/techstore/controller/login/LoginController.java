@@ -1,7 +1,9 @@
 package com.techstore.controller.login;
 
 import com.techstore.model.account.Account;
+import com.techstore.model.cart.Cart;
 import com.techstore.model.customer.Customer;
+import com.techstore.model.product.Product;
 import com.techstore.service.IAccountService.IAccountService;
 import com.techstore.service.ICustomerService.ICustomerService;
 import com.techstore.service.IGenderService.IGenderService;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.Map;
 
 @Controller
 @CrossOrigin("*")
@@ -44,7 +47,7 @@ public class LoginController {
     public String loginSuccessful() {
         return "redirect:/";
     }
-    @GetMapping("/logout")
+    @GetMapping("/logout-successful")
     public String logoutSuccessful() {
         return "redirect:/";
     }

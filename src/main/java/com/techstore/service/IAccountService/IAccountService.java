@@ -10,5 +10,6 @@ public interface IAccountService {
     Account findById(int id);
     void saveAccount(Account account);
     void deleteAccountById(int id);
+    Account findAccountByName(String useName);
     UserDetails loadUserByUsername(String userName);
 }

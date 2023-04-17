@@ -1,5 +1,6 @@
 package com.techstore.service.ICustomerService;
 
+import com.techstore.model.account.Account;
 import com.techstore.model.customer.Customer;
 
 import java.util.List;
@@ -9,4 +10,5 @@ public interface ICustomerService {
     void saveCustomer(Customer customer);
     Customer findCustomerById(int id);
     void deleteCustomerById(int id);
+    Customer findByAccount(Account account);
 }

@@ -64,7 +64,7 @@
                                 class="dropdown-item">Đăng nhập</a></li>
                         <li th:if="${#request.userPrincipal != null}" th:onclick="|window.location = '/'|"><a
                                 class="dropdown-item" th:text="${'Hi! ' + #request.userPrincipal.getName()}"></a></li>
-                        <li th:if="${#request.userPrincipal != null}" th:onclick="|window.location = '/'|"><a
+                        <li th:if="${#request.userPrincipal != null}" th:onclick="|window.location = '/logout'|"><a
                                 class="dropdown-item">Đăng xuất</a></li>
                     </ul>
                 </li>

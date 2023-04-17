@@ -46,6 +46,11 @@ public class AccountService implements IAccountService, UserDetailsService {
     }
 
     @Override
+    public Account findAccountByName(String useName) {
+        return accountRepository.findByUserName(useName);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         //Tìm đối tượng đang đăng nhập trong DB
         Account account = accountRepository.findByUserName(userName);
