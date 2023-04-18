@@ -66,7 +66,7 @@
                 <td th:text="${voucher.amountVoucher}"></td>
                 <td th:text="${voucher.percentDiscount + ' %'}"></td>
                 <td th:text="${voucher.isExpired == 0 ? 'Đã hết hạn' : 'Còn hiệu lực'}"></td>
-                <td th:text="${voucher.typeVoucher.typeVoucher}"></td>
+                <td th:text="${voucher.typeVoucher?.typeVoucher}"></td>
                 <td>
                     <!--  Xem thông tin sản phẩm   -->
                     <a th:href="@{/admin/voucher/detail/{id}(id=${voucher.id})}" class="btn btn-primary">

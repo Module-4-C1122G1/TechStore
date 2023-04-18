@@ -1,5 +1,6 @@
-package com.techstore.service;
+package com.techstore.service.IVoucherService;
 
+import com.techstore.dto.UpdateVoucherDTO;
 import com.techstore.dto.VoucherDTO;
 import com.techstore.model.voucher.Voucher;
 import org.springframework.data.domain.Page;
@@ -15,5 +16,5 @@ public interface IVoucherService {
 
     Voucher findById(int id);
 
-    void update(VoucherDTO voucherDTO, int id);
+    void update(UpdateVoucherDTO updateVoucherDTO, int id);
 }

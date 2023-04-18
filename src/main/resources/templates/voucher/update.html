@@ -33,7 +33,7 @@
 <div class="main">
     <div class="container">
         <h2 style="text-align: center">Chỉnh sửa thông tin khuyến mãi</h2>
-        <form action="/admin/voucher/update" method="post" th:object="${voucherDTO}">
+        <form action="/admin/voucher/update" method="post" th:object="${updateVoucherDTO}">
             <div>
                 <input type="hidden" th:field="*{id}" th:value="*{id}">
             </div>
