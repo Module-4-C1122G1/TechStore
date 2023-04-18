@@ -5,10 +5,22 @@
 .main .container {
     padding: 40px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    width: 776px;
+}
+
+.go-home-btn {
+    color: #fff;
+    background: #cb1c22;
+    outline: none;
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 6px;
+    font-size: 16px;
+    border: 1px solid transparent;
 }
 
 .main .container .amount-items {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 500;
     padding: 10px 24px;
     color: #212529;
@@ -38,6 +50,7 @@
     text-align: center;
     outline: none;
 }
+
 .list-product .table .amount-product {
     border-right: none;
     border-left: none;
@@ -68,4 +81,17 @@
     border-radius: 0;
     background: #fff;
     font-size: 14px;
+}
+
+.list-product .table .trash-can {
+    font-size: 12px;
+    color: #939ca3;
+    text-align: center;
+    cursor: pointer;
+}
+
+.price-product-cart {
+    font-size: 14px;
+    color: #cb1c22;
+    font-weight: 500;
 }
