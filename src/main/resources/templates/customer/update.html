@@ -14,7 +14,7 @@
 <div class="container">
     <p th:if="${msg!=null}" class="btn btn-danger" th:text="${msg}"></p>
     <table>
-        <form action="/customer/update" method="post" th:object="${customer}">
+        <form action="/admin/customer/update" method="post" th:object="${customer}">
 
             <tr>
                 <td>Tên khách hàng</td>
@@ -72,7 +72,7 @@
             <!--    <input type="hidden" th:field="${customer.account.password}" th:value="${customer.account.password}">-->
         </form>
     </table>
-    <form action="/customer/reset" method="post">
+    <form action="/admin/customer/reset" method="post">
         <input type="hidden" name="id" th:value="${customer.id}">
         <button type="submit"> Reset mật khẩu về 123456</button>
     </form>
