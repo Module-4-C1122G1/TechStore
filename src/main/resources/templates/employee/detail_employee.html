@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/home :: head"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Chi Tiết Nhân Viên</title>
+</head>
+<body>
+<div class="header" th:replace="/home/home :: header"></div>
+<div class="main" style="margin: 200px">
+    <h2 class="text-center" style="color: #212529;font-size: 20px;
+    font-weight: 500; padding: 10px 24px;">Chi Tiết Nhân Viên</h2>
+    <table class="table mt-5" th:object="${employee}">
+        <tr class="table-dark">
+            <th>Mã Nhân Viên</th>
+            <th>Tên Nhân Viên</th>
+            <th>Số Điện Thoại</th>
+            <th>Ngày Sinh</th>
+            <th>Địa Chỉ</th>
+            <th>Chức Vụ</th>
+            <th>Phòng Ban</th>
+            <th>Giới Tính</th>
+        </tr>
+        <tr>
+            <td th:text="${employee.id}"></td>
+            <td th:text="${employee.nameEmployee}"></td>
+            <td th:text="${employee.phoneNumber}"></td>
+            <td th:text="${employee.dateOfBirth}"></td>
+            <td th:text="${employee.address}"></td>
+            <td th:text="${employee.position?.namePosition}"></td>
+            <td th:text="${employee.department?.nameDepartment}"></td>
+            <td th:text="${employee.gender?.nameGender}"></td>
+        </tr>
+    </table>
+</div>
+<div class="site-footer" th:replace="/home/home :: footer"></div>
+</body>
+</html>
