@@ -3,8 +3,11 @@ package com.techstore.model.customer;
 import com.techstore.model.account.Account;
 import com.techstore.model.general.Gender;
 import com.techstore.model.general.InitialDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -19,6 +22,7 @@ public class Customer {
     @Column(columnDefinition = "varchar(100)")
     private String phoneNumber;
     @Column(columnDefinition = "date")
+    @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd")
     private Date dateOfBirth;
     @ManyToOne
     private TypeCustomer typeCustomer;

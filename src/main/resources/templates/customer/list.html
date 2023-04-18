@@ -1,0 +1,139 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>List customer</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<form action="customer">
+    <input placeholder="Tìm kiếm theo tên" th:name="search">
+    <button type="submit">Tìm kiếm</button>
+</form>
+<a role="button" th:href="@{customer/create}" class="btn btn-primary">Tạo mới</a>
+<div class="container">
+<table class="table">
+    <thead class="table-dark">
+    <tr>
+        <th>Tên khách hàng</th>
+        <th>Giới tính</th>
+        <th>Địa chỉ</th>
+        <th>Số điện thoại</th>
+        <th>Ngày sinh</th>
+        <th>Loại khách hàng</th>
+        <th>Chỉnh sửa thông tin</th>
+        <th>Xóa</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer : ${list}">
+        <th th:text="${customer.nameCustomer}"></th>
+        <th th:text="${customer.gender.nameGender}"></th>
+        <th th:text="${customer.address}"></th>
+        <th th:text="${customer.phoneNumber}"></th>
+        <th th:text="${#dates.format(customer.dateOfBirth, 'dd-MM-yyyy')}"></th>
+        <th th:text="${customer.typeCustomer.nameTypeCustomer}"></th>
+        <th><a role="button" class="btn btn-primary" th:href="@{customer/update/{id}(id=${customer.id})}">Chỉnh sửa</a></th>
+        <th>
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modelId"
+                    th:attr="onclick=|infoDelete('${customer.id}','${customer.nameCustomer}')|">
+                Xóa
+            </button>
+        </th>
+    </tr>
+    </tbody>
+</table>
+</div>
+<!--Phân trang-->
+<div class="text-center container">
+    <form action="/customer" method="get">
+        <div class="d-flex" style="margin-top: 16px; margin-right: 10px">
+            <input type="number" id="pageForm2" placeholder="Nhập số trang...."
+                   th:attr="onchange=|changeData()|">
+            <input type="hidden" id="pageForm1" name="page" placeholder="Nhập số trang....">
+            <input type="submit" class="btn btn-outline-info"
+                   style="width: 136px" pattern="[1-9]+" value="Tìm kiếm">
+        </div>
+    </form>
+    <a class="page-item btn btn-dark page-item" th:if="${list.hasPrevious()}"
+       th:href="@{/customer(page = ${list.number - 1})}">
+        <i class="ti-angle-left">Previous</i>
+    </a>
+
+    <a class="page-item number btn btn-dark page-item"
+       th:classappend="${pageNumber == list.number + 1} ? 'active' : ''"
+       th:each="pageNumber : ${pageNumberList}"
+       th:href="@{/customer(page = ${pageNumber - 1})}"
+       th:text="${pageNumber}">
+    </a>
+
+    <a class="page-item btn btn-dark page-item" th:if="${list.hasNext()}"
+       th:href="@{customer(page = ${list.number + 1})}">
+        <i class="ti-angle-right">Next</i>
+    </a>
+</div>
+<!--<div class="">-->
+<!--<a th:if="${list.hasPrevious()}" th:text="Previous" th:href="@{customer(page=${list.number}-1)}"></a>-->
+<!--<a th:text="${list.getNumber()+1} +'/'+ ${list.getTotalPages()}"></a>-->
+<!--<a th:if="${list.hasNext()}" th:text="Next" th:href="@{customer(page=${list.number}+1)}"></a>-->
+<!--<form action="/customer">-->
+<!--    <input type="number" id="pageForm2" placeholder="Nhập số trang...." th:max="${list.getTotalPages()}"-->
+<!--           th:attr="onchange=|pageForm()|" th:value="${list.number+1}">-->
+<!--    <input type="hidden"  id="pageForm1"  name="page" >-->
+<!--    <input type="submit"-->
+<!--           value="Tới trang" >-->
+<!--</form>-->
+<!--</div>-->
+<!-- Button trigger modal -->
+    <script>
+        function pageForm(){
+            document.getElementById("pageForm1").value=document.getElementById("pageForm2").value-1;
+        }
+    </script>
+
+<!-- Modal -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác nhận</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="customer/delete">
+                <div class="modal-body"> <span>Bạn có chắc chắn xóa tất cả thông tin về khách hàng </span><span style="color: red" class="fw-bolder" id="deleteName"></span> ?
+                </div>
+                <input type="hidden" id="deleteID" name="id">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function infoDelete(id,name) {
+        document.getElementById("deleteID").value = id;
+        document.getElementById("deleteName").innerText=name;
+    }
+</script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
