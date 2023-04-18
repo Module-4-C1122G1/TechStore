@@ -1,4 +1,4 @@
-package com.techstore.service;
+package com.techstore.service.IProductService;
 
 import com.techstore.model.product.Product;
 import org.springframework.data.domain.Page;

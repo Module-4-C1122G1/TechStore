@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/home :: head"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+<div class="header" th:replace="/home/home :: header"></div>
+<div class="main d-flex justify-content-center align-items-center mt-5">
+    <form class="d-flex flex-column" id="form-login" method="post" th:action="@{/register/save}">
+        <h2 class="text-center title">Login</h2>
+        <input class="mb-3 username" name="name" th:field="*{customer.nameCustomer}" th:placeholder="${'Tên của bạn'}"
+               type="text">
+        <input class="mb-3 username" name="username" th:field="*{account.userName}" th:placeholder="${'Tên đăng nhập'}"
+               type="text">
+        <input class="mb-3 username" name="phonenumber" th:field="*{customer.phoneNumber}"
+               th:placeholder="${'Số điện thoại'}" type="text">
+        <input class="mb-3 username" id="dateOfBirth" name="dateofbirth" th:placeholder="${'Ngày sinh'}"
+               type="text">
+        <label th:text="${'Giới tính:'}"></label>
+        <div class="d-flex justify-content-center align-items-center mb-3">
+            <div class="me-3"><label>Nam</label><input name="gender" type="radio" value="2"></div>
+            <div class="me-3"><label>Nữ</label><input name="gender" type="radio" value="1"></div>
+            <div><label>Khác</label><input name="gender" type="radio" value="3"></div>
+        </div>
+        <label th:text="${'Thành phố:'}"></label><select class="username" id="city" name="city"
+                                                         th:onclick="selectDistrict()"></select>
+        <label th:text="${'Quận huyện:'}"></label><select class="username" id="district" name="district"
+                                                          th:onclick="selectTown()" th:text="${'--Quận huyện--'}">--Quận
+        huyện--</select>
+        <label th:text="${'Xã, phường:'}"></label><select class="username mb-3" id="town" name="town"
+                                                          th:text="${'--Xã phường--'}"></select>
+        <input id="address" name="address" type="hidden">
+        <input class="mb-3 password" name="password" th:field="*{account.password}" th:placeholder="${'Mật khẩu'}"
+               type="password">
+        <input class="mb-3 password" name="confirm-password" th:placeholder="${'Nhập lại mật khẩu'}"
+               type="password">
+        <input class="btn login-submit-btn" type="submit" value="ĐĂNG KÝ">
+        <div class="modifier d-flex justify-content-between align-items-center mt-3">
+            <div class="left">
+                <span>Đã có tài khoản </span>
+                <a class="text-decoration-none" th:href="@{/login}" th:text="${' ( Đăng nhập )'}"></a>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="footer" th:replace="/home/home :: footer"></div>
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    window.onload = function () {
+        selectCity();
+    }
+
+    async function selectCity() {
+        const response = await fetch("https://provinces.open-api.vn/api/");
+        const jsonData = await response.json();
+        document.getElementById("city").innerHTML = jsonData.map((city, index) => {
+            return `
+                <option value="${city.code}">${city.name}</option>
+            `
+        })
+    }
+
+    async function selectDistrict() {
+        let idCity = document.getElementById("city").value;
+        console.log(idCity);
+        const response = await fetch("https://provinces.open-api.vn/api/p/" + idCity + "?depth=2");
+        const jsonData = await response.json();
+        document.getElementById("district").innerHTML = jsonData.districts.map((distinct, index) => {
+            return `
+                <option value="${distinct.code}">${distinct.name}</option>
+            `
+        })
+    }
+
+    async function selectTown() {
+        let idDistrict = document.getElementById("district").value;
+        console.log(idDistrict);
+        const response = await fetch("https://provinces.open-api.vn/api/d/" + idDistrict + "?depth=2");
+        const jsonData = await response.json();
+        console.log(jsonData)
+        document.getElementById("town").innerHTML = jsonData.wards.map((ward, index) => {
+            return `
+                <option value="${ward.code}">${ward.name}</option>
+            `
+        })
+    }
+
+    document.getElementById("town").onchange = () => {
+        console.log("change")
+        let townElm = document.getElementById("town")
+        let districtElm = document.getElementById("district")
+        let cityElm = document.getElementById("city")
+        document.getElementById("address").value
+            = townElm.options[townElm.selectedIndex].text + ", " + districtElm.options[districtElm.selectedIndex].text + ", " + cityElm.options[cityElm.selectedIndex].text;
+        console.log(document.getElementById("address").value);
+    }
+</script>
+</html>
