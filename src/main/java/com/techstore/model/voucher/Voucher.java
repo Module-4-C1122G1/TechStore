@@ -1,36 +1,27 @@
 package com.techstore.model.voucher;
 
-import com.techstore.dto.VoucherDTO;
-import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-public class Voucher implements Validator {
+public class Voucher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(columnDefinition = "varchar(255)")
-    @NotBlank(message = "Tên không được để trống!")
     private String nameVoucher;
     @Column(columnDefinition = "date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "ngày hết hạn không được bỏ trống!")
     private Date expiredDate;
     @Column(columnDefinition = "int")
-    @NotNull(message = "Phải nhập số lượng")
-    @Min(value = 0, message = "Số lượng phải lớn hơn 0")
     private Double amountVoucher;
-    @NotNull(message = "Phải có phần trăm giảm giá")
-    @Min(value = 0, message = "phần trăm giảm giá phải lớn hơn 0")
-    @Max(value = 100, message = "phần trăm giảm giá phải nhỏ hơn 101")
+
     private Double percentDiscount;
     @Column(columnDefinition = "bit")
     private boolean isExpired;
@@ -107,17 +98,5 @@ public class Voucher implements Validator {
         this.typeVoucher = typeVoucher;
     }
 
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return false;
-    }
-
-    @Override
-    public void validate(Object target, Errors errors) {
-        Voucher voucher = (Voucher) target;
-        if (!voucher.nameVoucher.matches("^(([a-zA-Z\\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸ.,ẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\\s\\'ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉị.,ọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉ.,ịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]))*$")) {
-            errors.rejectValue("nameVoucher", "", "Tên không được chứa kí tự đặc biệt @;,.=+");
-        }
-    }
 }
 

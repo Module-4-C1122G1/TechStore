@@ -1,4 +1,4 @@
-package com.techstore.service;
+package com.techstore.service.IVoucherService;
 
 import com.techstore.model.voucher.TypeVoucher;
 

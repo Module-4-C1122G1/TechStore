@@ -1,10 +1,10 @@
-package com.techstore.controller;
+package com.techstore.controller.voucher;
 
+import com.techstore.dto.UpdateVoucherDTO;
 import com.techstore.dto.VoucherDTO;
 import com.techstore.model.voucher.Voucher;
-import com.techstore.repository.ITypeVoucherRepository;
-import com.techstore.service.IVoucherService;
-import org.springframework.beans.BeanUtils;
+import com.techstore.repository.voucherRepository.ITypeVoucherRepository;
+import com.techstore.service.IVoucherService.IVoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -64,7 +63,12 @@ public class VoucherController {
     public String createVoucher(@Valid @ModelAttribute("voucher") VoucherDTO voucherDTO,
                                 BindingResult bindingResult, Model model) {
 
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("typeVoucher", typeVoucherRepository.findAll());
+            return "voucher/create";
+        }
         new VoucherDTO().validate(voucherDTO, bindingResult);
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("typeVoucher", typeVoucherRepository.findAll());
             return "voucher/create";
@@ -74,19 +78,19 @@ public class VoucherController {
         }
     }
 
-        @GetMapping("/update")
-        public String showUpdateVoucher (@RequestParam(required = false) int id, Model model){
-            model.addAttribute("voucherDTO", voucherService.findById(id));
-            model.addAttribute("typeVoucher", typeVoucherRepository.findAll());
-            return "/voucher/update";
-        }
-
-        @PostMapping("/update")
-        public String updateVoucher (@Valid @ModelAttribute VoucherDTO voucherDTO, BindingResult bindingResult){
-            if (bindingResult.hasErrors()) {
-                return "voucher/update";
-            }
-            voucherService.update(voucherDTO,voucherDTO.getId());
-            return "redirect:/admin/voucher";
-        }
+    @GetMapping("/update")
+    public String showUpdateVoucher(@RequestParam(required = false) int id, Model model) {
+        model.addAttribute("updateVoucherDTO", voucherService.findById(id));
+        model.addAttribute("typeVoucher", typeVoucherRepository.findAll());
+        return "/voucher/update";
     }
+
+    @PostMapping("/update")
+    public String updateVoucher(@Valid @ModelAttribute UpdateVoucherDTO updateVoucherDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "voucher/update";
+        }
+        voucherService.update(updateVoucherDTO, updateVoucherDTO.getId());
+        return "redirect:/admin/voucher";
+    }
+}
