@@ -21,6 +21,12 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.3'
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.13.2'
+	implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.7.1'
+	implementation group: 'org.springframework.security', name: 'spring-security-config', version: '5.7.1'
+	implementation group: 'org.springframework.security', name: 'spring-security-taglibs', version: '5.7.1'
+	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
 }
 
 tasks.named('test') {

@@ -1,0 +1,36 @@
+.title {
+    padding-top: 3rem;
+    border-bottom: 1px solid #dee2e6;
+}
+.price-product {
+    font-size: 28px;
+    color: #cb1c22;
+    line-height: 40px;
+}
+.description .content-description {
+    font-size: 18px;
+    font-weight: 500;
+    text-align: justify;
+    line-height: 28px;
+}
+.buy-now, .add-cart {
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 28px;
+    font-size: 16px;
+}
+.buy-now {
+    background: #cb1c22;
+    color: #ffffff;
+}
+.buy-now:hover {
+    border: 1px solid #cb1c22;
+}
+.add-cart {
+    background: #ea9d02;
+    color: #ffffff;
+}
+.add-cart:hover {
+    border: 1px solid #ea9d02;
+    color: #ea9d02;
+}

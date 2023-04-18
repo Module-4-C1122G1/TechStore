@@ -26,7 +26,7 @@ public class Customer {
     @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd")
     private Date dateOfBirth    ;
     @ManyToOne
-    @JoinColumn(name = "type_id")
+    @JoinColumn(name = "id")
     @NotNull
     private TypeCustomer typeCustomer;
 
@@ -35,14 +35,6 @@ public class Customer {
 
     public Customer(int id, String nameCustomer, String address, String phoneNumber, Date dateOfBirth, TypeCustomer typeCustomer) {
         this.id = id;
-        this.nameCustomer = nameCustomer;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.dateOfBirth = dateOfBirth;
-        this.typeCustomer = typeCustomer;
-    }
-
-    public Customer(String nameCustomer, String address, String phoneNumber, Date dateOfBirth, TypeCustomer typeCustomer) {
         this.nameCustomer = nameCustomer;
         this.address = address;
         this.phoneNumber = phoneNumber;

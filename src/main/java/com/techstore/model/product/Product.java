@@ -1,9 +1,12 @@
 package com.techstore.model.product;
 
 import com.techstore.model.categories.Categories;
+import com.techstore.model.general.InitialDate;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Product {
@@ -46,11 +49,14 @@ public class Product {
     private List<Utilities> utilities;
     @ManyToOne(targetEntity = Categories.class)
     private Categories categories;
+    @Embedded
+    private InitialDate initialDate;
 
     public Product() {
+        initialDate = new InitialDate();
     }
 
-    public Product(int id, String nameProduct, String image, Double price, String screenTechnology, String operatingSystem, String chip, Double cpu_speed, Integer ram, Integer capacity, Integer pin, String material, Double weight, Double size, String description, String timePublic, Manufacturer manufacturer, List<Utilities> utilities, Categories categories) {
+    public Product(int id, String nameProduct, String image, Double price, String screenTechnology, String operatingSystem, String chip, Double cpu_speed, Integer ram, Integer capacity, Integer pin, String material, Double weight, Double size, String description, String timePublic, Manufacturer manufacturer, List<Utilities> utilities, Categories categories, InitialDate initialDate) {
         this.id = id;
         this.nameProduct = nameProduct;
         this.image = image;
@@ -70,6 +76,20 @@ public class Product {
         this.manufacturer = manufacturer;
         this.utilities = utilities;
         this.categories = categories;
+        this.initialDate = initialDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public int getId() {
@@ -216,11 +236,19 @@ public class Product {
         this.image = image;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getPrice() {
+        return new DecimalFormat("#").format(price);
     }
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public InitialDate getInitialDate() {
+        return initialDate;
+    }
+
+    public void setInitialDate(InitialDate initialDate) {
+        this.initialDate = initialDate;
     }
 }
