@@ -10,4 +10,5 @@ public interface IAccountRoleService {
     List<AccountRole> getAll();
 
     AccountRole getById(int id);
+    AccountRole getByAccount(Account account);
 }

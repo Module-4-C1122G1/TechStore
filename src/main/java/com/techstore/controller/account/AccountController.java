@@ -1,7 +1,10 @@
 package com.techstore.controller.account;
 
 import com.techstore.model.account.Account;
+import com.techstore.model.account.AccountRole;
+import com.techstore.model.account.Role;
 import com.techstore.service.IAccountService.IAccountService;
+import com.techstore.service.impl.accountRoleService.AccountRoleService;
 import com.techstore.service.impl.roleService.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
-@RequestMapping("admin/account")
+@RequestMapping("/admin/account")
 public class AccountController {
     @Autowired
     private IAccountService accountService;
@@ -18,11 +24,17 @@ public class AccountController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private AccountRoleService accountRoleService;
+
     @GetMapping("")
     public String showList(Model model) {
-        model.addAttribute("listAccount", accountService.findAll());
-        model.addAttribute("listRole", roleService.getAll());
-        return "account/list";
+        Map<Account, Role> listAccount = new HashMap<>();
+        for (Account account : accountService.findAll()) {
+            listAccount.put(account, accountRoleService.getByAccount(account).getRole());
+        }
+        model.addAttribute("listAccount", listAccount);
+        return "admin/account/list";
     }
 
     @GetMapping("/detail/{id}")
@@ -40,16 +52,16 @@ public class AccountController {
 
     @GetMapping("/update/{id}")
     public String showEdit(@PathVariable int id, Model model) {
-        model.addAttribute("account",accountService.findById(id));
-        model.addAttribute("listRole",roleService.getAll());
+        model.addAttribute("account", accountService.findById(id));
+        model.addAttribute("listRole", roleService.getAll());
         return "admin/account/update";
     }
 
     @PostMapping("/update")
-    public String update(Model model,Account account) {
+    public String update(Model model, Account account) {
         accountService.saveAccount(account);
         model.addAttribute("account", account);
-        model.addAttribute("msg", "Account updated successfully");
+        model.addAttribute("msg", "Sửa thành công");
         return "admin/account/update";
     }
 }

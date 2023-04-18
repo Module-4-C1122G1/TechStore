@@ -1,5 +1,6 @@
 package com.techstore.service.impl.accountRoleService;
 
+import com.techstore.model.account.Account;
 import com.techstore.model.account.AccountRole;
 import com.techstore.repository.accountRoleRepository.IAccountRoleRepository;
 import com.techstore.service.IAccountRoleService.IAccountRoleService;
@@ -19,6 +20,12 @@ public class AccountRoleService implements IAccountRoleService {
 
     @Override
     public AccountRole getById(int id) {
-        return null;
+        return iAccountRoleRepository.findById(id).get();
     }
+
+    @Override
+    public AccountRole getByAccount(Account account) {
+        return iAccountRoleRepository.findAccountRoleByAccount(account);
+    }
+
 }
