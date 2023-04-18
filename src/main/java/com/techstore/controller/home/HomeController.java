@@ -79,9 +79,11 @@ public class HomeController {
 
     @GetMapping("/shopping-cart")
     public ModelAndView showCart(Principal principal, @SessionAttribute("cart") Cart cart) {
-
+        if (cart == null) {
+            cart.setProducts(new HashMap<>());
+        }
 //        Khi chưa đăng nhập tài khoản
-        if (accountCurrent == null && principal == null) {
+        if ((accountCurrent == null && principal == null) || (accountCurrent != null && principal == null)) {
             ModelAndView modelAndView = new ModelAndView("cart/cart");
             modelAndView.addObject("cart", cart);
             return modelAndView;
@@ -89,7 +91,7 @@ public class HomeController {
 
 //        Khi mới restart chương trình
         if (((accountCurrent == null && principal != null)
-                || (accountCurrent != null && !principal.getName().equals(accountCurrent))) && cart.countTotalProductQuantity() > 0) {
+                || (accountCurrent != null && principal!= null && !principal.getName().equals(accountCurrent))) && cart.countTotalProductQuantity() > 0) {
             accountCurrent = principal.getName();
             order = new Order();
             Customer customer = customerService.findByAccount(accountService.findAccountByName(principal.getName()));
