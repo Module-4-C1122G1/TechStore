@@ -1,4 +1,4 @@
-package com.techstore.repository;
+package com.techstore.repository.voucherRepository;
 
 import com.techstore.model.voucher.Voucher;
 import org.springframework.data.domain.Page;

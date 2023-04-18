@@ -61,7 +61,7 @@
 
             <div class="mb-3">
                 <label>Loại khuyến mãi</label>
-                <select th:field="*{typeVoucherDTO}">
+                <select th:field="*{typeVoucher}">
                     <option th:each="type: ${typeVoucher}" th:text="${type.typeVoucher}"
                             th:value="${type.id}"></option>
                 </select>
