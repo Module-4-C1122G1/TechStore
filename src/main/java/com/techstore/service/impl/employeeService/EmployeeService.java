@@ -1,9 +1,9 @@
-package com.techstore.service.impl.employee;
+package com.techstore.service.impl.employeeService;
 
 import com.techstore.dto.EmployeeDTO;
 import com.techstore.model.employee.Employee;
 import com.techstore.repository.employee.IEmployeeRepository;
-import com.techstore.service.employee.IEmployeeService;
+import com.techstore.service.IEmployeeService.IEmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
