@@ -1,4 +1,4 @@
-package com.techstore.repository;
+package com.techstore.repository.customerRepository;
 
 import com.techstore.model.customer.Customer;
 import com.techstore.model.customer.TypeCustomer;

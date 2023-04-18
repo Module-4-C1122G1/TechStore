@@ -21,6 +21,7 @@
     <thead class="table-dark">
     <tr>
         <th>Tên khách hàng</th>
+        <th>Giới tính</th>
         <th>Địa chỉ</th>
         <th>Số điện thoại</th>
         <th>Ngày sinh</th>
@@ -32,6 +33,7 @@
     <tbody>
     <tr th:each="customer : ${list}">
         <th th:text="${customer.nameCustomer}"></th>
+        <th th:text="${customer.gender.nameGender}"></th>
         <th th:text="${customer.address}"></th>
         <th th:text="${customer.phoneNumber}"></th>
         <th th:text="${#dates.format(customer.dateOfBirth, 'dd-MM-yyyy')}"></th>

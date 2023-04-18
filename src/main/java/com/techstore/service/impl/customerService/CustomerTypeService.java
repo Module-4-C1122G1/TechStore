@@ -1,13 +1,15 @@
-package com.techstore.service;
+package com.techstore.service.impl.customerService;
 
 import com.techstore.model.customer.TypeCustomer;
-import com.techstore.repository.ICustomerTypeRepository;
+import com.techstore.repository.customerRepository.ICustomerTypeRepository;
+
+import com.techstore.service.ICustomerService.ICustomerTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class CustomerTypeService implements ICustomerTypeService{
+public class CustomerTypeService implements ICustomerTypeService {
     @Autowired
     private ICustomerTypeRepository iCustomerTypeRepository;
 

@@ -1,4 +1,4 @@
-package com.techstore.service;
+package com.techstore.service.ICustomerService;
 
 import com.techstore.model.customer.TypeCustomer;
 

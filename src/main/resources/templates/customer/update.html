@@ -11,23 +11,72 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<p th:text="${msg}"></p>
-<form action="/customer/update" method="post" th:object="${customer}">
-    <input type="hidden" th:field="${customer.id}" th:value="${customer.id}">
-    <input type="text" th:field="${customer.nameCustomer}" th:value="${customer.nameCustomer}">
-    <p th:if="${#fields.hasErrors()}" th:errors="${customer.nameCustomer}"></p>
-    <input type="text" th:field="${customer.address}" th:value="${customer.address}">
-    <p th:if="${#fields.hasErrors()}" th:errors="${customer.address}"></p>
-    <input type="date" th:field="${customer.dateOfBirth}" th:value="${#dates.format(customer.dateOfBirth, 'dd-MM-yyyy')}">
-    <p th:if="${#fields.hasErrors()}" th:errors="${customer.dateOfBirth}"></p>
-    <div class="d-none" id="ok" th:text="${#dates.format(customer.dateOfBirth, 'yyyy-MM-dd')}"></div>
-    <input type="text" th:field="${customer.phoneNumber}" th:value="${customer.phoneNumber}">
-    <p th:if="${#fields.hasErrors()}" th:errors="${customer.phoneNumber}"></p>
-    <select th:field="${customer.typeCustomer}">
-        <option th:each="type: ${typeList}" th:text="${type.nameTypeCustomer}" th:value="${type.typeID}"></option>
-    </select>
-    <button type="submit">Chỉnh sửa</button>
-</form>
+<div class="container">
+    <p th:if="${msg!=null}" class="btn btn-danger" th:text="${msg}"></p>
+    <table>
+        <form action="/customer/update" method="post" th:object="${customer}">
+
+            <tr>
+                <td>Tên khách hàng</td>
+                <td><input type="text" th:field="${customer.nameCustomer}"
+                           th:value="${customer.nameCustomer}">
+                    <p class="btn btn-danger" th:if="${#fields.hasErrors()}" th:errors="${customer.nameCustomer}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Địa chỉ</td>
+                <td><input type="text" th:field="${customer.address}" th:value="${customer.address}">
+                    <p class="btn btn-danger" th:if="${#fields.hasErrors()}" th:errors="${customer.address}"></p></td>
+            </tr>
+            <tr>
+                <td>Ngày sinh</td>
+                <td><input type="date" th:field="${customer.dateOfBirth}"
+                           th:value="${#dates.format(customer.dateOfBirth, 'dd-MM-yyyy')}">
+                    <p class="btn btn-danger" th:if="${#fields.hasErrors()}" th:errors="${customer.dateOfBirth}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Số điện thoại</td>
+                <td><input type="text" th:field="${customer.phoneNumber}"
+                           th:value="${customer.phoneNumber}">
+                    <p class="btn btn-danger" th:if="${#fields.hasErrors()}" th:errors="${customer.phoneNumber}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Tên tài khoản</td>
+                <td><input type="text" th:field="${customer.account.userName}"
+                           th:value="${customer.account.userName}"></td>
+            </tr>
+            <tr>
+                <td>Giới tính</td>
+                <td><select th:field="${customer.gender}">
+                    <option th:each="gender: ${genderList}" th:text="${gender.nameGender}"
+                            th:value="${gender.id}"></option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Loại khách hàng</td>
+                <td><select th:field="${customer.typeCustomer}">
+                    <option th:each="type: ${typeList}" th:text="${type.nameTypeCustomer}"
+                            th:value="${type.typeID}"></option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Chỉnh sửa</button>
+                </td>
+            </tr>
+            <input type="hidden" th:field="${customer.id}" th:value="${customer.id}">
+            <div class="d-none" id="ok" th:text="${#dates.format(customer.dateOfBirth, 'yyyy-MM-dd')}"></div>
+            <input type="hidden" th:field="${customer.account.id}" th:value="${customer.account.id}">
+            <!--    <input type="hidden" th:field="${customer.account.password}" th:value="${customer.account.password}">-->
+        </form>
+    </table>
+    <form action="/customer/reset" method="post">
+        <input type="hidden" name="id" th:value="${customer.id}">
+        <button type="submit"> Reset mật khẩu về 123456</button>
+    </form>
+</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -42,8 +91,8 @@
 
 
 <script>
-    $( document ).ready(function() {
-       document.getElementById('dateOfBirth').value = document.getElementById('ok').innerText;
+    $(document).ready(function () {
+        document.getElementById('dateOfBirth').value = document.getElementById('ok').innerText;
     });
 </script>
 </body>

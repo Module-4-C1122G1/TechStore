@@ -7,7 +7,7 @@ public class TypeCustomer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int typeID;
-    @Column(columnDefinition = "varchar(255)")
+    @Column(columnDefinition = "varchar(255)", nullable = false)
     private String nameTypeCustomer;
 
     public TypeCustomer() {

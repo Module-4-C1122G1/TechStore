@@ -1,8 +1,10 @@
 package com.techstore.controller;
 
+import com.techstore.model.account.Account;
 import com.techstore.model.customer.Customer;
-import com.techstore.service.ICustomerService;
-import com.techstore.service.ICustomerTypeService;
+import com.techstore.service.ICustomerService.ICustomerService;
+import com.techstore.service.ICustomerService.ICustomerTypeService;
+import com.techstore.service.IGenderService.IGenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,6 +22,8 @@ import java.util.List;
 @Controller
 @RequestMapping("customer")
 public class CustomerController {
+    @Autowired
+    private IGenderService iGenderService;
     @Autowired
     private ICustomerTypeService iCustomerTypeService;
     @Autowired
@@ -50,14 +54,15 @@ public class CustomerController {
             model.addAttribute("msg", "Tạo mới khách hàng thất bại");
             return "customer/create";
         }
-        iCustomerService.save(customer);
+        iCustomerService.saveCustomer(customer);
         redirectAttributes.addFlashAttribute("msg", "Tạo mới khách hàng thành công");
         return "redirect:/customer";
     }
 
     @GetMapping("update/{id}")
     public String updateForm(Model model, @PathVariable int id) {
-        model.addAttribute("customer", iCustomerService.findByID(id));
+        model.addAttribute("genderList",iGenderService.findAll());
+        model.addAttribute("customer", iCustomerService.findCustomerById(id));
         model.addAttribute("typeList", iCustomerTypeService.list());
         return "customer/update";
     }
@@ -69,14 +74,21 @@ public class CustomerController {
             model.addAttribute("msg", "Chỉnh sửa khách hàng thất bại");
             return "customer/update";
         }
-        iCustomerService.save(customer);
+        iCustomerService.saveCustomer(customer);
         redirectAttributes.addFlashAttribute("msg", "Chỉnh sửa khách hàng thành công");
         return "redirect:/customer";
     }
     @GetMapping("delete")
     public String delete(@RequestParam int id,RedirectAttributes redirectAttributes){
-        iCustomerService.delete(id);
+        iCustomerService.deleteCustomerById(id);
         redirectAttributes.addFlashAttribute("msg","Xóa khách hàng thành công");
+        return "redirect:/customer";
+    }
+    @PostMapping("reset")
+    public String resetPassword(@RequestParam int id,RedirectAttributes redirectAttributes){
+        Customer customer=iCustomerService.findCustomerById(id);
+        customer.setAccount(new Account(customer.getAccount().getId(), customer.getAccount().getUserName(),"123456",customer.getAccount().getInitialDate()));
+        redirectAttributes.addFlashAttribute("msg", "Reset mật khẩu thành công");
         return "redirect:/customer";
     }
 }

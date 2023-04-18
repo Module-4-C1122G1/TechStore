@@ -1,5 +1,8 @@
 package com.techstore.model.customer;
 
+import com.techstore.model.account.Account;
+import com.techstore.model.general.Gender;
+import com.techstore.model.general.InitialDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -12,34 +15,38 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank
     @Column(columnDefinition = "varchar(255)")
     private String nameCustomer;
-    @NotBlank
     @Column(columnDefinition = "varchar(255)")
     private String address;
-    @NotBlank
     @Column(columnDefinition = "varchar(100)")
     private String phoneNumber;
-    @NotNull
     @Column(columnDefinition = "date")
     @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd")
-    private Date dateOfBirth    ;
+    private Date dateOfBirth;
     @ManyToOne
-    @JoinColumn(name = "id")
-    @NotNull
     private TypeCustomer typeCustomer;
+    @ManyToOne
+    private Gender gender;
+    @OneToOne
+    private Account account;
+    @Embedded
+    private InitialDate initialDate;
 
     public Customer() {
+        initialDate = new InitialDate();
     }
 
-    public Customer(int id, String nameCustomer, String address, String phoneNumber, Date dateOfBirth, TypeCustomer typeCustomer) {
+    public Customer(int id, String nameCustomer, String address, String phoneNumber, Date dateOfBirth, TypeCustomer typeCustomer, Gender gender, Account account, InitialDate initialDate) {
         this.id = id;
         this.nameCustomer = nameCustomer;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.dateOfBirth = dateOfBirth;
         this.typeCustomer = typeCustomer;
+        this.gender = gender;
+        this.account = account;
+        this.initialDate = initialDate;
     }
 
     public int getId() {
@@ -88,5 +95,29 @@ public class Customer {
 
     public void setTypeCustomer(TypeCustomer typeCustomer) {
         this.typeCustomer = typeCustomer;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public InitialDate getInitialDate() {
+        return initialDate;
+    }
+
+    public void setInitialDate(InitialDate initialDate) {
+        this.initialDate = initialDate;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
