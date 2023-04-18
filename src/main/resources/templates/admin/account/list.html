@@ -25,9 +25,10 @@ padding: 10px 24px">Danh sách tài khoản</h2>
                 <td th:text="${loop.count}"></td>
                 <td th:text="${account.userName}"></td>
                 <td th:text="${account.password}"></td>
-                <td th:text="${account.role}"></td>
+                <td th:each="role:${listRole}"
+                th:text="${role.roleName}"></td>
                 <td th:text="${account.initialDate}"></td>
-                <td th:href="@{/update/{id}(id=${account.id})}">
+                <td th:href="@{admin/account/update/{id}(id=${account.id})}">
                     <button type="button" class="btn btn-warning">Chỉnh sửa</button>
                 </td>
                 <td>

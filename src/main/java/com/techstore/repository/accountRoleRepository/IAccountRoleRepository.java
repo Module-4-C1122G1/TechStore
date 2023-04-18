@@ -1,8 +1,7 @@
-package com.techstore.repository.AccountRoleRepository;
+package com.techstore.repository.accountRoleRepository;
 
 import com.techstore.model.account.Account;
 import com.techstore.model.account.AccountRole;
-import com.techstore.model.account.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

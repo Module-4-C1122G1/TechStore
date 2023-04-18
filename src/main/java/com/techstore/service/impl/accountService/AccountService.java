@@ -2,7 +2,7 @@ package com.techstore.service.impl.accountService;
 
 import com.techstore.model.account.Account;
 import com.techstore.model.account.AccountRole;
-import com.techstore.repository.AccountRoleRepository.IAccountRoleRepository;
+import com.techstore.repository.accountRoleRepository.IAccountRoleRepository;
 import com.techstore.repository.accountRepository.IAccountRepository;
 import com.techstore.service.IAccountService.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
