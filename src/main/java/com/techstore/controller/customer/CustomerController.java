@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("admin/customer")
+@RequestMapping("/admin/customer")
 public class CustomerController {
     @Autowired
     private IGenderService iGenderService;
@@ -40,14 +40,14 @@ public class CustomerController {
         return "customer/list";
     }
 
-    @GetMapping("create")
+    @GetMapping("/create")
     public String createForm(Model model) {
         model.addAttribute("customer", new Customer());
         model.addAttribute("typeList", iCustomerTypeService.list());
         return "customer/create";
     }
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public String create(@Valid @ModelAttribute Customer customer, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("typeList", iCustomerTypeService.list());
