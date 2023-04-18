@@ -1,10 +1,12 @@
 package com.techstore.model.order;
 
+import com.techstore.model.cart.Cart;
 import com.techstore.model.customer.Customer;
 import com.techstore.model.employee.Employee;
 import com.techstore.model.general.InitialDate;
 import com.techstore.model.product.Product;
 import com.techstore.model.voucher.Voucher;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -23,8 +25,6 @@ public class Order {
     private String destination;
     @Column(columnDefinition = "tinyint")
     private int statusOrder;
-    @ManyToMany
-    private List<Product> products;
     @OneToOne
     private Employee employee;
     @OneToOne
@@ -38,13 +38,12 @@ public class Order {
         initialDate = new InitialDate();
     }
 
-    public Order(int id, Date dateOrder, int amountOrder, String destination, int statusOrder, List<Product> products, Employee employee, Customer customer, List<Voucher> voucher, InitialDate initialDate) {
+    public Order(int id, Date dateOrder, int amountOrder, String destination, int statusOrder, Employee employee, Customer customer, List<Voucher> voucher, InitialDate initialDate) {
         this.id = id;
         this.dateOrder = dateOrder;
         this.amountOrder = amountOrder;
         this.destination = destination;
         this.statusOrder = statusOrder;
-        this.products = products;
         this.employee = employee;
         this.customer = customer;
         this.voucher = voucher;
@@ -89,14 +88,6 @@ public class Order {
 
     public void setStatusOrder(int statusOrder) {
         this.statusOrder = statusOrder;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
     }
 
     public Employee getEmployee() {
