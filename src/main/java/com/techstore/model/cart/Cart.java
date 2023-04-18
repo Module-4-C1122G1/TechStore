@@ -51,6 +51,15 @@ public class Cart {
         }
     }
 
+    public void subtractProduct(Product product) {
+        if (selectItemInCart(product).getValue() == 1) {
+            return;
+        } else {
+            Map.Entry<Product, Integer> item = selectItemInCart(product);
+            products.put(item.getKey(), item.getValue() - 1);
+        }
+    }
+
     public Integer countTotalProductQuantity() {
         Integer productsQuantity = 0;
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {
@@ -63,11 +72,19 @@ public class Cart {
         return products.size();
     }
 
-    public Double countTotalPayment() {
-        Double payment = 0.0;
+    public Integer countTotalPayment() {
+        Integer payment = 0;
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            payment += Long.parseLong(entry.getKey().getPrice()) * entry.getValue();
+            payment += Integer.parseInt(entry.getKey().getPrice()) * entry.getValue();
         }
         return payment;
+    }
+
+    public Integer calculateTotalByProduct(Product product) {
+        Integer temp = products.get(product) * Integer.parseInt(product.getPrice());
+        return temp;
+    }
+    public void deleteProduct(Product product) {
+        products.remove(product);
     }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/home :: head"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+<div class="header" th:replace="/home/home :: header"></div>
+<div class="main d-flex justify-content-center align-items-center mt-5">
+    <form class="d-flex flex-column" id="form-login" method="post" th:action="@{/check-account}">
+        <h2 class="text-center title">Login</h2>
+        <input class="mb-3 username" name="username" th:placeholder="${'Tên đăng nhập'}" type="text">
+        <input class="mb-3 password" name="password" th:placeholder="${'Mật khẩu'}" type="password">
+        <input class="btn login-submit-btn" type="submit" value="ĐĂNG NHẬP">
+        <div class="modifier d-flex justify-content-between align-items-center mt-3">
+            <div class="left">
+                <span>Chưa có tài khoản </span>
+                <a class="text-decoration-none" th:href="@{/register}" th:text="${' ( Đăng ký ngay )'}"></a>
+            </div>
+            <div class="right">
+                <a class="text-decoration-none" th:href="@{/}" th:text="${'Quên mật khẩu ?'}"></a>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="footer" th:replace="/home/home :: footer"></div>
+</body>
+</html>

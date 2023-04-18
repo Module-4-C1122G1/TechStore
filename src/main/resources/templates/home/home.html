@@ -56,9 +56,17 @@
                     <i class="fa-regular fa-credit-card fs-18"></i>
                     <p>Thanh toán $ tiện ích</p>
                 </li>
-                <li>
+                <li aria-expanded="false" data-bs-toggle="dropdown" type="button">
                     <i class="fa-regular fa-circle-user fs-18"></i>
                     <p>Tài khoản của tôi</p>
+                    <ul class="dropdown-menu">
+                        <li th:if="${#request.userPrincipal == null}" th:onclick="|window.location = '/login'|"><a
+                                class="dropdown-item">Đăng nhập</a></li>
+                        <li th:if="${#request.userPrincipal != null}" th:onclick="|window.location = '/'|"><a
+                                class="dropdown-item" th:text="${'Hi! ' + #request.userPrincipal.getName()}"></a></li>
+                        <li th:if="${#request.userPrincipal != null}" th:onclick="|window.location = '/logout'|"><a
+                                class="dropdown-item">Đăng xuất</a></li>
+                    </ul>
                 </li>
                 <li th:onclick="|window.location = '/shopping-cart'|">
                     <i class="fa-solid fa-cart-shopping fs-18"></i>
@@ -69,25 +77,28 @@
     </div>
     <div class="nav">
         <div class="container d-flex justify-content-around align-items-center">
-            <div class="d-flex align-items-center h-100">
+            <div class="d-flex align-items-center h-100"
+                 th:onclick="|window.location.href = '/product?categories=1&page=0'|">
                 <i class="fa-solid fa-mobile-screen me-2"></i>
-                <p th:onclick="|window.location.href = '/product?categories=1&page=0'|">Điện thoại</p>
+                <p>Điện thoại</p>
             </div>
-            <div class="d-flex align-items-center h-100">
+            <div class="d-flex align-items-center h-100"
+                 th:onclick="|window.location.href = '/product?categories=2&page=0'|">
                 <i class="fa-solid fa-laptop me-2"></i>
-                <p th:onclick="|window.location.href = '/product?categories=2&page=0'|">Laptop</p>
+                <p>Laptop</p>
             </div>
-            <div class="d-flex align-items-center h-100">
+            <div class="d-flex align-items-center h-100" th:onclick="|window.location.href= '/product/manufacturer/1'|">
                 <i class="fa-brands fa-apple me-2"></i>
-                <p th:onclick="|window.location.href= '/product/manufacturer/1'|">Apple</p>
+                <p>Apple</p>
             </div>
-            <div class="d-flex align-items-center h-100">
+            <div class="d-flex align-items-center h-100" th:onclick="|window.location.href= '/product/manufacturer/2'|">
                 <i class="fa-solid fa-s me-2"></i>
-                <p th:onclick="|window.location.href= '/product/manufacturer/2'|">Samsung</p>
+                <p>Samsung</p>
             </div>
-            <div class="d-flex align-items-center h-100">
+            <div class="d-flex align-items-center h-100"
+                 th:onclick="|window.location.href = '/product?categories=3&page=0'|">
                 <i class="fa-solid fa-circle-stop me-2"></i>
-                <p th:onclick="|window.location.href = '/product?categories=3&page=0'|">Smartwatch</p>
+                <p>Smartwatch</p>
             </div>
             <div class="d-flex align-items-center h-100">
                 <i class="fa-solid fa-percent me-2"></i>
@@ -193,7 +204,8 @@
                     </div>
                     <div class="product-btn mb-5 mt-auto">
                         <button class="btn btn-secondary detail-btn"
-                                data-bs-target="#exampleModal" data-bs-toggle="modal">Chi tiết
+                                data-bs-target="#exampleModal" data-bs-toggle="modal"
+                                th:onclick="|showDetailProduct(${product.getId()})|">Chi tiết
                         </button>
                         <button class="btn btn-danger order-btn"
                                 th:onclick="|window.location = '/product/detail/' + ${product.getId()}|">Mua hàng
@@ -211,7 +223,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="img-detail-product w-100">
-                                        <img alt="" class="w-100" th:src="${product.getImage()}">
+                                        <img alt="" class="w-100" id="img-product-modal">
                                     </div>
                                     <div class="infomation mt-5">
                                         <table class="table">
@@ -221,50 +233,60 @@
                                             <tbody>
                                             <tr>
                                                 <th>Công nghệ màn hình</th>
-                                                <td th:text="${product.getScreenTechnology()}"></td>
+                                                <td id="screen-technology-product-modal"
+                                                    th:text="${product.getScreenTechnology()}"></td>
                                             </tr>
                                             <tr>
                                                 <th>Dung lượng lưu trữ</th>
-                                                <td th:text="${product.getCapacity() + 'GB, ' + product.getRam() + 'GB'}"></td>
+                                                <td id="capacity-product-modal"
+                                                    th:text="${product.getCapacity() + 'GB, ' + product.getRam() + 'GB'}"></td>
                                             </tr>
                                             <tr>
                                                 <th>Hệ điều hành</th>
-                                                <td th:text="${product.getOperatingSystem()}"></td>
+                                                <td id="operating-system-product-modal"
+                                                    th:text="${product.getOperatingSystem()}"></td>
                                             </tr>
                                             <tr>
                                                 <th>CPU</th>
-                                                <td th:text="${product.getChip()}"></td>
+                                                <td id="chip-product-modal" th:text="${product.getChip()}"></td>
                                             </tr>
                                             <tr>
                                                 <th>Tốc độ xung nhịp</th>
-                                                <td th:text="${product.getCpu_speed() + 'Ghz'}"></td>
+                                                <td id="cpu-speed-product-modal"
+                                                    th:text="${product.getCpu_speed() + 'Ghz'}"></td>
                                             </tr>
                                             <tr>
                                                 <th>Dung lượng Pin</th>
-                                                <td th:text="${product.getPin()} + 'maH'"></td>
+                                                <td id="pin-product-modal" th:text="${product.getPin()} + 'maH'"></td>
                                             </tr>
                                             <tr>
                                                 <th>Kích thước & khối lượng</th>
-                                                <td th:text="${product.getSize() + ' inch, ' + product.getWeight() + ' g'}"></td>
+                                                <td id="size-weight-product-modal"
+                                                    th:text="${product.getSize() + ' inch, ' + product.getWeight() + ' g'}"></td>
                                             </tr>
                                             <tr>
                                                 <th>Chất liệu</th>
-                                                <td th:text="${product.getMaterial()}"></td>
+                                                <td id="material-product-modal" th:text="${product.getMaterial()}"></td>
                                             </tr>
                                             <tr>
                                                 <th>Ra mắt</th>
-                                                <td th:text="${product.getTimePublic()}"></td>
+                                                <td id="time-public-modal" th:text="${product.getTimePublic()}"></td>
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <div class="more-info fw-bold" th:text="${product.getDescription()}">
+                                        <div class="more-info fw-bold" id="desc-product-modal"
+                                             th:text="${product.getDescription()}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close
                                     </button>
-                                    <button class="btn btn-danger" type="button" th:onclick="|window.location = '/product/add-cart/'+${product.getId()}|">Thêm vào giỏ hàng</button>
+                                    <button class="btn btn-danger"
+                                            id="add-product-to-cart-btn"
+                                            type="button">
+                                        Thêm vào giỏ hàng
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -356,6 +378,7 @@
 </footer>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <!-- Initialize Swiper -->
 <script>
@@ -368,5 +391,43 @@
         progressCircle.style.setProperty("--progress", 1 - progress);
         progressContent.textContent = `${Math.ceil(time / 1000)}s`;
     });
+</script>
+<script>
+    function showDetailProduct(id) {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            url: '/api/product/detail/' + id,
+            success: (data) => {
+                inputValueProductToModal(data)
+            },
+            error: (e) => {
+                console.log(e.error());
+            }
+        })
+    }
+
+    function inputValueProductToModal(product) {
+        console.log(product)
+        document.getElementById("exampleModalLabel").innerText = "Điện thoại " + product.nameProduct;
+        document.getElementById("img-product-modal").src = product.image;
+        document.getElementById("screen-technology-product-modal").innerText = product.screenTechnology;
+        document.getElementById("capacity-product-modal").innerText = product.capacity;
+        document.getElementById("operating-system-product-modal").innerText = product.operatingSystem;
+        document.getElementById("chip-product-modal").innerText = product.chip;
+        document.getElementById("cpu-speed-product-modal").innerText = product.cpu_speed;
+        document.getElementById("pin-product-modal").innerText = product.pin + "maH";
+        document.getElementById("size-weight-product-modal").innerText = product.size + ' inch, ' + product.weight + ' g';
+        document.getElementById("material-product-modal").innerText = product.material;
+        document.getElementById("time-public-modal").innerText = product.timePublic;
+        document.getElementById("desc-product-modal").innerText = product.description;
+        document.getElementById("add-product-to-cart-btn").addEventListener('click', () => {
+            window.location = '/product/add-cart/' + product.id;
+        })
+    }
+
 </script>
 </html>

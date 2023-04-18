@@ -1,5 +1,6 @@
 package com.techstore.model.employee;
 
+import com.techstore.model.account.Account;
 import com.techstore.model.general.Gender;
 import com.techstore.model.general.InitialDate;
 
@@ -25,6 +26,8 @@ public class Employee {
     private Department department;
     @ManyToOne
     private Gender gender;
+    @OneToOne
+    private Account account;
     @Embedded
     private InitialDate initialDate;
 
@@ -32,7 +35,7 @@ public class Employee {
         initialDate = new InitialDate();
     }
 
-    public Employee(int id, String nameEmployee, String phoneNumber, Date dateOfBirth, String address, Position position, Department department, Gender gender, InitialDate initialDate) {
+    public Employee(int id, String nameEmployee, String phoneNumber, Date dateOfBirth, String address, Position position, Department department, Gender gender, Account account, InitialDate initialDate) {
         this.id = id;
         this.nameEmployee = nameEmployee;
         this.phoneNumber = phoneNumber;
@@ -41,6 +44,7 @@ public class Employee {
         this.position = position;
         this.department = department;
         this.gender = gender;
+        this.account = account;
         this.initialDate = initialDate;
     }
 
@@ -114,5 +118,13 @@ public class Employee {
 
     public void setInitialDate(InitialDate initialDate) {
         this.initialDate = initialDate;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
