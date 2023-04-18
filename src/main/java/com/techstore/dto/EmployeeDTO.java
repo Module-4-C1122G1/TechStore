@@ -120,8 +120,14 @@ public class EmployeeDTO implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         EmployeeDTO employeeDTO = (EmployeeDTO) target;
-        if (employeeDTO.nameEmployee.matches("^[^@;,.=+\\-]+$")) {
-            errors.rejectValue("nameEmployee", "", "Tên Không Chứa Ký Tự Đặc Biệt");
+        if (!employeeDTO.nameEmployee.matches("^(([a-zA-Z\\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸ.," +
+                "ẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)" +
+                "([a-zA-Z\\s\\'ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉị." +
+                ",ọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉ." +
+                ",ịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]))*$")) {
+            errors.rejectValue("nameEmployee", "", "Tên không chứa ký tự đặc biệt");
+        }if (!employeeDTO.phoneNumber.matches("^\\d{9,11}")){
+            errors.rejectValue("phoneNumber","","Số điện thoại phải từ 9 đến 11");
         }
     }
 }
