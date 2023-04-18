@@ -1,4 +1,4 @@
-package com.techstore.controller;
+package com.techstore.controller.employee;
 
 import com.techstore.dto.EmployeeDTO;
 import com.techstore.model.employee.Employee;
