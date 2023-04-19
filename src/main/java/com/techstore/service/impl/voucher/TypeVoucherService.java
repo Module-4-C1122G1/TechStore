@@ -1,8 +1,8 @@
-package com.techstore.service.impl;
+package com.techstore.service.impl.voucher;
 
 import com.techstore.model.voucher.TypeVoucher;
-import com.techstore.repository.ITypeVoucherRepository;
-import com.techstore.service.ITypeVoucherService;
+import com.techstore.repository.voucherRepository.ITypeVoucherRepository;
+import com.techstore.service.IVoucherService.ITypeVoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

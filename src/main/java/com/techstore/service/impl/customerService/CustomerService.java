@@ -5,6 +5,8 @@ import com.techstore.model.customer.Customer;
 import com.techstore.repository.customerRepository.ICustomerRepository;
 import com.techstore.service.ICustomerService.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +15,10 @@ import java.util.List;
 public class CustomerService implements ICustomerService {
     @Autowired
     private ICustomerRepository customerRepository;
+
     @Override
-    public List<Customer> findAll() {
-        return (List<Customer>) customerRepository.findAll();
+    public Page<Customer> list(Pageable pageable, String search) {
+        return customerRepository.findCustomerByNameCustomerContaining(pageable, search);
     }
 
     @Override

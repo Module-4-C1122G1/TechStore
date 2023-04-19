@@ -1,8 +1,8 @@
-package com.techstore.service.impl.employee;
+package com.techstore.service.impl.employeeService;
 
 import com.techstore.model.employee.Position;
 import com.techstore.repository.employee.IPositionRepository;
-import com.techstore.service.employee.IPositionService;
+import com.techstore.service.IEmployeeService.IPositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

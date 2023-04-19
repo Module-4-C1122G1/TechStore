@@ -1,16 +1,18 @@
 package com.techstore.dto;
 
 import com.techstore.model.voucher.TypeVoucher;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-public class VoucherDTO implements Validator {
+
+public class UpdateVoucherDTO implements Validator {
 
     private Integer id;
     @NotBlank(message = "Tên không được để trống!")
@@ -28,12 +30,12 @@ public class VoucherDTO implements Validator {
     private Double isExpired;
     private TypeVoucher typeVoucher;
 
-    public VoucherDTO() {
+    public UpdateVoucherDTO() {
     }
 
-    public VoucherDTO(Integer id, String nameVoucher,
-                      String expiredDate, Double amountVoucher, Double percentDiscount, Double isExpired,
-                      TypeVoucher typeVoucher) {
+    public UpdateVoucherDTO(Integer id, String nameVoucher, String expiredDate,
+                            Double amountVoucher, Double percentDiscount, Double isExpired,
+                            TypeVoucher typeVoucher) {
         this.id = id;
         this.nameVoucher = nameVoucher;
         this.expiredDate = expiredDate;
@@ -106,12 +108,12 @@ public class VoucherDTO implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        VoucherDTO voucherDTO = (VoucherDTO) target;
-        if (!voucherDTO.nameVoucher.matches("^(([a-zA-Z\\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸ.,ẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\\s\\'ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉị.,ọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉ.,ịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]))*$")) {
-            errors.rejectValue("nameVoucher", "", "Tên không được chứa kí tự số hoặc kí tự đặc biệt @;,.=+");
+        UpdateVoucherDTO updateVoucherDTO = (UpdateVoucherDTO) target;
+        if (!updateVoucherDTO.nameVoucher.matches("^(([a-zA-Z\\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸ.,ẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\\s\\'ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉị.,ọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉ.,ịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]))*$")) {
+            errors.rejectValue("nameVoucher", "", "Tên không được chứa kí tự đặc biệt @;,.=+");
         }
-        if (!voucherDTO.expiredDate.matches("^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$\n")) {
-            int total = Period.between(LocalDate.parse(voucherDTO.getExpiredDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalDate.now()).getDays();
+        if (!updateVoucherDTO.expiredDate.matches("^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$\n")) {
+            int total = Period.between(LocalDate.parse(updateVoucherDTO.getExpiredDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalDate.now()).getDays();
             if (total > 0) {
                 errors.rejectValue("expiredDate", "", "ngày hết hạn phải lớn hơn ngày hiện tại!!!!!!!");
             }

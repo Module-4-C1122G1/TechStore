@@ -1,8 +1,9 @@
-package com.techstore.service.impl;
+package com.techstore.service.impl.voucher;
+import com.techstore.dto.UpdateVoucherDTO;
 import com.techstore.dto.VoucherDTO;
 import com.techstore.model.voucher.Voucher;
-import com.techstore.repository.IVoucherRepository;
-import com.techstore.service.IVoucherService;
+import com.techstore.repository.voucherRepository.IVoucherRepository;
+import com.techstore.service.IVoucherService.IVoucherService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,9 +40,9 @@ public class VoucherService implements IVoucherService {
     }
 
     @Override
-    public void update(VoucherDTO voucherDTO, int id) {
+    public void update(UpdateVoucherDTO updateVoucherDTO, int id) {
         Voucher voucher = voucherRepository.findById(id).get();
-        BeanUtils.copyProperties(voucherDTO, voucher);
+        BeanUtils.copyProperties(updateVoucherDTO, voucher);
         voucherRepository.save(voucher);
     }
 }

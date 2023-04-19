@@ -1,4 +1,4 @@
-package com.techstore.service.employee;
+package com.techstore.service.IEmployeeService;
 
 import com.techstore.model.employee.Department;
 

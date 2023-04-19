@@ -1,4 +1,4 @@
-package com.techstore.repository;
+package com.techstore.repository.voucherRepository;
 
 import com.techstore.model.voucher.TypeVoucher;
 import org.springframework.data.repository.PagingAndSortingRepository;
