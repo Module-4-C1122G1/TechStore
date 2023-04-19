@@ -75,13 +75,13 @@ public class Cart {
     public Integer countTotalPayment() {
         Integer payment = 0;
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            payment += Integer.parseInt(entry.getKey().getPrice()) * entry.getValue();
+            payment += Integer.parseInt(entry.getKey().getPrice2()) * entry.getValue();
         }
         return payment;
     }
 
     public Integer calculateTotalByProduct(Product product) {
-        Integer temp = products.get(product) * Integer.parseInt(product.getPrice());
+        Integer temp = products.get(product) * Integer.parseInt(product.getPrice2());
         return temp;
     }
     public void deleteProduct(Product product) {

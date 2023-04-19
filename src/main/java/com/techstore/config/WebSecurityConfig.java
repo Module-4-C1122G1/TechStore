@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Các trang không yêu cầu login
         http.authorizeRequests().antMatchers("/", "/product", "/shopping-cart", "/login", "/logout").permitAll();
         http.authorizeRequests()
-                .antMatchers("/admin")
+                .antMatchers("/admin/**")
                 .access("hasRole('ROLE_ADMIN')");
         http.authorizeRequests().and().formLogin()//
                 .loginProcessingUrl("/check-account") // Submit URL
@@ -46,7 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logout-successful");
     }
-
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(accountService).passwordEncoder(passwordEncoder());
