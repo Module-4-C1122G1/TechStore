@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/home :: head">
+</head>
+<body>
+<div th:replace="~{home/home::header}"></div>
+<div class="main">
+    <h2 style="text-align: center;color: #212529;font-size: 40px;font-weight: 500;
+padding: 10px 24px">Danh sách tài khoản</h2>
+    <h3 style="text-align: center;color: red" th:text="${msg}"></h3>
+    <div class="container">
+        <table class="table">
+            <thead class="table-dark">
+            <tr>
+                <th>STT</th>
+                <th>Tài Khoản</th>
+                <th>Phân loại</th>
+            </tr>
+            </thead>
+            <tbody th:each="accountRole,loop :${listAccountRole}">
+            <tr>
+                <td th:text="${loop.count}"></td>
+                <td th:text="${accountRole.getAccount().getUserName()}"></td>
+                <td th:text="${accountRole.getRole().getRoleName()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="footer" th:replace="/home/home :: footer"></div>
+</body>
+</html>

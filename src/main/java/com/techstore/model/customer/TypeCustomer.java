@@ -6,24 +6,24 @@ import javax.persistence.*;
 public class TypeCustomer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int typeID;
     @Column(columnDefinition = "varchar(255)")
     private String nameTypeCustomer;
 
     public TypeCustomer() {
     }
 
-    public TypeCustomer(int id, String nameTypeCustomer) {
-        this.id = id;
+    public TypeCustomer(int typeID, String nameTypeCustomer) {
+        this.typeID = typeID;
         this.nameTypeCustomer = nameTypeCustomer;
     }
 
-    public int getId() {
-        return id;
+    public int getTypeID() {
+        return typeID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTypeID(int typeID) {
+        this.typeID = typeID;
     }
 
     public String getNameTypeCustomer() {
