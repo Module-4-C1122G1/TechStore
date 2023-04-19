@@ -7,12 +7,19 @@ import com.techstore.service.IAccountService.IAccountService;
 import com.techstore.service.impl.accountRoleService.AccountRoleService;
 import com.techstore.service.impl.roleService.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -28,12 +35,17 @@ public class AccountController {
     private AccountRoleService accountRoleService;
 
     @GetMapping("")
-    public String showList(Model model) {
-        Map<Account, Role> listAccount = new HashMap<>();
-        for (Account account : accountService.findAll()) {
-            listAccount.put(account, accountRoleService.getByAccount(account).getRole());
-        }
+    public String showListAccount(Model model, @RequestParam(defaultValue = "0") int page) {
+        Page<Account> listAccount = accountService.getAll(PageRequest.of(page, 4));
+        model.addAttribute("page", page);
         model.addAttribute("listAccount", listAccount);
+        model.addAttribute("listRole", roleService.getAll());
+        model.addAttribute("listAccountRole", accountRoleService.getAll());
+        List<Integer> pageNumberList = new ArrayList<>();
+        for (int i = 1; i <= listAccount.getTotalPages(); i++) {
+            pageNumberList.add(i);
+        }
+        model.addAttribute("pageNumberList", pageNumberList);
         return "admin/account/list";
     }
 
@@ -54,7 +66,7 @@ public class AccountController {
     public String showEdit(@PathVariable int id, Model model) {
         model.addAttribute("account", accountService.findById(id));
         model.addAttribute("listRole", roleService.getAll());
-        return "admin/account/update";
+        return "/admin/account/update";
     }
 
     @PostMapping("/update")
@@ -62,6 +74,26 @@ public class AccountController {
         accountService.saveAccount(account);
         model.addAttribute("account", account);
         model.addAttribute("msg", "Sửa thành công");
-        return "admin/account/update";
+        return "redirect:/admin/account/update";
+    }
+
+    @GetMapping("/search")
+    public String seachByName(@RequestParam(defaultValue = "0") int page, String name, Model model) {
+        Page<Account> listAccount = accountService.findByUserNameContaining(name, PageRequest.of(page, 4));
+        if (listAccount.getContent().isEmpty()) {
+            model.addAttribute("msg", "Không tìm thấy");
+        }
+            model.addAttribute("page", page);
+            model.addAttribute("name", name);
+            model.addAttribute("listAccount", listAccount);
+            model.addAttribute("listRole", roleService.getAll());
+            model.addAttribute("listAccountRole", accountRoleService.getAll());
+
+        List<Integer> pageNumberList = new ArrayList<>();
+        for (int i = 1; i <= listAccount.getTotalPages(); i++) {
+            pageNumberList.add(i);
+        }
+        model.addAttribute("pageNumberList", pageNumberList);
+        return "admin/account/list";
     }
 }

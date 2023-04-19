@@ -2,10 +2,13 @@ package com.techstore.service.impl.accountService;
 
 import com.techstore.model.account.Account;
 import com.techstore.model.account.AccountRole;
-import com.techstore.repository.accountRoleRepository.IAccountRoleRepository;
 import com.techstore.repository.accountRepository.IAccountRepository;
+import com.techstore.repository.accountRoleRepository.IAccountRoleRepository;
 import com.techstore.service.IAccountService.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -25,9 +28,10 @@ public class AccountService implements IAccountService, UserDetailsService {
     @Autowired
     private IAccountRoleRepository accountRoleRepository;
 
+
     @Override
-    public List<Account> findAll() {
-        return (List<Account>) accountRepository.findAll();
+    public Page<Account> getAll(PageRequest pageRequest) {
+        return accountRepository.findAll(pageRequest);
     }
 
     @Override
@@ -44,6 +48,7 @@ public class AccountService implements IAccountService, UserDetailsService {
     public void deleteAccountById(int id) {
         accountRepository.deleteById(id);
     }
+
 
     @Override
     public Account findAccountByName(String useName) {
@@ -75,5 +80,10 @@ public class AccountService implements IAccountService, UserDetailsService {
                 account.getPassword(), grantList);
 
         return new User(userDetails.getUsername(), new BCryptPasswordEncoder().encode(userDetails.getPassword()), grantList);
+    }
+
+    @Override
+    public Page<Account> findByUserNameContaining(String name, PageRequest pageRequest) {
+        return accountRepository.findByUserNameContaining(name, pageRequest);
     }
 }

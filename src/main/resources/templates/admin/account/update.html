@@ -2,67 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/home/home :: head">
 </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
 <body>
 <div class="header" th:replace="/home/home :: header"></div>
 <div class="main col-12">
-    <h2 style="text-align: center;color: #212529;font-size: 40px;font-weight: 500;
-padding: 10px 24px">Chỉnh sửa tài khoản</h2>
-    <h3 style="text-align: center;color: red" th:text="${msg}"></h3>
-    <div class="container ">
-        <form th:action="@{/admin/account/update}" method="post" th:object="${account}">
-            <div class="container">
-                <div class="row ">
-                    <div class="col-lg-7 mx-auto">
-                        <div class="card mt-2 mx-auto p-4 bg-light">
-                            <div class="card-body bg-light">
-                                <div class="container">
-                                    <form id="contact-form" role="form">
-                                        <div class="controls">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <input id="form_name" type="hidden" name="name" th:field="*{id}"
-                                                               class="form-control"
-                                                               placeholder="Please enter your id *" required="required"
-                                                               data-error="Firstname is required.">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="form_lastname">Tên</label>
-                                                        <input id="form_lastname" type="text" name="username"
-                                                               th:field="*{userName}"
-                                                               class="form-control"
-                                                               readonly
-                                                               required="required" data-error="Lastname is required.">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="form_email">Mật khẩu cũ *</label>
-                                                        <input id="form_email" type="text" name="password"
-                                                               class="form-control" th:field="*{password}"
-                                                               placeholder="Vui lòng nhập mật khẩu cũ *"
-                                                               required="required"
-                                                               data-error="Valid password is required.">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <input type="submit"
-                                                           class="btn btn-success btn-send  pt-2 btn-block" value="OK">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="main d-flex justify-content-center align-items-center mt-5">
+        <form class="d-flex flex-column" id="form-login" method="post" th:action="@{/admin/account/update}">
+            <h2 class="text-center title">Điều chỉnh</h2>
+            <h3 style="text-align: center;color: red" th:text="${msg}"></h3>
+            <input class="mb-3 username" name="username" th:field="*{account.userName}"
+                   th:placeholder="${'Tên đăng nhập'}" type="text" readonly>
+            <input class="mb-3 password" name="password" th:value="${account.password}" th:placeholder="${'Mật khẩu'}"
+                   type="text">
+            <input class="btn login-submit-btn" type="submit" value="Đồng ý">
+            <div class="modifier d-flex justify-content-between align-items-center mt-3">
             </div>
         </form>
     </div>
