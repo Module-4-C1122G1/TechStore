@@ -91,7 +91,7 @@ public class HomeController {
 
 //        Khi mới restart chương trình
         if (((accountCurrent == null && principal != null)
-                || (accountCurrent != null && principal!= null && !principal.getName().equals(accountCurrent))) && cart.countTotalProductQuantity() > 0) {
+                || (accountCurrent != null && principal != null && !principal.getName().equals(accountCurrent))) && cart.countTotalProductQuantity() > 0) {
             accountCurrent = principal.getName();
             order = new Order();
             Customer customer = customerService.findByAccount(accountService.findAccountByName(principal.getName()));
@@ -121,7 +121,7 @@ public class HomeController {
         }
 
 //        Lấy cart của tài khoản hiện tại dưới database
-        if (principal != null) {
+        if (principal != null && order != null) {
             List<OrderProduct> orderProducts = orderProductService.findListById(order.getId());
             Map<Product, Integer> products = new HashMap<>();
             for (OrderProduct orderProduct : orderProducts) {

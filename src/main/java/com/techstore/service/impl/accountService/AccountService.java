@@ -51,6 +51,11 @@ public class AccountService implements IAccountService, UserDetailsService {
     }
 
     @Override
+    public AccountRole findAccountRoleByAccount(Account account) {
+        return accountRoleRepository.findAccountRoleByAccount(account);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         //Tìm đối tượng đang đăng nhập trong DB
         Account account = accountRepository.findByUserName(userName);

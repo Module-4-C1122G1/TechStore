@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface IAccountRoleRepository extends JpaRepository<AccountRole, Integer> {
     List<AccountRole> findByAccount(Account account);
+    AccountRole findAccountRoleByAccount(Account account);
+
 }

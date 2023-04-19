@@ -236,7 +236,11 @@ public class Product {
         this.image = image;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
+        return price;
+    }
+
+    public String getPrice2() {
         return new DecimalFormat("#").format(price);
     }
 

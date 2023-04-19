@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/home :: head"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/createProduct.css}">
+</head>
+<body>
+<div class="header" th:replace="/home/home :: header"></div>
+<div class="main d-flex justify-content-center align-items-center flex-column mt-5">
+    <form class="d-flex flex-column" id="form-login" method="post" th:action="@{/register/save}">
+        <h1 class="mt-3 text-center" id="create-product-title">Thêm mới sản phẩm</h1>
+        <tr>
+            <td>Tên sản phẩm</td>
+            <td><input class="mb-3 username" th:field="*{product.nameProduct}"
+                       th:placeholder="${'Tên sản phẩm'}"
+                       type="text"></td>
+        </tr>
+        <tr>
+            <td>Giá sản phẩm (vnd)</td>
+            <td><input class="mb-3 username" th:field="*{product.price}"
+                       th:placeholder="${'Tên sản phẩm'}"
+                       type="text"></td>
+        </tr>
+        <tr>
+            <td>Công nghệ màn hình</td>
+            <td><input class="mb-3 username" th:field="*{product.screenTechnology}"
+                       th:placeholder="${'Công nghệ màn hình'}"
+                       type="text"></td>
+        </tr>
+        <tr>
+            <td>Chip</td>
+            <td><input class="mb-3 username" th:field="*{product.chip}"
+                       th:placeholder="${'Chip'}"
+                       type="text"></td>
+        </tr>
+        <tr>
+            <td>Tốc độ CPU</td>
+            <td><input class="mb-3 username" th:field="*{product.cpu_speed}"
+                       th:placeholder="${'Tốc độ CPU'}"
+                       type="text"></td>
+        </tr>
+        <tr>
+            <td>Chất liệu</td>
+            <td><input class="mb-3 username" th:field="*{product.material}"
+                       th:placeholder="${'Chất liệu sản phẩm'}"
+                       type="text"></td>
+        </tr>
+        <tr>
+            <td>Hệ điều hành</td>
+            <td><input class="mb-3 username" th:field="*{product.operatingSystem}"
+                       th:placeholder="${'Hệ điều hành'}"
+                       type="text"></td>
+        </tr>
+        <tr>
+            <td>Pin (maH)</td>
+            <td><input class="mb-3 username" th:field="*{product.pin}"
+                       th:placeholder="${'Dung lượng pin'}"
+                       type="text"></td>
+        </tr>
+        <tr>
+            <td>Ram (GB)</td>
+            <td><input class="mb-3 username" th:field="*{product.ram}"
+                       th:placeholder="${'Dung lượng ram'}"
+                       type="text"></td>
+        </tr>
+        <tr>
+            <td>Dung lượng (GB)</td>
+            <td><input class="mb-3 username" th:field="*{product.capacity}"
+                       th:placeholder="${'Dung lượng lưu trữ'}"
+                       type="text"></td>
+        </tr>
+        <tr>
+            <td>
+            <td>Kích thước (inch)</td>
+            <td><input class="mb-3 username" th:field="*{product.size}"
+                       th:placeholder="${'Kích thước màn hình'}"
+                       type="text"></td>
+            </td>
+            </td>
+            <td>
+            <td>Khối lượng (g)</td>
+            <td><input class="mb-3 username" th:field="*{product.weight}"
+                       th:placeholder="${'Khối lượng sản phẩm'}"
+                       type="text"></td>
+            </td>
+        </tr>
+        <tr>
+            <td>Thời gian ra mắt</td>
+            <td><input class="mb-3 username" th:field="*{product.timePublic}"
+                       th:placeholder="${'Ngày ra mắt'}"
+                       type="date"></td>
+        </tr>
+        <tr>
+            <td>Danh mục</td>
+            <td><select class="username" th:field="*{product.categories}">
+                <option th:each="category : ${categories}" th:text="${category.getNameCategories()}"
+                        th:value="${category.getId()}"></option>
+            </select>
+        </tr>
+        <tr>
+            <td>Nhà sản xuất</td>
+            <td><select class="username" th:field="*{product.manufacturer}">
+                <option th:each="manufacturer : ${manufacturers}" th:text="${manufacturer.getNameManufacturer()}"
+                        th:value="${manufacturer.getId()}"></option>
+            </select>
+        </tr>
+        <tr>
+            <td>Ảnh đại diện</td>
+            <td>
+                <input th:field="*{product.image}" type="file">
+        </tr>
+        <tr>
+            <td>Mô tả sản phẩm</td>
+            <td>
+                <textarea cols="30" rows="10" th:field="*{product.description}"></textarea>
+        </tr>
+        <input class="btn login-submit-btn" type="submit" value="Thêm mới">
+    </form>
+</div>
+<div class="footer" th:replace="/home/home :: footer"></div>
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</html>

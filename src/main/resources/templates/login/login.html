@@ -10,7 +10,9 @@
 <div class="header" th:replace="/home/home :: header"></div>
 <div class="main d-flex justify-content-center align-items-center mt-5">
     <form class="d-flex flex-column" id="form-login" method="post" th:action="@{/check-account}">
-        <h2 class="text-center title">Login</h2>
+        <h2 class="text-center title">
+            Đăng nhập
+        </h2>
         <input class="mb-3 username" name="username" th:placeholder="${'Tên đăng nhập'}" type="text">
         <input class="mb-3 password" name="password" th:placeholder="${'Mật khẩu'}" type="password">
         <input class="btn login-submit-btn" type="submit" value="ĐĂNG NHẬP">
