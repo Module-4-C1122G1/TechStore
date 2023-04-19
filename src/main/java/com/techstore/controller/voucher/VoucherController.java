@@ -38,6 +38,7 @@ public class VoucherController {
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
         Page<Voucher> voucherPage = voucherService.findAll(search, sortedPageable);
         model.addAttribute("voucherList", voucherPage);
+        model.addAttribute("search", search);
         List<Integer> pageNumberList = new ArrayList<>();
         for (int i = 1; i <= voucherPage.getTotalPages(); i++) {
             pageNumberList.add(i);
@@ -62,13 +63,7 @@ public class VoucherController {
     @PostMapping("/create")
     public String createVoucher(@Valid @ModelAttribute("voucher") VoucherDTO voucherDTO,
                                 BindingResult bindingResult, Model model) {
-
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("typeVoucher", typeVoucherRepository.findAll());
-            return "voucher/create";
-        }
         new VoucherDTO().validate(voucherDTO, bindingResult);
-
         if (bindingResult.hasErrors()) {
             model.addAttribute("typeVoucher", typeVoucherRepository.findAll());
             return "voucher/create";
@@ -83,14 +78,33 @@ public class VoucherController {
         model.addAttribute("updateVoucherDTO", voucherService.findById(id));
         model.addAttribute("typeVoucher", typeVoucherRepository.findAll());
         return "/voucher/update";
+
     }
 
     @PostMapping("/update")
-    public String updateVoucher(@Valid @ModelAttribute UpdateVoucherDTO updateVoucherDTO, BindingResult bindingResult) {
+    public String updateVoucher(@Valid @ModelAttribute UpdateVoucherDTO updateVoucherDTO, BindingResult
+            bindingResult) {
         if (bindingResult.hasErrors()) {
             return "voucher/update";
         }
-        voucherService.update(updateVoucherDTO, updateVoucherDTO.getId());
-        return "redirect:/admin/voucher";
+        new UpdateVoucherDTO().validate(updateVoucherDTO, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "voucher/update";
+        } else {
+            voucherService.update(updateVoucherDTO, updateVoucherDTO.getId());
+            return "redirect:/admin/voucher";
+        }
+    }
+
+    @GetMapping("/detail/{id}")
+    public String detailVoucher(@PathVariable("id") int id, Model model){
+        Voucher voucher = voucherService.findById(id);
+        model.addAttribute("voucher", voucher);
+        return "voucher/detail";
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handel(){
+        return "voucher/error";
     }
 }
