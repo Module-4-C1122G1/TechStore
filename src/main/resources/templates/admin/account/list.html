@@ -4,19 +4,21 @@
 </head>
 <body>
 <div th:replace="~{home/home::header}"></div>
-<div class="main col-12">
-    <h2 style="text-align: center;color: #212529;font-size: 40px;font-weight: 500;padding: 10px 24px">Danh sách tài khoản</h2>
+<div class="main">
+    <h2 style="text-align: center;color: #212529;font-size: 40px;font-weight: 500;padding: 10px 24px">Danh sách tài
+        khoản</h2>
     <h3 style="text-align: center;color: red" th:text="${msg}"></h3>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form th:action="@{/admin/account/search}" style="width: 400px">
-                <div class="d-flex">
-                    <input class="form-control me-2" type="search" id="name" name="name" placeholder="Tìm kiếm theo tên...."
-                           th:value="${name}">
-                    <input type="submit" class="btn btn-outline-warning"
-                           style="width: 100px" value="Tìm kiếm">
-                </div>
+                <form th:action="@{/admin/account}" style="width: 400px">
+                    <div class="d-flex">
+                        <input class="form-control me-2" type="search" id="name" name="name"
+                               placeholder="Tìm kiếm theo tên...."
+                               th:value="${name}">
+                        <input type="submit" class="btn btn-outline-warning"
+                               style="width: 100px" value="Tìm kiếm">
+                    </div>
                 </form>
             </div>
         </div>
@@ -40,10 +42,14 @@
                 <td th:text="${accountRole.role?.roleName}"></td>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-warning" th:onclick="|window.location.href = '@{/admin/account/update/{id}(id=${accountRole.account?.id})}'|">Chỉnh sửa</button>
+                    <button type="button" class="btn btn-warning"
+                            th:onclick="|window.location.href = '@{/admin/account/update/{id}(id=${accountRole.account?.id})}'|">
+                        Chỉnh sửa
+                    </button>
                 </td>
                 <td>
-                    <button type="button" th:attr="onclick=|info('${accountRole.account?.id}','${accountRole.account?.userName}')|"
+                    <button type="button"
+                            th:attr="onclick=|info('${accountRole.account?.id}','${accountRole.account?.userName}')|"
                             class="btn btn-danger btn-sm"
                             data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Xóa

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface IAccountRepository extends PagingAndSortingRepository<Account, Integer> {
-    Page<Account> findByUserNameContaining(String name, PageRequest pageRequest);
+    Page<Account> findAllByUserNameContaining(String name, PageRequest pageRequest);
 
     Account findByUserName(String userName);
 }

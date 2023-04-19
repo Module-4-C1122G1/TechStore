@@ -35,12 +35,17 @@ public class AccountController {
     private AccountRoleService accountRoleService;
 
     @GetMapping("")
-    public String showListAccount(Model model, @RequestParam(defaultValue = "0") int page) {
-        Page<Account> listAccount = accountService.getAll(PageRequest.of(page, 4));
-        model.addAttribute("page", page);
+    public String showListAccount(Model model, @RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "") String name) {
+        Page<Account> listAccount = accountService.getAll(name,PageRequest.of(page, 4));
+        if (listAccount.getContent().isEmpty()){
+            model.addAttribute("msg","Không tìm thấy");
+        }else {
+            model.addAttribute("listRole", roleService.getAll());
+            model.addAttribute("listAccountRole", accountRoleService.getAll());
+        }
         model.addAttribute("listAccount", listAccount);
-        model.addAttribute("listRole", roleService.getAll());
-        model.addAttribute("listAccountRole", accountRoleService.getAll());
+        model.addAttribute("name",name);
+        model.addAttribute("page", page);
         List<Integer> pageNumberList = new ArrayList<>();
         for (int i = 1; i <= listAccount.getTotalPages(); i++) {
             pageNumberList.add(i);
@@ -75,25 +80,5 @@ public class AccountController {
         model.addAttribute("account", account);
         model.addAttribute("msg", "Sửa thành công");
         return "redirect:/admin/account/update";
-    }
-
-    @GetMapping("/search")
-    public String seachByName(@RequestParam(defaultValue = "0") int page, String name, Model model) {
-        Page<Account> listAccount = accountService.findByUserNameContaining(name, PageRequest.of(page, 4));
-        if (listAccount.getContent().isEmpty()) {
-            model.addAttribute("msg", "Không tìm thấy");
-        }
-            model.addAttribute("page", page);
-            model.addAttribute("name", name);
-            model.addAttribute("listAccount", listAccount);
-            model.addAttribute("listRole", roleService.getAll());
-            model.addAttribute("listAccountRole", accountRoleService.getAll());
-
-        List<Integer> pageNumberList = new ArrayList<>();
-        for (int i = 1; i <= listAccount.getTotalPages(); i++) {
-            pageNumberList.add(i);
-        }
-        model.addAttribute("pageNumberList", pageNumberList);
-        return "admin/account/list";
     }
 }

@@ -9,12 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.List;
 
 public interface IAccountService {
-    Page<Account> getAll(PageRequest pageRequest);
+    Page<Account> getAll(String name,PageRequest pageRequest);
     Account findById(int id);
     void saveAccount(Account account);
     void deleteAccountById(int id);
     Account findAccountByName(String name);
     UserDetails loadUserByUsername(String userName);
 
-    Page<Account> findByUserNameContaining(String name, PageRequest pageRequest);
 }

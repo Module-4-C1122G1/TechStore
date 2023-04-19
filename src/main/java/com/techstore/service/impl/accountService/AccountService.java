@@ -30,8 +30,8 @@ public class AccountService implements IAccountService, UserDetailsService {
 
 
     @Override
-    public Page<Account> getAll(PageRequest pageRequest) {
-        return accountRepository.findAll(pageRequest);
+    public Page<Account> getAll(String name,PageRequest pageRequest) {
+        return accountRepository.findAllByUserNameContaining(name, pageRequest);
     }
 
     @Override
@@ -80,10 +80,5 @@ public class AccountService implements IAccountService, UserDetailsService {
                 account.getPassword(), grantList);
 
         return new User(userDetails.getUsername(), new BCryptPasswordEncoder().encode(userDetails.getPassword()), grantList);
-    }
-
-    @Override
-    public Page<Account> findByUserNameContaining(String name, PageRequest pageRequest) {
-        return accountRepository.findByUserNameContaining(name, pageRequest);
     }
 }
