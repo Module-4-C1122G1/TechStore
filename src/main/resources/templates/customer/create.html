@@ -20,7 +20,7 @@
                 <tr style="height: 50px;">
                     <th>Tên khách hàng</th>
                     <td><input type="text" class="form-control" th:field="${customer.nameCustomer}"
-                               >
+                    >
                         <p class="btn btn-danger" th:if="${#fields.hasErrors()}"
                            th:errors="${customer.nameCustomer}"></p>
                     </td>
@@ -43,7 +43,7 @@
                 <tr style="height: 50px;">
                     <th>Ngày sinh</th>
                     <td><input type="date" class="form-control" th:field="${customer.dateOfBirth}"
-                               >
+                    >
                         <p class="btn btn-danger" th:if="${#fields.hasErrors()}"
                            th:errors="${customer.dateOfBirth}"></p>
                     </td>
@@ -51,28 +51,28 @@
                 <tr style="height: 50px;">
                     <th>Số điện thoại</th>
                     <td><input type="text" class="form-control" th:field="${customer.phoneNumber}"
-                              >
+                    >
                         <p class="btn btn-danger" th:if="${#fields.hasErrors()}"
                            th:errors="${customer.phoneNumber}"></p>
                     </td>
                 </tr>
-<!--                <tr style="height: 50px;">-->
-<!--                    <th>Tên tài khoản</th>-->
-<!--                    <td><input type="text" class="form-control" th:field="${customer.account.userName}"-->
-<!--                               ></td>-->
-<!--                </tr>-->
+                <!--                <tr style="height: 50px;">-->
+                <!--                    <th>Tên tài khoản</th>-->
+                <!--                    <td><input type="text" class="form-control" th:field="${customer.account.userName}"-->
+                <!--                               ></td>-->
+                <!--                </tr>-->
                 <tr style="height: 50px;">
                     <th>Giới tính</th>
                     <td><select th:field="${customer.gender}" style="border-radius: 5px">
                         <option class="form-control"th:each="gender: ${genderList}" th:text="${gender.nameGender}" th:value="${gender.id}"
-                                ></option>
+                        ></option>
                     </select></td>
                 </tr>
                 <tr style="height: 50px;">
                     <th>Loại khách hàng</th>
                     <td><select th:field="${customer.typeCustomer}" style="border-radius: 5px">
                         <option class="form-control" th:each="type: ${typeList}" th:text="${type.nameTypeCustomer}" th:value="${type.typeID}"
-                                ></option>
+                        ></option>
                     </select></td>
                 </tr>
                 <tr style="height: 50px;">
@@ -82,7 +82,7 @@
                 </tr>
 
                 <div class="d-none" id="ok" th:text="${#dates.format(customer.dateOfBirth, 'yyyy-MM-dd')}"></div>
-<!--                <input type="hidden" th:field="${customer.account.id}" th:value="${customer.account.id}">-->
+                <!--                <input type="hidden" th:field="${customer.account.id}" th:value="${customer.account.id}">-->
                 <!--    <input type="hidden" th:field="${customer.account.password}" th:value="${customer.account.password}">-->
             </form>
         </table>

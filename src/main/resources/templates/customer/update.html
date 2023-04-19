@@ -30,13 +30,13 @@
                     <!--                <td><input type="text" th:field="${customer.address}" th:value="${customer.address}">-->
 
                     <td><label th:text="${'Thành phố : '}"></label><select style="border-radius: 5px" class="username" id="city" name="city"
-                                                                         th:onclick="selectDistrict()"></select>
+                                                                           th:onclick="selectDistrict()"></select>
                         <label th:text="${'Quận huyện : '}"></label><select style="border-radius: 5px" class="username" id="district" name="district"
-                                                                          th:onclick="selectTown()"
-                                                                          th:text="${'--Quận huyện--'}">--Quận
+                                                                            th:onclick="selectTown()"
+                                                                            th:text="${'--Quận huyện--'}">--Quận
                             huyện--</select>
                         <label th:text="${'Xã, phường : '}"></label><select style="border-radius: 5px" class="username mb-3" id="town" name="town"
-                                                                          th:text="${'--Xã phường--'}"></select>
+                                                                            th:text="${'--Xã phường--'}"></select>
                         <input id="address" name="address" type="hidden" th:field="${customer.address}"
                                th:value="${customer.address}">
                     </td>
@@ -88,10 +88,10 @@
                 <!--    <input type="hidden" th:field="${customer.account.password}" th:value="${customer.account.password}">-->
             </form>
         </table>
-<!--        <form action="/admin/customer/reset" method="post">-->
-<!--            <input type="hidden" name="id" th:value="${customer.id}">-->
-<!--            <button type="submit"> Reset mật khẩu về 123456</button>-->
-<!--        </form>-->
+        <!--        <form action="/admin/customer/reset" method="post">-->
+        <!--            <input type="hidden" name="id" th:value="${customer.id}">-->
+        <!--            <button type="submit"> Reset mật khẩu về 123456</button>-->
+        <!--        </form>-->
     </div>
 
     <!-- Optional JavaScript -->
