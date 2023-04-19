@@ -20,4 +20,9 @@ public class ManufacturerService implements IManufacturerService {
     public Manufacturer findById(int id) {
         return manufacturerRepository.findById(id).get();
     }
+
+    @Override
+    public Manufacturer findManufacturerById(int id) {
+        return manufacturerRepository.findManufacturerById(id);
+    }
 }

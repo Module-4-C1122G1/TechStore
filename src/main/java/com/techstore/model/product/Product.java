@@ -2,8 +2,12 @@ package com.techstore.model.product;
 
 import com.techstore.model.categories.Categories;
 import com.techstore.model.general.InitialDate;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Objects;
@@ -13,34 +17,50 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "Không được để trống trường này")
     @Column(columnDefinition = "varchar(255)")
     private String nameProduct;
     @Column(columnDefinition = "text")
     private String image;
+    @NotNull(message = "Không được để trống trường ngày")
+    @Min(value = 1000, message = "Bắt buộc lớn hơn 1000 (vnd)")
     @Column(columnDefinition = "double")
     private Double price;
+    @NotBlank(message = "Không được để trống trường ngày")
     @Column(columnDefinition = "varchar(255)")
     private String screenTechnology;
+    @NotBlank(message = "Không được để trống trường ngày")
     @Column(columnDefinition = "varchar(255)")
     private String operatingSystem;
+    @NotBlank(message = "Không được để trống trường ngày")
     @Column(columnDefinition = "varchar(255)")
     private String chip;
+
     @Column(columnDefinition = "double")
     private Double cpu_speed;
+    @Min(value = 2, message = "Ram phải lớn hơn hoặc bằng 2GB")
     @Column(columnDefinition = "int")
     private Integer ram;
+    @Min(value = 8, message = "Dung lượng phải lớn hơn hoặc bằng 8GB")
     @Column(columnDefinition = "int")
     private Integer capacity;
+    @Min(value = 1, message = "Dung lượng pin phải lớn hơn 0")
     @Column(columnDefinition = "int")
     private Integer pin;
+    @NotBlank(message = "Không được để trống trường này")
     @Column(columnDefinition = "varchar(255)")
     private String material;
+    @Min(value = 0, message = "Khối lượng phải lớn hơn 0")
+    @NotNull(message = "Không được để trống trường này")
     @Column(columnDefinition = "double")
     private Double weight;
+    @Min(value = 1, message = "Kích thước phải lớn hơn 1")
+    @NotNull(message = "Không được để trống trường này")
     @Column(columnDefinition = "double")
     private Double size;
     @Column(columnDefinition = "mediumtext")
     private String description;
+    @NotBlank(message = "Không thể để trống trường này")
     @Column(columnDefinition = "date")
     private String timePublic;
     @ManyToOne(targetEntity = Manufacturer.class)

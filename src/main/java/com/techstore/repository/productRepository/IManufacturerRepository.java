@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IManufacturerRepository extends JpaRepository<Manufacturer, Integer> {
+    Manufacturer findManufacturerById(int id);
 }

@@ -34,7 +34,7 @@ public class EmployeeController {
     private IPositionService iPositionService;
 
     @GetMapping("")
-    public String showListEmployee(Model model, @PageableDefault(size = 2) Pageable pageable, @RequestParam(defaultValue = "") String name) {
+    public String showListEmployee(Model model, @PageableDefault(size = 5) Pageable pageable, @RequestParam(defaultValue = "") String name) {
         Pageable sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
         Page<Employee> employeePage = iEmployeeService.findAll(name, (PageRequest) sortedPage);
         model.addAttribute("employeeList", employeePage);

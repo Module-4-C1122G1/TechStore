@@ -1,6 +1,17 @@
+.color-red {
+    color: red;
+    font-size: 14px;
+    font-weight: 500;
+}
 #create-product-title {
     font-size: 28px;
     font-weight: 700;
     padding: 10px 24px;
     color: #212529;
+}
+.error-msg {
+    margin-top: -12px;
+    font-size: 14px;
+    margin-bottom: 8px!important;
+    color: red;
 }

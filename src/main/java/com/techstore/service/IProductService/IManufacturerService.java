@@ -7,4 +7,5 @@ import java.util.List;
 public interface IManufacturerService {
     List<Manufacturer> findAll();
     Manufacturer findById(int id);
+    Manufacturer findManufacturerById(int id);
 }

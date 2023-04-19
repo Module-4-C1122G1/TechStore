@@ -14,6 +14,9 @@
             Đăng nhập
         </h2>
         <input class="mb-3 username" name="username" th:placeholder="${'Tên đăng nhập'}" type="text">
+        <p style="color: red; margin: -8px 0 8px!important;"
+           th:if="${#httpServletRequest.getParameter('error') != null}"
+           th:text="${'Tài khoản hoặc mật khẩu không đúng.'}"></p>
         <input class="mb-3 password" name="password" th:placeholder="${'Mật khẩu'}" type="password">
         <input class="btn login-submit-btn" type="submit" value="ĐĂNG NHẬP">
         <div class="modifier d-flex justify-content-between align-items-center mt-3">

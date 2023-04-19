@@ -20,4 +20,9 @@ public class categoriesService implements ICategoriesService {
     public Categories findById(int id) {
         return categoriesRepository.findById(id).get();
     }
+
+    @Override
+    public Categories findCategoriesById(int id) {
+        return categoriesRepository.findCategoriesById(id);
+    }
 }
