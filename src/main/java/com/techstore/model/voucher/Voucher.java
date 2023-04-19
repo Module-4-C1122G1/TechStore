@@ -1,13 +1,7 @@
 package com.techstore.model.voucher;
 
-
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
-
+import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -18,13 +12,14 @@ public class Voucher {
     @Column(columnDefinition = "varchar(255)")
     private String nameVoucher;
     @Column(columnDefinition = "date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date expiredDate;
     @Column(columnDefinition = "int")
     private Double amountVoucher;
 
     private Double percentDiscount;
     @Column(columnDefinition = "bit")
-    private boolean isExpired;
+    private boolean isExpired = true;
     @ManyToOne
     private TypeVoucher typeVoucher;
 
@@ -97,6 +92,5 @@ public class Voucher {
     public void setTypeVoucher(TypeVoucher typeVoucher) {
         this.typeVoucher = typeVoucher;
     }
-
 }
 
