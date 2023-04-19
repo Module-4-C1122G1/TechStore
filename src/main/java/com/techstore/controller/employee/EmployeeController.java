@@ -38,10 +38,12 @@ public class EmployeeController {
         Pageable sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
         Page<Employee> employeePage = iEmployeeService.findAll(name, (PageRequest) sortedPage);
         model.addAttribute("employeeList", employeePage);
+        model.addAttribute("name",name);
         List<Integer> pageNumberList = new ArrayList<>();
         for (int i = 1; i <= employeePage.getTotalPages(); i++) {
             pageNumberList.add(i);
         }
+        model.addAttribute("list",employeePage.getTotalElements());
         model.addAttribute("pageNumberList", pageNumberList);
         return "/employee/list_employee";
     }
