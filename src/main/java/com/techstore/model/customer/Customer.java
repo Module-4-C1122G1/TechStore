@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Entity
@@ -15,13 +16,18 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "Tên không được để trống")
     @Column(columnDefinition = "varchar(255)")
     private String nameCustomer;
+    @NotBlank(message = "Địa chỉ không được để trống")
     @Column(columnDefinition = "varchar(255)")
     private String address;
     @Column(columnDefinition = "varchar(100)")
+    @NotBlank(message = "Số điện thoại không được để trống")
+    @Pattern(regexp = "0[0-9]{8,10}",message = "Số điện thoại hợp lệ phải từ 9-11 số và có số 0 phía trước")
     private String phoneNumber;
     @Column(columnDefinition = "date")
+    @NotNull(message = "Ngày sinh không được để trống")
     @DateTimeFormat(fallbackPatterns = "yyyy-MM-dd")
     private Date dateOfBirth;
     @ManyToOne

@@ -18,7 +18,6 @@ public class UpdateVoucherDTO implements Validator {
     @NotBlank(message = "Tên không được để trống!")
     private String nameVoucher;
     @NotBlank(message = "ngày hết hạn không được bỏ trống!")
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String expiredDate;
     @NotNull(message = "Phải nhập số lượng")
     @Min(value = 0, message = "Số lượng phải lớn hơn 0")
@@ -27,14 +26,14 @@ public class UpdateVoucherDTO implements Validator {
     @Min(value = 0, message = "phần trăm giảm giá phải lớn hơn 0")
     @Max(value = 100, message = "phần trăm giảm giá phải nhỏ hơn 101")
     private Double percentDiscount;
-    private Double isExpired;
+    private Boolean isExpired;
     private TypeVoucher typeVoucher;
 
     public UpdateVoucherDTO() {
     }
 
     public UpdateVoucherDTO(Integer id, String nameVoucher, String expiredDate,
-                            Double amountVoucher, Double percentDiscount, Double isExpired,
+                            Double amountVoucher, Double percentDiscount, Boolean isExpired,
                             TypeVoucher typeVoucher) {
         this.id = id;
         this.nameVoucher = nameVoucher;
@@ -85,11 +84,11 @@ public class UpdateVoucherDTO implements Validator {
         this.percentDiscount = percentDiscount;
     }
 
-    public Double getIsExpired() {
+    public Boolean getIsExpired() {
         return isExpired;
     }
 
-    public void setIsExpired(Double isExpired) {
+    public void setIsExpired(Boolean isExpired) {
         this.isExpired = isExpired;
     }
 
