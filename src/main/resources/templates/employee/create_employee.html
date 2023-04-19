@@ -9,19 +9,21 @@
 <body>
 <div class="header" th:replace="/home/home :: header"></div>
 <div class="main d-flex justify-content-center align-items-center mt-5">
-    <p th:text="${msg}" style="color: #cd1818"></p>
     <form class="d-flex flex-column" id="form-login" th:action="@{/admin/employee/create}" method="post"
           th:object="${employeeDTO}">
         <h2 class="text-center title">Thêm Mới Nhân Viên</h2>
-        <label for="nameEmployee">Điền Tên Nhân Viên :</label>
+        <label for="nameEmployee">Điền Tên Nhân Viên : <span style="color: red">*</span></label>
         <input class="mb-3 username" type="text" th:field="*{nameEmployee}" name="nameEmployee" id="nameEmployee">
         <span style="color: red" th:if="${#fields.hasErrors('nameEmployee')}" th:errors="*{nameEmployee}"></span>
-        <label for="phoneNumber">Điền Số Điện Thoại :</label>
+
+        <label for="phoneNumber">Điền Số Điện Thoại : <span style="color: red">*</span></label>
         <input type="text" class="mb-3 username" th:field="*{phoneNumber}" name="phoneNumber" id="phoneNumber">
         <span style="color: red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
-        <label for="dateOfBirth">Điền Ngày Sinh :</label>
+
+        <label for="dateOfBirth">Điền Ngày Sinh : <span style="color: red">*</span></label>
         <input type="date" class="mb-3 username" th:field="*{dateOfBirth}" name="dateOfBirth" id="dateOfBirth">
-        <span style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+        <span style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"><span style="color: red">*</span></span>
+
         <label th:text="${'Thành phố:'}"></label><select class="username" id="city" name="city"
                                                          th:onclick="selectDistrict()"></select>
         <label th:text="${'Quận huyện:'}"></label><select class="username" id="district" name="district"
@@ -31,17 +33,17 @@
                                                           th:text="${'--Xã phường--'}"></select>
         <input id="address" name="address" type="hidden">
         <span style="color: red" th:if="${#fields.hasErrors('address')}" th:erorrs="*{address}"></span>
-        <label>Chức Vụ</label>
+        <label>Chức Vụ :</label>
         <select th:field="*{position}">
             <option th:each="position : ${positionList}" th:text="${position.namePosition}"
                     th:value="${position.id}"></option>
         </select>
-        <label>Phòng Ban</label>
+        <label>Phòng Ban :</label>
         <select th:field="*{department}">
             <option th:each="department : ${departmentList}" th:text="${department.nameDepartment}"
                     th:value="${department.id}"></option>
         </select>
-        <label>Giới Tính</label>
+        <label>Giới Tính :</label>
         <select th:field="*{gender}">
             <option th:each="gender : ${genderList}" th:text="${gender.nameGender}" th:value="${gender.id}"></option>
         </select>
