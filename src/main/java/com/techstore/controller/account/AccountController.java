@@ -36,18 +36,17 @@ public class AccountController {
 
     @GetMapping("")
     public String showListAccount(Model model, @RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "") String name) {
-        Page<Account> listAccount = accountService.getAll(name,PageRequest.of(page, 4));
-        if (listAccount.getContent().isEmpty()){
+        Page<AccountRole> listAccountRole = accountRoleService.getAll(name,PageRequest.of(page, 4));
+        if (listAccountRole.getContent().isEmpty()){
             model.addAttribute("msg","Không tìm thấy");
         }else {
-            model.addAttribute("listRole", roleService.getAll());
-            model.addAttribute("listAccountRole", accountRoleService.getAll());
+            model.addAttribute("listAccountRole", listAccountRole);
         }
-        model.addAttribute("listAccount", listAccount);
+        model.addAttribute("listAccountRole", listAccountRole);
         model.addAttribute("name",name);
         model.addAttribute("page", page);
         List<Integer> pageNumberList = new ArrayList<>();
-        for (int i = 1; i <= listAccount.getTotalPages(); i++) {
+        for (int i = 1; i <= listAccountRole.getTotalPages(); i++) {
             pageNumberList.add(i);
         }
         model.addAttribute("pageNumberList", pageNumberList);
@@ -61,9 +60,9 @@ public class AccountController {
     }
 
     @PostMapping("/delete")
-    public String removeAccount(@RequestParam int id, RedirectAttributes redirect) {
+    public String removeAccount(@RequestParam int id, RedirectAttributes redirect,Model model) {
         accountService.deleteAccountById(id);
-        redirect.addFlashAttribute("msg", "Xóa thành công");
+        model.addAttribute("msg","Xóa thành công");
         return "redirect:";
     }
 

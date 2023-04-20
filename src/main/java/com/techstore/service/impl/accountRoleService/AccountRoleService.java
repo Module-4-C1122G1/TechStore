@@ -16,8 +16,8 @@ public class AccountRoleService implements IAccountRoleService {
     @Autowired
     private IAccountRoleRepository iAccountRoleRepository;
     @Override
-    public List<AccountRole> getAll() {
-        return iAccountRoleRepository.findAll();
+    public Page<AccountRole> getAll(String name,PageRequest pageRequest) {
+        return iAccountRoleRepository.findByAccount_UserNameContaining(name, pageRequest);
     }
 
     @Override

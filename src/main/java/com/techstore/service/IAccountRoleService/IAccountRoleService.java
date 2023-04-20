@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface IAccountRoleService {
-    List<AccountRole> getAll();
+    Page<AccountRole> getAll(String name,PageRequest pageRequest);
 
     AccountRole getById(int id);
     AccountRole getByAccount(Account account);
