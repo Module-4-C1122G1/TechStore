@@ -12,13 +12,13 @@
 </head>
 <body>
 <head th:replace="/home/home :: header">
-    <div class="container" style="margin-top: 180px">
+    <div class="container" style="margin-top: 180px;display: flex;justify-content: center;">
         <p th:if="${msg!=null}" class="btn btn-danger" th:text="${msg}"></p>
         <table>
             <form action="/admin/customer/update" method="post" th:object="${customer}">
-                <tr ><th style="font-weight: bold;font-size: 30px">Chỉnh sửa khách hàng</th></tr>
+                <tr><th colspan="2" style="font-weight: bold;font-size: 30px;text-align: center">Chỉnh sửa khách hàng</th></tr>
                 <tr style="height: 50px;">
-                    <th>Tên khách hàng<span style="color: red">*</span></th>
+                    <th>Tên khách hàng<span style="color: red"> * </span></th>
                     <td><input type="text" class="form-control" th:field="${customer.nameCustomer}"
                                th:value="${customer.nameCustomer}">
                         <p class="btn btn-danger" th:if="${#fields.hasErrors()}"
@@ -26,7 +26,7 @@
                     </td>
                 </tr>
                 <tr style="height: 50px;">
-                    <th>Địa chỉ<span style="color: red">*</span></th>
+                    <th>Địa chỉ<span style="color: red"> * </span></th>
                     <!--                <td><input type="text" th:field="${customer.address}" th:value="${customer.address}">-->
 
                     <td><label th:text="${'Thành phố : '}"></label><select style="border-radius: 5px" class="username" id="city" name="city"
@@ -43,7 +43,7 @@
                     <p class="btn btn-danger" th:if="${#fields.hasErrors()}" th:errors="${customer.address}"></p></td>
                 </tr>
                 <tr style="height: 50px;">
-                    <th>Ngày sinh<span style="color: red">*</span></th>
+                    <th>Ngày sinh<span style="color: red"> * </span></th>
                     <td><input  type="date" class="form-control" th:field="${customer.dateOfBirth}"
                                th:value="${#dates.format(customer.dateOfBirth, 'dd-MM-yyyy')}">
                         <p class="btn btn-danger" th:if="${#fields.hasErrors()}"
@@ -51,7 +51,7 @@
                     </td>
                 </tr>
                 <tr style="height: 50px;">
-                    <th>Số điện thoại<span style="color: red">*</span></th>
+                    <th>Số điện thoại<span style="color: red"> * </span></th>
                     <td><input type="text" class="form-control" th:field="${customer.phoneNumber}"
                                th:value="${customer.phoneNumber}">
                         <p class="btn btn-danger" th:if="${#fields.hasErrors()}"
@@ -59,26 +59,26 @@
                     </td>
                 </tr>
                 <tr style="height: 50px;">
-                    <th>Tên tài khoản<span style="color: red">*</span></th>
+                    <th>Tên tài khoản<span style="color: red"> * </span></th>
                     <td><input type="text" class="form-control" th:field="${customer.account.userName}"
                                th:value="${customer.account.userName}"></td>
                 </tr>
                 <tr style="height: 50px;">
-                    <th>Giới tính<span style="color: red">*</span></th>
+                    <th>Giới tính<span style="color: red"> * </span></th>
                     <td><select th:field="${customer.gender}" style="border-radius: 5px">
                         <option class="form-control"th:each="gender: ${genderList}" th:text="${gender.nameGender}"
                                 th:value="${gender.id}"></option>
                     </select></td>
                 </tr>
                 <tr style="height: 50px;">
-                    <th>Loại khách hàng<span style="color: red">*</span></th>
+                    <th>Loại khách hàng<span style="color: red"> *</span></th>
                     <td><select th:field="${customer.typeCustomer}" style="border-radius: 5px">
                         <option class="form-control" th:each="type: ${typeList}" th:text="${type.nameTypeCustomer}"
                                 th:value="${type.typeID}"></option>
                     </select></td>
                 </tr>
-                <tr style="height: 50px;">
-                    <td>
+                <tr >
+                    <td colspan="2" style="text-align: right">
                         <button type="submit" class="btn btn-outline-info">Chỉnh sửa</button>
                     </td>
                 </tr>
