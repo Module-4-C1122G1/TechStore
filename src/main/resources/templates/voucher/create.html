@@ -1,91 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/home :: head"></head>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/home.css}"/>
-    <link rel="stylesheet" th:href="@{/css/swipper.css}"/>
-    <link
-            href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-            rel="stylesheet"
-    />
-    <link
-            crossorigin="anonymous"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-            referrerpolicy="no-referrer"
-            rel="stylesheet"
-    />
-    <link
-            crossorigin="anonymous"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-            integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-            rel="stylesheet"
-    />
-    <script
-            crossorigin="anonymous"
-            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-    ></script>
-    <title>Thêm mới khuyến mãi</title>
-    <style>
-        span{
-            color: red;
-        }
-    </style>
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/createProduct.css}">
 </head>
-<body style="background:#939ca3">
+<body>
 <div class="header" th:replace="/home/home :: header"></div>
-<div class="main">
-    <div class="container" style="display: flex;justify-content: center">
-        <div class="col-4">
-            <h2 style="text-align: center">Thêm mới mã khuyến mãi</h2>
-            <form action="/admin/voucher/create" method="post" th:object="${voucher}">
-
-                <div class="mb-3">
-                    <label class="form-label">Mã khuyến mãi<span> *</span></label>
-                    <input type="text" class="form-control" th:field="*{nameVoucher}" name="nameVoucher">
-                    <p style="color: red" th:if="${#fields.hasErrors('nameVoucher')}" th:errors="*{nameVoucher}"></p>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Ngày hết hạn<span> *</span></label>
-                    <input type="date" class="form-control" th:field="*{expiredDate}" name="expiredDate">
-                    <p style="color: red" th:if="${#fields.hasErrors('expiredDate')}" th:errors="*{expiredDate}"></p>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Số lượng<span> *</span></label>
-                    <input type="number" autocomplete="off" class="form-control" th:field="*{amountVoucher}"
-                           name="amountVoucher">
-                    <p style="color: red" th:if="${#fields.hasErrors('amountVoucher')}"
-                       th:errors="*{amountVoucher}"></p>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Phần % giảm giá<span> *</span></label>
-                    <input type="number" class="form-control" th:field="*{percentDiscount}" name="percentDiscount">
-                    <p style="color: red" th:if="${#fields.hasErrors('percentDiscount')}"
-                       th:errors="*{percentDiscount}"></p>
-                </div>
-
-                <div class="mb-3">
-                    <label>Loại khuyến mãi<span> *</span></label>
-                    <select th:field="*{typeVoucher}">
-                        <option th:each="type: ${typeVoucher}" th:text="${type.typeVoucher}"
-                                th:value="${type.id}"></option>
-                    </select>
-                </div>
-
-                <div class="mb-5">
-                    <button type="submit" class="btn btn-primary">Thêm mới</button>
-                    <button type="button" class="btn btn-secondary" onclick="window.location.href='/admin/voucher'">Hủy
-                        bỏ
-                    </button>
-                </div>
-            </form>
+    <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${messageSuccess != null}">
+        <div class="toast-header bg-warning">
+            <strong class="me-auto">Thông báo</strong>
+            <small>1 second ago</small>
+            <button aria-label="Close" class="btn-close" data-bs-dismiss="toast" type="button"></button>
+        </div>
+        <div class="toast-body" th:text="${messageSuccess}">
         </div>
     </div>
+    <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${messageError != null}">
+        <div class="toast-header bg-danger">
+            <strong class="me-auto">Thông báo</strong>
+            <small>1 second ago</small>
+            <button aria-label="Close" class="btn-close" data-bs-dismiss="toast" type="button"></button>
+        </div>
+        <div class="toast-body" th:text="${messageError}">
+        </div>
+    </div>
+<div class="main d-flex justify-content-center align-items-center flex-column mt-5">
+
+    <form class="d-flex flex-column" enctype="multipart/form-data" id="form-login" method="post"
+          novalidate="novalidate" th:action="@{/admin/voucher/create}" th:object="${voucher}">
+        <h1 class="mt-3 text-center" id="create-product-title">Thêm mới Khuyến mãi</h1>
+        <tr>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Mã khuyến mãi</label></td>
+            <td>
+                <input type="text" class="form-control" th:field="*{nameVoucher}" name="nameVoucher">
+            </td>
+            <br>
+            <td>
+                <p class="error-msg" style="color: red" th:if="${#fields.hasErrors('nameVoucher')}" th:errors="*{nameVoucher}"></p>
+            </td>
+        </tr>
+
+        <tr>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Ngày hết hạn</label></td>
+            <td>
+                <input type="date" class="form-control" th:field="*{expiredDate}" name="expiredDate">
+            </td>
+            <br>
+            <td>
+                <p class="error-msg" style="color: red" th:if="${#fields.hasErrors('expiredDate')}" th:errors="*{expiredDate}"></p>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label class="fw-bold"><label class="color-red"> *</label> Số lượng</label></td>
+            <td>
+                <input type="number" autocomplete="off" class="form-control" th:field="*{amountVoucher}"
+                       name="amountVoucher">
+            </td>
+            <br>
+            <td>
+                <p class="error-msg" style="color: red" th:if="${#fields.hasErrors('amountVoucher')}"
+                   th:errors="*{amountVoucher}"></p>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label class="fw-bold"><label class="color-red"> *</label> Phần % giảm giá</label></td>
+
+            <td>
+                <input type="number" class="form-control" th:field="*{percentDiscount}" name="percentDiscount">
+            </td>
+            <br>
+            <td>
+                <p class="error-msg" style="color: red" th:if="${#fields.hasErrors('percentDiscount')}"
+                   th:errors="*{percentDiscount}"></p>
+            </td>
+        </tr>
+
+        <tr>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Loại khuyến mãi</label></td>
+            <td>
+                <select class="username" th:field="*{typeVoucher}">
+                    <option th:each="type : ${typeVoucher}" th:text="${type.typeVoucher}"
+                            th:value="${type.id}"></option>
+                </select></td>
+        </tr>
+        <br>
+        <tr>
+            <div class="mb-5">
+                <button type="submit" class="btn btn-primary">Thêm mới</button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='/admin/voucher'">Hủy
+                    bỏ
+                </button>
+            </div>
+        </tr>
+    </form>
 </div>
 <div class="footer" th:replace="/home/home :: footer"></div>
 </body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    setTimeout(() => {
+        let toast = document.getElementsByClassName("toast")[0];
+        toast.style.transform = "translate(" + 0 + "," + 100 + "%)";
+        toast.style.opacity = 0;
+        toast.style.transition = 0.5 + "s transform, " + 1 + "s opacity";
+    }, 2500);
+</script>
 </html>
