@@ -18,7 +18,7 @@
             <form action="/admin/customer/create" method="post" th:object="${customer}">
                 <tr ><th style="font-weight: bold;font-size: 30px">Tạo mới khách hàng</th></tr>
                 <tr style="height: 50px;">
-                    <th>Tên khách hàng</th>
+                    <th>Tên khách hàng <span style="color: red">*</span></th>
                     <td><input type="text" class="form-control" th:field="${customer.nameCustomer}"
                     >
                         <p class="btn btn-danger" th:if="${#fields.hasErrors()}"
@@ -26,7 +26,7 @@
                     </td>
                 </tr>
                 <tr style="height: 50px;">
-                    <th>Địa chỉ</th>
+                    <th>Địa chỉ<span style="color: red">*</span></th>
                     <td><label th:text="${'Thành phố : '}"></label><select style="border-radius: 5px" class="username" id="city" name="city"
                                                                            th:onclick="selectDistrict()"></select>
                         <label th:text="${'Quận huyện : '}"></label><select style="border-radius: 5px" class="username" id="district" name="district"
@@ -37,39 +37,34 @@
                                                                             th:text="${'--Xã phường--'}"></select>
                         <input id="address" name="address" type="hidden" th:field="${customer.address}"
                                th:value="${customer.address}">
+                        <p class="btn btn-danger" th:if="${#fields.hasErrors()}" th:errors="${customer.address}"></p></td>
                     </td>
-                    <p class="btn btn-danger" th:if="${#fields.hasErrors()}" th:errors="${customer.address}"></p></td>
                 </tr>
                 <tr style="height: 50px;">
-                    <th>Ngày sinh</th>
-                    <td><input type="date" class="form-control" th:field="${customer.dateOfBirth}"
+                    <th>Ngày sinh<span style="color: red">*</span></th>
+                    <td><input id="date_of_birth" type="date" class="form-control" th:field="${customer.dateOfBirth}"
                     >
                         <p class="btn btn-danger" th:if="${#fields.hasErrors()}"
                            th:errors="${customer.dateOfBirth}"></p>
                     </td>
                 </tr>
                 <tr style="height: 50px;">
-                    <th>Số điện thoại</th>
+                    <th>Số điện thoại<span style="color: red">*</span></th>
                     <td><input type="text" class="form-control" th:field="${customer.phoneNumber}"
                     >
                         <p class="btn btn-danger" th:if="${#fields.hasErrors()}"
                            th:errors="${customer.phoneNumber}"></p>
                     </td>
                 </tr>
-                <!--                <tr style="height: 50px;">-->
-                <!--                    <th>Tên tài khoản</th>-->
-                <!--                    <td><input type="text" class="form-control" th:field="${customer.account.userName}"-->
-                <!--                               ></td>-->
-                <!--                </tr>-->
                 <tr style="height: 50px;">
-                    <th>Giới tính</th>
+                    <th>Giới tính<span style="color: red">*</span></th>
                     <td><select th:field="${customer.gender}" style="border-radius: 5px">
                         <option class="form-control"th:each="gender: ${genderList}" th:text="${gender.nameGender}" th:value="${gender.id}"
                         ></option>
                     </select></td>
                 </tr>
                 <tr style="height: 50px;">
-                    <th>Loại khách hàng</th>
+                    <th>Loại khách hàng<span style="color: red">*</span></th>
                     <td><select th:field="${customer.typeCustomer}" style="border-radius: 5px">
                         <option class="form-control" th:each="type: ${typeList}" th:text="${type.nameTypeCustomer}" th:value="${type.typeID}"
                         ></option>
@@ -80,20 +75,10 @@
                         <button type="submit" class="btn btn-outline-info">Tạo mới</button>
                     </td>
                 </tr>
-
                 <div class="d-none" id="ok" th:text="${#dates.format(customer.dateOfBirth, 'yyyy-MM-dd')}"></div>
-                <!--                <input type="hidden" th:field="${customer.account.id}" th:value="${customer.account.id}">-->
-                <!--    <input type="hidden" th:field="${customer.account.password}" th:value="${customer.account.password}">-->
             </form>
         </table>
-        <!--        <form action="/admin/customer/reset" method="post">-->
-        <!--            <input type="hidden" name="id" th:value="${customer.id}">-->
-        <!--            <button type="submit"> Reset mật khẩu về 123456</button>-->
-        <!--        </form>-->
     </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
