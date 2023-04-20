@@ -85,7 +85,7 @@ public class HomeController {
             cart.setProducts(new HashMap<>());
         }
 //        Khi chưa đăng nhập tài khoản
-        if ((accountCurrent == null && principal == null) || (accountCurrent != null && principal == null)) {
+        if (principal == null) {
             ModelAndView modelAndView = new ModelAndView("cart/cart");
             modelAndView.addObject("cart", cart);
             return modelAndView;

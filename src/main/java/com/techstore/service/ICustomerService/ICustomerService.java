@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ICustomerService {
+    List<Customer> getAll();
     Page<Customer> list(Pageable pageable, String search);
     void saveCustomer(Customer customer);
     Customer findCustomerById(int id);
