@@ -81,7 +81,7 @@ public class ProductController {
         productService.save(product);
         modelAndView.addObject("categories", categoriesService.findAll());
         modelAndView.addObject("manufacturers", manufacturerService.findAll());
-        modelAndView.addObject("messageSuccess", "Thêm mới sản phẩm thành công.");
+        modelAndView.addObject("messageSuccess", "Thêm mới "+product.getNameProduct()+" thành công.");
         return modelAndView;
     }
 
@@ -109,7 +109,7 @@ public class ProductController {
             if (file.isEmpty()) {
                 modelAndView.addObject("fileEmpty", "Không được để trống trường này");
             }
-            modelAndView.addObject("messageError", "Chỉnh sửa sản phẩm thất bại.");
+            modelAndView.addObject("messageError", "Chỉnh sửa "+product.getNameProduct()+" thất bại.");
             return modelAndView;
         }
         ModelAndView modelAndView = new ModelAndView("product/updateProduct");
@@ -120,7 +120,7 @@ public class ProductController {
         modelAndView.addObject("manufacturers", manufacturerService.findAll());
         modelAndView.addObject("categoryOfProduct", categoriesService.findCategoriesById(product.getCategories().getId()));
         modelAndView.addObject("manufacturerOfProduct", manufacturerService.findManufacturerById(product.getManufacturer().getId()));
-        modelAndView.addObject("messageSuccess", "Chỉnh sửa sản phẩm thành công.");
+        modelAndView.addObject("messageSuccess", "Chỉnh sửa "+product.getNameProduct()+" thành công.");
         return modelAndView;
     }
     @GetMapping("/delete/{id}")
