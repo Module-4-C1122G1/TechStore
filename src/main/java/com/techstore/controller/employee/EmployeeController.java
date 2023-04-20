@@ -15,9 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,12 +68,17 @@ public class EmployeeController {
     }
 
     @PostMapping("/create")
-    public String createEmployee(@Valid @ModelAttribute("employeeDTO") EmployeeDTO employeeDTO, BindingResult bindingResult, RedirectAttributes redirect) {
+    public String createEmployee(@Valid @ModelAttribute("employeeDTO") EmployeeDTO employeeDTO,Model model, BindingResult bindingResult,RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
-            return "/employee/create_employee";
-        } else {
+            model.addAttribute("employeeDTO", employeeDTO);
+            model.addAttribute("positionList", iPositionService.findAll());
+            model.addAttribute("departmentList", iDepartmentService.findAll());
+            model.addAttribute("genderList", iGenderService.findAll());
+            model.addAttribute("msgError","Thêm mới thất bại");
+            return "employee/create_employee";
+        }else {
             iEmployeeService.createEmployee(employeeDTO);
-            redirect.addFlashAttribute("msg","Thêm mới thành công");
+            redirect.addFlashAttribute("msgSuccess","Thêm mới " + employeeDTO.getNameEmployee() + " thành công");
             return "redirect:/admin/employee";
         }
     }
@@ -93,12 +101,17 @@ public class EmployeeController {
     }
 
     @PostMapping("/edit")
-    public String editEmployee(@Valid @ModelAttribute("employeeDTO") EmployeeDTO employeeDTO, BindingResult bindingResult,RedirectAttributes redirect) {
-        if (bindingResult.hasErrors()) {
-            return "/employee/edit_employee";
-        } else {
+    public String editEmployee(@Valid @ModelAttribute("employeeDTO") EmployeeDTO employeeDTO,Model model, BindingResult bindingResult,RedirectAttributes redirect) {
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("employeeDTO", employeeDTO);
+            model.addAttribute("positionList", iPositionService.findAll());
+            model.addAttribute("departmentList", iDepartmentService.findAll());
+            model.addAttribute("genderList", iGenderService.findAll());
+            model.addAttribute("msgError","Chỉnh sửa thất bại");
+            return "employee/edit_employee";
+        }else {
             iEmployeeService.editEmployee(employeeDTO);
-            redirect.addFlashAttribute("msg","Chỉnh Sửa Thành Công");
+            redirect.addFlashAttribute("msgSuccess","Chỉnh sửa " + employeeDTO.getNameEmployee() + " thành công");
             return "redirect:/admin/employee";
         }
     }
