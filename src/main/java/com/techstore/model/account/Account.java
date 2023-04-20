@@ -1,5 +1,7 @@
 package com.techstore.model.account;
 
+import com.techstore.model.customer.Customer;
+import com.techstore.model.employee.Employee;
 import com.techstore.model.general.InitialDate;
 
 import javax.persistence.*;
@@ -16,6 +18,10 @@ public class Account {
     private String password;
     @Embedded
     private InitialDate initialDate;
+    @OneToOne
+    private Customer customer;
+    @OneToOne
+    private Employee employee;
 
     public Account() {
         initialDate = new InitialDate();
@@ -26,6 +32,15 @@ public class Account {
         this.userName = userName;
         this.password = password;
         this.initialDate = initialDate;
+    }
+
+    public Account(int id, String userName, String password, InitialDate initialDate, Customer customer, Employee employee) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.initialDate = initialDate;
+        this.customer = customer;
+        this.employee = employee;
     }
 
     public int getId() {
@@ -58,5 +73,21 @@ public class Account {
 
     public void setInitialDate(InitialDate initialDate) {
         this.initialDate = initialDate;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }
