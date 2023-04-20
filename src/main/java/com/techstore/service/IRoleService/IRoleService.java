@@ -9,4 +9,5 @@ public interface IRoleService {
     List<Role> getAll();
 
     Account getById(int id);
+    Role findRoleById(int id);
 }

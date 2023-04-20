@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.List;
 
 public interface IAccountService {
+    List<Account> getAll();
     Page<Account> getAll(PageRequest pageRequest);
     Account findById(int id);
     void saveAccount(Account account);
