@@ -33,12 +33,12 @@
         }
     </style>
 </head>
-<body>
+<body style="background:#939ca3">
 <div class="header" th:replace="/home/home :: header"></div>
 <div class="main">
     <div class="container" style="display: flex;justify-content: center">
         <div class="col-4">
-            <h2 style="text-align: center">Thêm mới cầu thủ</h2>
+            <h2 style="text-align: center">Thêm mới mã khuyến mãi</h2>
             <form action="/admin/voucher/create" method="post" th:object="${voucher}">
 
                 <div class="mb-3">

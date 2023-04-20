@@ -28,7 +28,7 @@
     ></script>
     <title>Danh sách khuyến mãi</title>
 </head>
-<body>
+<body style="background:#939ca3">
 <div class="header" th:replace="/home/home :: header"></div>
 
 
@@ -51,8 +51,7 @@
                 <input style="height: 37px" id="search" name="search" type="text" th:value="${search}"
                        placeholder="Nhập tên khuyến mãi..."/>
                 <button type="submit" class="btn  btn-danger">Tìm kiếm</button>
-                <p class="fw-bold" th:if="${voucherList.content.size() ==0 }">Không tìm thấy tên "<span
-                        style="color: red" th:text="${search}"></span> " khuyến mãi này!!!!</p>
+
             </form>
         </div>
         <table class="table">
@@ -94,6 +93,8 @@
             </tr>
             </tbody>
         </table>
+        <p class="fw-bold" th:if="${voucherList.content.size() ==0 }">Không tìm thấy tên "<span
+                style="color: red" th:text="${search}"></span> " khuyến mãi này!!!!</p>
     </div>
 </div>
 
@@ -156,6 +157,10 @@
         debugger
         document.getElementById("pageForm1").value = document.getElementById("pageForm2").value - 1;
     }
+</script>
+
+<script>
+
 </script>
 
 <div class="footer" th:replace="/home/home :: footer"></div>
