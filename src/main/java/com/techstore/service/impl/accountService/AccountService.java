@@ -30,6 +30,11 @@ public class AccountService implements IAccountService, UserDetailsService {
 
 
     @Override
+    public List<Account> getAll() {
+        return (List<Account>) accountRepository.findAll();
+    }
+
+    @Override
     public Page<Account> getAll(String name,PageRequest pageRequest) {
         return accountRepository.findAllByUserNameContaining(name, pageRequest);
     }

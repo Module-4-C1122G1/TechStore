@@ -24,4 +24,10 @@ public class RoleService implements IRoleService {
     public Account getById(int id) {
         return null;
     }
+
+    @Override
+    public Role findRoleById(int id) {
+        return iRoleRepository.findRoleById(id);
+    }
+
 }
