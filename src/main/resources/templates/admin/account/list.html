@@ -34,9 +34,9 @@
             </thead>
             <tbody th:each="accountRole,loop :${listAccountRole}">
             <tr>
-                <td th:text="${loop.count}+${page*5}"></td>
+                <td th:text="${loop.count}+${page*10}"></td>
                 <td th:text="${accountRole.account?.userName}"></td>
-                <td th:field="*{accountRole.account?.password}">**********</td>
+                <td th:text="${accountRole.account?.password}"></td>
                 <td th:text="${accountRole.role?.roleName}"></td>
                 </td>
                 <td>

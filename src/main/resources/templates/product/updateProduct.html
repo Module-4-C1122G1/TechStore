@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/home :: head"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/createProduct.css}">
+</head>
+<body>
+<div class="header" th:replace="/home/home :: header"></div>
+<div class="main d-flex justify-content-center align-items-center flex-column mt-5">
+    <form class="d-flex flex-column" enctype="multipart/form-data" id="form-login"
+          method="post"
+          th:action="@{'/admin/product/update/' +${product.getId()}+ '/save'}" th:object="${product}">
+        <h1 class="mt-3 text-center" id="create-product-title">Chỉnh sửa sản phẩm</h1>
+        <tr>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Tên sản phẩm</label></td>
+            <td><input class="mb-3 username" th:field="*{nameProduct}"
+                       th:placeholder="${'Tên sản phẩm'}"
+                       type="text"></td>
+            <td>
+                <p class="error-msg" th:errors="*{nameProduct}" th:if="${#fields.hasErrors('nameProduct')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Giá sản phẩm (vnd)</label></td>
+            <td><input class="mb-3 username" th:field="*{price}"
+                       th:placeholder="${'Tên sản phẩm'}"
+                       type="text"></td>
+            <td>
+                <p class="error-msg" th:errors="*{price}" th:if="${#fields.hasErrors('price')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Công nghệ màn hình</label></td>
+            <td><input class="mb-3 username" th:field="*{screenTechnology}"
+                       th:placeholder="${'Công nghệ màn hình'}"
+                       type="text"></td>
+            <td>
+                <p class="error-msg" th:errors="*{screenTechnology}"
+                   th:if="${#fields.hasErrors('screenTechnology')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Chip</label></td>
+            <td><input class="mb-3 username" th:field="*{chip}"
+                       th:placeholder="${'Chip'}"
+                       type="text"></td>
+            <td>
+                <p class="error-msg" th:errors="*{chip}" th:if="${#fields.hasErrors('chip')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="fw-bold">Tốc độ CPU</label></td>
+            <td><input class="mb-3 username" th:field="*{cpu_speed}"
+                       th:placeholder="${'Tốc độ CPU'}"
+                       type="text"></td>
+            <td>
+                <p class="error-msg" th:errors="*{cpu_speed}" th:if="${#fields.hasErrors('cpu_speed')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Chất liệu</label></td>
+            <td><input class="mb-3 username" th:field="*{material}"
+                       th:placeholder="${'Chất liệu sản phẩm'}"
+                       type="text"></td>
+            <td>
+                <p class="error-msg" th:errors="*{material}" th:if="${#fields.hasErrors('material')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Hệ điều hành</label></td>
+            <td><input class="mb-3 username" th:field="*{operatingSystem}"
+                       th:placeholder="${'Hệ điều hành'}"
+                       type="text"></td>
+            <td>
+                <p class="error-msg" th:errors="*{operatingSystem}" th:if="${#fields.hasErrors('operatingSystem')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="fw-bold">Pin (maH)</label></td>
+            <td><input class="mb-3 username" th:field="*{pin}"
+                       th:placeholder="${'Dung lượng pin'}"
+                       type="text"></td>
+            <td>
+                <p class="error-msg" th:errors="*{pin}" th:if="${#fields.hasErrors('pin')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="fw-bold">Ram (GB)</label></td>
+            <td><input class="mb-3 username" th:field="*{ram}"
+                       th:placeholder="${'Dung lượng ram'}"
+                       type="text"></td>
+            <td>
+                <p class="error-msg" th:errors="*{ram}" th:if="${#fields.hasErrors('ram')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="fw-bold">Dung lượng (GB)</label></td>
+            <td><input class="mb-3 username" th:field="*{capacity}"
+                       th:placeholder="${'Dung lượng lưu trữ'}"
+                       type="text"></td>
+            <td>
+                <p class="error-msg" th:errors="*{capacity}" th:if="${#fields.hasErrors('capacity')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Kích thước (inch)</label></td>
+            <td><input class="mb-3 username" th:field="*{size}"
+                       th:placeholder="${'Kích thước màn hình'}"
+                       type="text"></td>
+            <td>
+                <p class="error-msg" th:errors="*{size}" th:if="${#fields.hasErrors('size')}"></p>
+            </td>
+            </td>
+            </td>
+            <td>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Khối lượng (g)</label></td>
+            <td><input class="mb-3 username" th:field="*{weight}"
+                       th:placeholder="${'Khối lượng sản phẩm'}"
+                       type="text"></td>
+            </td>
+            <td>
+                <p class="error-msg" th:errors="*{weight}" th:if="${#fields.hasErrors('weight')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Thời gian ra mắt</label></td>
+            <td><input class="mb-3 username" th:field="*{timePublic}"
+                       th:placeholder="${'Ngày ra mắt'}"
+                       type="date"></td>
+            <td>
+                <p class="error-msg" th:errors="*{timePublic}" th:if="${#fields.hasErrors('timePublic')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Danh mục</label></td>
+            <td><select class="username" th:field="*{categories}">
+                <option th:each="category : ${categories}"
+                        th:selected="${categoryOfProduct.getId() == category.getId()}"
+                        th:text="${category.getNameCategories()}"
+                        th:value="${category.getId()}"></option>
+            </select></td>
+            <td>
+                <p class="error-msg" th:errors="*{categories}" th:if="${#fields.hasErrors('categories')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Nhà sản xuất</label></td>
+            <td><select class="username" th:field="*{manufacturer}">
+                <option th:each="manufacturer : ${manufacturers}"
+                        th:selected="${manufacturerOfProduct.getId() == manufacturer.getId()}"
+                        th:text="${manufacturer.getNameManufacturer()}"
+                        th:value="${manufacturer.getId()}"></option>
+            </select></td>
+            <td>
+                <p class="error-msg" th:errors="*{manufacturer}" th:if="${#fields.hasErrors('manufacturer')}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="fw-bold"><label class="color-red"> *</label> Ảnh đại diện</label></td>
+            <td>
+                <input name="file" type="file">
+            </td>
+            <td>
+                <p class="error-msg" style="margin-top: 0px!important;" th:text="${fileEmpty}"
+                   th:if="${fileEmpty != null}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td>Mô tả sản phẩm</td>
+            <td>
+                <textarea cols="30" rows="10" th:field="*{description}"></textarea>
+        </tr>
+        <input class="btn login-submit-btn" type="submit" value="Chỉnh sửa">
+    </form>
+</div>
+<div class="footer" th:replace="/home/home :: footer"></div>
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</html>
