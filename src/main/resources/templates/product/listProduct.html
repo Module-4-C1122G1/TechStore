@@ -52,6 +52,7 @@
                 <td th:text="${product.getOperatingSystem()}"></td>
                 <td th:text="${product.getTimePublic()}"></td>
                 <td th:text="${product.getManufacturer().getNameManufacturer()}"></td>
+                <td th:text="${product.getPrice().longValue()}"></td>
                 <td th:text="${#numbers.formatInteger(product.getPrice2(), 3, 'POINT')}"></td>
                 <td class="text-center fs-4"><a href=""><i class="fa-regular fa-file-lines text-secondary"></i></a></td>
                 <td class="text-center fs-4"><a th:href="@{'/admin/product/update/' + ${product.getId()}}"><i

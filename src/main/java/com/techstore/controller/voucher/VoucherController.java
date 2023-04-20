@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -48,8 +49,9 @@ public class VoucherController {
     }
 
     @GetMapping("/delete")
-    public String deleteVoucher(@RequestParam int id) {
+    public String deleteVoucher(@RequestParam int id, RedirectAttributes redirect) {
         voucherService.delete(id);
+        redirect.addFlashAttribute("messageSuccess", "xóa thành công");
         return "redirect:/admin/voucher";
     }
 
@@ -62,13 +64,16 @@ public class VoucherController {
 
     @PostMapping("/create")
     public String createVoucher(@Valid @ModelAttribute("voucher") VoucherDTO voucherDTO,
-                                BindingResult bindingResult, Model model) {
+                                BindingResult bindingResult, Model model,
+                                RedirectAttributes redirect ) {
         new VoucherDTO().validate(voucherDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("typeVoucher", typeVoucherRepository.findAll());
+            model.addAttribute("messageError", "Thêm mới thất bại");
             return "voucher/create";
         } else {
             voucherService.save(voucherDTO);
+            redirect.addFlashAttribute("messageSuccess", "Thêm mới thành công");
             return "redirect:/admin/voucher";
         }
     }
@@ -83,15 +88,18 @@ public class VoucherController {
 
     @PostMapping("/update")
     public String updateVoucher(@Valid @ModelAttribute UpdateVoucherDTO updateVoucherDTO, BindingResult
-            bindingResult) {
+            bindingResult, RedirectAttributes redirect,Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("messageError", "chỉnh sửa thất bại");
             return "voucher/update";
         }
         new UpdateVoucherDTO().validate(updateVoucherDTO, bindingResult);
         if (bindingResult.hasErrors()) {
+            model.addAttribute("messageError", "chỉnh sửa thất bại");
             return "voucher/update";
         } else {
             voucherService.update(updateVoucherDTO, updateVoucherDTO.getId());
+            redirect.addFlashAttribute("messageSuccess", "chỉnh sửa thành công ");
             return "redirect:/admin/voucher";
         }
     }

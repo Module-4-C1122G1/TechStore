@@ -5,6 +5,8 @@ import com.techstore.model.account.AccountRole;
 import com.techstore.repository.accountRoleRepository.IAccountRoleRepository;
 import com.techstore.service.IAccountRoleService.IAccountRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +24,10 @@ public class AccountRoleService implements IAccountRoleService {
     @Override
     public List<AccountRole> getAll() {
         return accountRoleRepository.findAll();
+    }
+    @Override
+    public Page<AccountRole> getAll(String name, PageRequest pageRequest) {
+        return accountRoleRepository.findByAccount_UserNameContaining(name, pageRequest);
     }
 
     @Override

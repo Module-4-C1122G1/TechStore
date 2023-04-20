@@ -1,86 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/home :: head"></head>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/home.css}"/>
-    <link rel="stylesheet" th:href="@{/css/swipper.css}"/>
-    <link
-            href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-            rel="stylesheet"
-    />
-    <link
-            crossorigin="anonymous"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-            referrerpolicy="no-referrer"
-            rel="stylesheet"
-    />
-    <link
-            crossorigin="anonymous"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-            integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-            rel="stylesheet"
-    />
-    <script
-            crossorigin="anonymous"
-            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-    ></script>
-    <title>Danh sách khuyến mãi</title>
+    <title>Chỉnh sửa</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/createProduct.css}">
 </head>
 <body>
 <div class="header" th:replace="/home/home :: header"></div>
 <div class="main">
-    <div class="container">
-        <div class="container" style="margin-top: 5%">
-            <h2 style="text-align: center">Danh sách các loại khuyến mãi</h2>
-            <button type="button" class="btn btn-success" style="margin-bottom: 2%">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart4"
-                     viewBox="0 0 16 16">
-                    <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"></path>
-                </svg>
-                <a href="/admin/voucher/create" style="text-decoration: none;color: white;"><i class="bi bi-cart4"> Thêm
-                    mới khuyến mãi</i>
-                </a>
-            </button>
 
-            <form action="/admin/voucher" method="get" class="mb-5">
-                <label for="search"></label>
-                <input style="height: 37px" id="search" name="search" type="text" th:value="${search}"
-                       placeholder="Nhập tên khuyến mãi..."/>
-                <button type="submit" class="btn  btn-danger">Tìm kiếm</button>
-                <p class="fw-bold" th:if="${voucherList.content.size() ==0 }">Không tìm thấy tên "<span
-                        style="color: red" th:text="${search}"></span> " khuyến mãi này!!!!</p>
-            </form>
+    <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${messageSuccess != null}">
+        <div class="toast-header bg-warning">
+            <strong class="me-auto">Thông báo</strong>
+            <small>1 second ago</small>
+            <button aria-label="Close" class="btn-close" data-bs-dismiss="toast" type="button"></button>
+        </div>
+        <div class="toast-body" th:text="${messageSuccess}">
+        </div>
+    </div>
+    <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${messageError != null}">
+        <div class="toast-header bg-danger">
+            <strong class="me-auto">Thông báo</strong>
+            <small>1 second ago</small>
+            <button aria-label="Close" class="btn-close" data-bs-dismiss="toast" type="button"></button>
+        </div>
+        <div class="toast-body" th:text="${messageError}">
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 200px">
+        <div class="feature d-flex justify-content-between align-items-center mb-3">
+            <div class="left">
+                <button class="btn btn-secondary" th:onclick="|window.location = '/admin/voucher/create'|">Thêm mới
+                    khuyến mãi<i class="fa-solid fa-plus"></i></button>
+            </div>
+            <div class="right">
+                <form class="d-flex align-items-center" th:action="@{/admin/voucher}">
+                    <div class="form-outline">
+                        <input class="form-control" id="form1" name="search" placeholder="tìm kiếm theo tên..."
+                               th:value="${search}" type="search"/>
+                    </div>
+                    <button class="btn btn-secondary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
         </div>
         <table class="table">
             <thead class="table-dark">
-            <tr>
-                <th>STT</th>
-                <th>Khuyến mãi</th>
-                <th>Ngày hết hạn</th>
-                <th>Số lượng</th>
-                <th>Phần % giảm giá</th>
-                <th>Trạng thái</th>
-                <th>Loại khuyến mãi</th>
-                <th>Chỉnh sửa</th>
-                <th>Xóa</th>
+            <th>STT</th>
+            <th>Khuyến mãi</th>
+            <th>Ngày hết hạn</th>
+            <th>Số lượng</th>
+            <th>Phần % giảm giá</th>
+            <th>Trạng thái</th>
+            <th>Loại khuyến mãi</th>
+            <th class="text-center">Chỉnh sửa</th>
+            <th class="text-center">Xóa</th>
             </thead>
             <tbody>
             <tr th:each="voucher, iterStat : ${voucherList}">
-                <td th:text="${iterStat.count}"></td>
+                <th th:text="${iterStat.count}"></th>
                 <td th:text="${voucher.nameVoucher}"></td>
                 <td th:text="${#dates.format(voucher.expiredDate, 'dd-MM-yyyy')}"></td>
                 <td th:text="${voucher.amountVoucher}"></td>
                 <td th:text="${voucher.percentDiscount + ' %'}"></td>
                 <td th:text="${voucher.isExpired == true ? 'Còn hiệu lực' : 'Đã hết hạn'}"></td>
                 <td th:text="${voucher.typeVoucher?.typeVoucher}"></td>
+
                 <!--Chỉnh sửa thông tin-->
-                <td>
-                    <a th:href="@{/admin/voucher/update/(id=${voucher.id})}" class="btn btn-primary">
-                        <i class="fas fa-edit"></i>
-                    </a>
+                <td class="text-center fs-4"><a th:href="@{/admin/voucher/update/(id=${voucher.id})}"><i
+                        class="fa-regular fa-pen-to-square text-warning"></i></a>
                 </td>
+
                 <!--Xóa sản phẩm-->
                 <td>
                     <button type="button"
@@ -92,70 +86,75 @@
             </tr>
             </tbody>
         </table>
-    </div>
-</div>
+        <p class="fw-bold" style="text-align: center" th:if="${voucherList.content.size() ==0 }">Không tìm thấy tên " <span
+                style="color: red" th:text="${search}"></span> " khuyến mãi này!!!!</p>
 
-<!--Modal xóa-->
-<div class="modal fade" id="deleteVoucher" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Xóa Voucher</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal fade" id="deleteVoucher" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Xóa Voucher</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/admin/voucher/delete">
+                        <div class="modal-body">
+                            <input hidden type="text" id="idDelete" name="id">
+                            <span>Có chắc chắn xóa voucher </span><span style="color: red" class="fw-bolder"
+                                                                        id="nameDelete"></span> ?
+                            <br>
+                            <p><span style="color: red" class="fw-bolder">Lưu ý:</span> không thể khôi phục lại được khi
+                                đã xóa
+                            </p>
+                        </div>
+                        <div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-danger">Xóa</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <form action="/admin/voucher/delete">
-                <div class="modal-body">
-                    <input hidden type="text" id="idDelete" name="id">
-                    <span>Có chắc chắn xóa voucher </span><span style="color: red" class="fw-bolder"
-                                                                id="nameDelete"></span> ?
-                    <br>
-                    <p><span style="color: red" class="fw-bolder">Lưu ý:</span> không thể khôi phục lại được khi đã xóa
-                    </p>
-                </div>
-                <div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                    <button type="submit" class="btn btn-danger">Xóa</button>
-                </div>
-            </form>
+        </div>
+
+
+        <!--Phân trang-->
+        <div class="text-center container">
+            <a class="page-item btn btn-outline-dark page-item" th:if="${voucherList.hasPrevious()}"
+               th:href="@{/admin/voucher(page = ${voucherList.number - 1})}">
+                <i class="ti-angle-left">Trước</i>
+            </a>
+
+            <a class="page-item number btn btn-outline-dark page-item m-1"
+               th:classappend="${pageNumber == voucherList.number + 1} ? 'active' : ''"
+               th:each="pageNumber : ${pageNumberList}"
+               th:href="@{/admin/voucher(page = ${pageNumber - 1})}"
+               th:text="${pageNumber}">
+            </a>
+
+            <a class="page-item btn btn-outline-dark page-item" th:if="${voucherList.hasNext()}"
+               th:href="@{/admin/voucher(page = ${voucherList.number + 1})}">
+                <i class="ti-angle-right">Sau</i>
+            </a>
         </div>
     </div>
 </div>
-
-
-<!--Phân trang-->
-<div class="text-center container">
-    <a class="page-item btn btn-light page-item" th:if="${voucherList.hasPrevious()}"
-       th:href="@{/admin/voucher(page = ${voucherList.number - 1})}">
-        <i class="ti-angle-left">Trước</i>
-    </a>
-
-    <a class="page-item number btn btn-light page-item"
-       th:classappend="${pageNumber == voucherList.number + 1} ? 'active' : ''"
-       th:each="pageNumber : ${pageNumberList}"
-       th:href="@{/admin/voucher(page = ${pageNumber - 1})}"
-       th:text="${pageNumber}">
-    </a>
-
-    <a class="page-item btn btn-light page-item" th:if="${voucherList.hasNext()}"
-       th:href="@{/admin/voucher(page = ${voucherList.number + 1})}">
-        <i class="ti-angle-right">Sau</i>
-    </a>
-</div>
+<div class="footer" th:replace="/home/home :: footer"></div>
 
 <script>
     function infoDelete(id, name) {
         document.getElementById("idDelete").value = id;
         document.getElementById("nameDelete").innerText = name;
     }
-
-    function changeData() {
-        debugger
-        document.getElementById("pageForm1").value = document.getElementById("pageForm2").value - 1;
-    }
 </script>
 
-<div class="footer" th:replace="/home/home :: footer"></div>
+<script>
+    setTimeout(() => {
+        let toast = document.getElementsByClassName("toast")[0];
+        toast.style.transform = "translate(" + 0 + "," + 100 + "%)";
+        toast.style.opacity = 0;
+        toast.style.transition = 0.5 + "s transform, " + 1 + "s opacity";
+    }, 2500);
+</script>
 </body>
 </html>

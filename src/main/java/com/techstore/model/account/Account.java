@@ -1,5 +1,7 @@
 package com.techstore.model.account;
 
+import com.techstore.model.customer.Customer;
+import com.techstore.model.employee.Employee;
 import com.techstore.model.general.InitialDate;
 import org.hibernate.validator.constraints.UniqueElements;
 
@@ -34,6 +36,7 @@ public class Account {
         this.initialDate = initialDate;
     }
 
+
     public int getId() {
         return id;
     }
@@ -65,4 +68,5 @@ public class Account {
     public void setInitialDate(InitialDate initialDate) {
         this.initialDate = initialDate;
     }
+    
 }
