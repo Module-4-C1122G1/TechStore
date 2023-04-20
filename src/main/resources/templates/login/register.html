@@ -13,17 +13,22 @@
         <h2 class="text-center title">Đăng ký</h2>
         <input class="mb-3 username" name="name" th:field="*{customer.nameCustomer}" th:placeholder="${'Tên của bạn'}"
                type="text">
+        <p th:if="${#fields.hasErrors('customer.nameCustomer')}" class="error-msg" th:errors="*{customer.nameCustomer}"></p>
         <input class="mb-3 username" name="username" th:field="*{account.userName}" th:placeholder="${'Tên đăng nhập'}"
                type="text">
+        <p th:if="${#fields.hasErrors('account.userName')}" class="error-msg" th:errors="*{account.userName}"></p>
+        <p class="error-msg" th:if="${errorUserName != null}" th:text="${errorUserName}"></p>
         <input class="mb-3 username" name="phonenumber" th:field="*{customer.phoneNumber}"
                th:placeholder="${'Số điện thoại'}" type="text">
-        <input class="mb-3 username" id="dateOfBirth" name="dateofbirth" th:placeholder="${'Ngày sinh'}"
-               type="text">
+        <p th:if="${#fields.hasErrors('customer.phoneNumber')}" class="error-msg" th:errors="*{customer.phoneNumber}"></p>
+        <input class="mb-3 username" id="dateOfBirth" th:field="*{customer.dateOfBirth}" th:placeholder="${'Ngày sinh'}"
+               type="date">
+        <p th:if="${#fields.hasErrors('customer.dateOfBirth')}" class="error-msg" th:errors="*{customer.dateOfBirth}"></p>
         <label th:text="${'Giới tính:'}"></label>
         <div class="d-flex justify-content-center align-items-center mb-3">
-            <div class="me-3"><label>Nam</label><input name="gender" type="radio" value="2"></div>
-            <div class="me-3"><label>Nữ</label><input name="gender" type="radio" value="1"></div>
-            <div><label>Khác</label><input name="gender" type="radio" value="3"></div>
+            <div class="me-3"><input name="gender" type="radio" checked value="2"><label>Nam</label></div>
+            <div class="me-3"><input name="gender" type="radio" value="1"><label>Nữ</label></div>
+            <div><input name="gender" type="radio" value="3"><label>Khác</label></div>
         </div>
         <label th:text="${'Thành phố:'}"></label><select class="username" id="city" name="city"
                                                          th:onclick="selectDistrict()"></select>
@@ -35,8 +40,10 @@
         <input id="address" name="address" type="hidden">
         <input class="mb-3 password" name="password" th:field="*{account.password}" th:placeholder="${'Mật khẩu'}"
                type="password">
-        <input class="mb-3 password" name="confirm-password" th:placeholder="${'Nhập lại mật khẩu'}"
+        <p th:if="${#fields.hasErrors('account.password')}" class="error-msg" th:errors="*{account.password}"></p>
+        <input class="mb-3 password" name="confirmPassword" th:placeholder="${'Nhập lại mật khẩu'}"
                type="password">
+        <p class="error-msg" th:if="${errorConfirmPassword != null}" th:text="${errorConfirmPassword}"></p>
         <input class="btn login-submit-btn" type="submit" value="ĐĂNG KÝ">
         <div class="modifier d-flex justify-content-between align-items-center mt-3">
             <div class="left">
