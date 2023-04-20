@@ -8,7 +8,6 @@ import com.techstore.service.IAccountService.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -35,7 +34,12 @@ public class AccountService implements IAccountService, UserDetailsService {
     }
 
     @Override
-    public Page<Account> getAll(String name,PageRequest pageRequest) {
+    public Page<Account> getAll(PageRequest pageRequest) {
+        return accountRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public Page<Account> getAll(String name, PageRequest pageRequest) {
         return accountRepository.findAllByUserNameContaining(name, pageRequest);
     }
 
@@ -85,5 +89,10 @@ public class AccountService implements IAccountService, UserDetailsService {
                 account.getPassword(), grantList);
 
         return new User(userDetails.getUsername(), new BCryptPasswordEncoder().encode(userDetails.getPassword()), grantList);
+    }
+
+    @Override
+    public Page<Account> findByUserNameContaining(String name, PageRequest pageRequest) {
+        return accountRepository.findAllByUserNameContaining(name, pageRequest);
     }
 }

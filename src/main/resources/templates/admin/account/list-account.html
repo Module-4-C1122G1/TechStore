@@ -9,8 +9,8 @@
       <div class="right">
         <form class="d-flex align-items-center" th:action="@{/admin/account}">
           <div class="form-outline">
-            <input class="form-control" id="form1" name="search" placeholder="Search"
-                   th:value="${searchValue}" type="search"/>
+            <input class="form-control" id="name" name="name" placeholder="Search"
+                   th:value="${name}" type="search"/>
           </div>
           <button class="btn btn-secondary" type="submit">
             <i class="fas fa-search"></i>
@@ -39,6 +39,8 @@
       </tr>
       </tbody>
     </table>
+    <h2 class="text-center" style="color: red" th:if="${list == 0}">Không tìm thấy tài khoản nào có tên là <span
+            style="color: red" th:text="${name}"></span></h2>
     <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">

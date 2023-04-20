@@ -11,6 +11,9 @@ import java.util.List;
 public interface IAccountService {
     List<Account> getAll();
     Page<Account> getAll(PageRequest pageRequest);
+
+    Page<Account> getAll(String name, PageRequest pageRequest);
+
     Account findById(int id);
     void saveAccount(Account account);
     void deleteAccountById(int id);

@@ -29,20 +29,16 @@ public class AccountController {
     private AccountRoleService accountRoleService;
 
     @GetMapping("")
-    public String showListAccount(Model model, @RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "") String name) {
-        Page<AccountRole> listAccountRole = accountRoleService.getAll(name,PageRequest.of(page, 4));
-        if (listAccountRole.getContent().isEmpty()){
-            model.addAttribute("msg","Không tìm thấy");
-        }else {
-            model.addAttribute("listAccountRole", listAccountRole);
-        }
+    public String showListAccount(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String name) {
+        Page<AccountRole> listAccountRole = accountRoleService.getAll(name, PageRequest.of(page, 4));
         model.addAttribute("listAccountRole", listAccountRole);
-        model.addAttribute("name",name);
+        model.addAttribute("name", name);
         model.addAttribute("page", page);
         List<Integer> pageNumberList = new ArrayList<>();
         for (int i = 1; i <= listAccountRole.getTotalPages(); i++) {
             pageNumberList.add(i);
         }
+        model.addAttribute("list",listAccountRole.getTotalElements());
         model.addAttribute("pageNumberList", pageNumberList);
         return "/admin/account/list-account";
     }
@@ -54,7 +50,7 @@ public class AccountController {
     }
 
     @GetMapping("/delete/{id}")
-    public String removeAccount(@PathVariable int id,Model model) {
+    public String removeAccount(@PathVariable int id, Model model) {
         accountService.deleteAccountById(id);
         return "redirect:/admin/account";
     }
