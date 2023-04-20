@@ -14,6 +14,7 @@
                     <button aria-label="Close" class="btn-close" data-bs-dismiss="toast" type="button"></button>
                 </div>
                 <div class="toast-body" th:text="${msg}">
+                    <small>1 second ago</small>
                 </div>
             </div>
             <div class="feature d-flex justify-content-between align-items-center mb-3">
@@ -88,89 +89,16 @@
             </div>
         </div>
     </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        setTimeout(() => {
+            let toast = document.getElementsByClassName("toast")[0];
+            toast.style.transform = "translate("+0+"," + 100 + "%)";
+            toast.style.opacity = 0;
+            toast.style.transition = 0.5+"s transform, "+ 1 + "s opacity";
+        }, 2500);
+    </script>
 
-
-
-
-
-
-
-
-
-
-
-
-<!--    <div style="margin-top: 100px">-->
-<!--        <p style="font-weight: bold;font-size: 30px;" class="btn-primary" th:text="${msg}"></p>-->
-<!--    </div>-->
-<!--    <div style="margin-top: 100px">-->
-<!--        <div style="margin-bottom: 10px" class="d-flex">-->
-<!--            <form action="customer">-->
-<!--                <input style="height: 35px;border-radius: 5px;padding-bottom: 7px" placeholder="Tìm kiếm theo tên"-->
-<!--                       th:name="search" th:value="${search}">-->
-<!--                <button type="submit" class="btn btn-outline-info">Tìm kiếm</button>-->
-<!--            </form>-->
-<!--            <p>-->
-<!--                <a role="button" class="btn btn-primary" href="/admin/customer/create" >Thêm mới khách hàng</a>-->
-<!--            </p>-->
-<!--        </div>-->
-
-<!--        <table class="table">-->
-<!--            <thead class="table-dark">-->
-<!--            <tr>-->
-<!--                <th>STT</th>-->
-<!--                <th>Tên khách hàng</th>-->
-<!--                <th>Giới tính</th>-->
-<!--                <th>Địa chỉ</th>-->
-<!--                <th>Số điện thoại</th>-->
-<!--                <th>Ngày sinh</th>-->
-<!--                <th>Loại khách hàng</th>-->
-<!--                <th>Chỉnh sửa thông tin</th>-->
-<!--                <th>Xóa</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr>-->
-<!--                <th th:if="${list.content.size()==0}">Không tìm thấy kết quả</th>-->
-<!--            </tr>-->
-<!--            <tr th:each="customer, index : ${list}">-->
-<!--                <th th:text="${index.count}"></th>-->
-<!--                <th th:text="${customer.nameCustomer}"></th>-->
-<!--                <th th:text="${customer.gender.nameGender}"></th>-->
-<!--                <th th:text="${customer.address}"></th>-->
-<!--                <th th:text="${customer.phoneNumber}"></th>-->
-<!--                <th th:text="${#dates.format(customer.dateOfBirth, 'dd-MM-yyyy')}"></th>-->
-<!--                <th th:text="${customer?.typeCustomer?.nameTypeCustomer}"></th>-->
-<!--                <th class="text-center fs-4"><a class="btn btn-primary btn-lg" role="button" th:href="@{customer/update/{id}(id=${customer.id})}">Chỉnh-->
-<!--                    sửa</a></th>-->
-<!--                <th class="text-center fs-4">-->
-<!--                    <button class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal"-->
-<!--                            th:attr="onclick=|infoDelete('${customer.id}','${customer.nameCustomer}')|"-->
-<!--                            type="button">-->
-<!--                        Xóa-->
-<!--                    </button>-->
-<!--                </th>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--        &lt;!&ndash;Phân trang&ndash;&gt;-->
-<!--        <div class="text-center container">-->
-<!--            <a class="page-item btn btn-outline-dark page-item" th:href="@{/admin/customer(page = ${list.number - 1})}"-->
-<!--               th:if="${list.hasPrevious()}">-->
-<!--                <i class="ti-angle-left">Trước</i>-->
-<!--            </a>-->
-<!--            <a class="page-item number btn btn-outline-dark page-item m-1"-->
-<!--               th:classappend="${pageNumber == list.number + 1} ? 'active' : ''"-->
-<!--               th:each="pageNumber : ${pageNumberList}"-->
-<!--               th:href="@{/admin/customer(page = ${pageNumber - 1})}"-->
-<!--               th:text="${pageNumber}">-->
-<!--            </a>-->
-<!--            <a class="page-item btn btn-outline-dark page-item" th:href="@{/admin/customer(page = ${list.number + 1})}"-->
-<!--               th:if="${list.hasNext()}">-->
-<!--                <i class="ti-angle-right">Sau</i>-->
-<!--            </a>-->
-<!--        </div>-->
-<!--    </div>-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
