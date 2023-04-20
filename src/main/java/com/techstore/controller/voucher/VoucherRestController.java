@@ -1,7 +1,10 @@
 package com.techstore.controller.voucher;
 
+import com.techstore.dto.VoucherDTO;
+import com.techstore.model.voucher.TypeVoucher;
 import com.techstore.model.voucher.Voucher;
 import com.techstore.service.IVoucherService.IVoucherService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +31,12 @@ public class VoucherRestController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("detail/{id}")
-    public Voucher getVoucherDetail(@PathVariable int id){
-        return voucherService.findById(id);
+    public VoucherDTO getVoucherDetail(@PathVariable int id){
+        Voucher voucher = voucherService.findById(id);
+        VoucherDTO voucherDTO = new VoucherDTO();
+        voucherDTO.setTypeVoucher(new TypeVoucher());
+        BeanUtils.copyProperties(voucher.getTypeVoucher(), voucherDTO.getTypeVoucher());
+        BeanUtils.copyProperties(voucher,voucherDTO);
+        return voucherDTO;
     }
 }
