@@ -10,13 +10,13 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+
 public class VoucherDTO implements Validator {
 
     private Integer id;
     @NotBlank(message = "Tên không được để trống!")
     private String nameVoucher;
     @NotBlank(message = "ngày hết hạn không được bỏ trống!")
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String expiredDate;
     @NotNull(message = "Phải nhập số lượng")
     @Min(value = 0, message = "Số lượng phải lớn hơn 0")
@@ -25,14 +25,14 @@ public class VoucherDTO implements Validator {
     @Min(value = 0, message = "phần trăm giảm giá phải lớn hơn 0")
     @Max(value = 100, message = "phần trăm giảm giá phải nhỏ hơn 101")
     private Double percentDiscount;
-    private Double isExpired;
+    private Boolean isExpired = true;
     private TypeVoucher typeVoucher;
 
     public VoucherDTO() {
     }
 
-    public VoucherDTO(Integer id, String nameVoucher,
-                      String expiredDate, Double amountVoucher, Double percentDiscount, Double isExpired,
+    public VoucherDTO(Integer id, String nameVoucher, String expiredDate,
+                      Double amountVoucher, Double percentDiscount, Boolean isExpired,
                       TypeVoucher typeVoucher) {
         this.id = id;
         this.nameVoucher = nameVoucher;
@@ -83,12 +83,12 @@ public class VoucherDTO implements Validator {
         this.percentDiscount = percentDiscount;
     }
 
-    public Double getIsExpired() {
+    public Boolean getExpired() {
         return isExpired;
     }
 
-    public void setIsExpired(Double isExpired) {
-        this.isExpired = isExpired;
+    public void setExpired(Boolean expired) {
+        isExpired = expired;
     }
 
     public TypeVoucher getTypeVoucher() {
@@ -108,10 +108,11 @@ public class VoucherDTO implements Validator {
     public void validate(Object target, Errors errors) {
         VoucherDTO voucherDTO = (VoucherDTO) target;
         if (!voucherDTO.nameVoucher.matches("^(([a-zA-Z\\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸ.,ẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\\s\\'ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉị.,ọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉ.,ịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]))*$")) {
-            errors.rejectValue("nameVoucher", "", "Tên không được chứa kí tự số hoặc kí tự đặc biệt @;,.=+");
+            errors.rejectValue("nameVoucher", "", "Tên không được chứa kí tự đặc biệt @;,.=+");
         }
         if (!voucherDTO.expiredDate.matches("^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$\n")) {
             int total = Period.between(LocalDate.parse(voucherDTO.getExpiredDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalDate.now()).getDays();
+            System.out.println(total);
             if (total > 0) {
                 errors.rejectValue("expiredDate", "", "ngày hết hạn phải lớn hơn ngày hiện tại!!!!!!!");
             }

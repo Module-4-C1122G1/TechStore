@@ -59,4 +59,5 @@ public class HomeRestController {
         map.put("amountItems", cart.countItemQuantity());
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+
 }

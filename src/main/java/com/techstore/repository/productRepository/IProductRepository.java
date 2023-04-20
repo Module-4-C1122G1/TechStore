@@ -11,4 +11,5 @@ public interface IProductRepository extends PagingAndSortingRepository<Product, 
     Page<Product> findProductsByCategoriesId(int id, Pageable pageable);
 
     Page<Product> findProductsByManufacturerId(int id, Pageable pageable);
+    Page<Product> findProductsByNameProductContaining(String name, Pageable pageable);
 }

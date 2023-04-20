@@ -46,7 +46,7 @@
                         </div>
                     </td>
                     <td><p class="price-product-cart" th:id="${'price-product' + product.getKey().getId()}"
-                           th:text="${#numbers.formatInteger(product.getKey().getPrice(), 3, 'POINT') + ' ₫'}"></p></td>
+                           th:text="${#numbers.formatInteger(product.getKey().getPrice2(), 3, 'POINT') + ' ₫'}"></p></td>
                 </tr>
                 </tbody>
             </table>
