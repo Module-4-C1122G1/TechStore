@@ -26,7 +26,6 @@ public class EmployeeDTO implements Validator {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
-    @NotBlank(message = "Không được để trống")
     private String address;
 
     private Position position;
