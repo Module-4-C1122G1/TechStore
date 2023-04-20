@@ -11,8 +11,10 @@ import com.techstore.service.IOrderProductService.IOrderProductService;
 import com.techstore.service.IOrderService.IOrderService;
 import com.techstore.service.IProductService.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -91,7 +93,7 @@ public class HomeController {
 
 //        Khi mới restart chương trình
         if (((accountCurrent == null && principal != null)
-                || (accountCurrent != null && principal!= null && !principal.getName().equals(accountCurrent))) && cart.countTotalProductQuantity() > 0) {
+                || (accountCurrent != null && principal != null && !principal.getName().equals(accountCurrent))) && cart.countTotalProductQuantity() > 0) {
             accountCurrent = principal.getName();
             order = new Order();
             Customer customer = customerService.findByAccount(accountService.findAccountByName(principal.getName()));
@@ -121,7 +123,7 @@ public class HomeController {
         }
 
 //        Lấy cart của tài khoản hiện tại dưới database
-        if (principal != null) {
+        if (principal != null && order != null) {
             List<OrderProduct> orderProducts = orderProductService.findListById(order.getId());
             Map<Product, Integer> products = new HashMap<>();
             for (OrderProduct orderProduct : orderProducts) {
@@ -138,6 +140,27 @@ public class HomeController {
     @GetMapping("/login")
     public ModelAndView showFormLogin() {
         ModelAndView modelAndView = new ModelAndView("login/login");
+        return modelAndView;
+    }
+
+    @GetMapping("/product/search")
+    public ModelAndView searchProductByName(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String name, Pageable pageable) {
+        ModelAndView modelAndView = new ModelAndView("home/home");
+        pageable = PageRequest.of(page, 10, Sort.by("initialDate", "id"));
+        Page<Product> products = productService.findAllByName(name, pageable);
+        if (products.getTotalElements() == 0) {
+            modelAndView.addObject("emptyList", "Không có sản phẩm \'" + name + "\' nào được tìm thấy");
+            modelAndView.addObject("searchValue", name);
+        } else {
+            modelAndView.addObject("productList", products);
+            List<Integer> pageNumberList = new ArrayList<>();
+            for (int i = 1; i <= productService.findAllByName(name, pageable).getTotalPages(); i++) {
+                pageNumberList.add(i);
+            }
+            modelAndView.addObject("pageNumberList", pageNumberList);
+            modelAndView.addObject("pageCurrent", page);
+            modelAndView.addObject("searchValue", name);
+        }
         return modelAndView;
     }
 }

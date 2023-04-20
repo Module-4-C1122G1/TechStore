@@ -39,42 +39,42 @@
                      viewBox="0 0 16 16">
                     <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"></path>
                 </svg>
-                <a href="/admin/voucher/create" style="text-decoration: none;color: white;"><i class="bi bi-cart4"> Thêm mới khuyến mãi</i>
+                <a href="/admin/voucher/create" style="text-decoration: none;color: white;"><i class="bi bi-cart4"> Thêm
+                    mới khuyến mãi</i>
                 </a>
             </button>
 
+            <form action="/admin/voucher" method="get" class="mb-5">
+                <label for="search"></label>
+                <input style="height: 37px" id="search" name="search" type="text" th:value="${search}"
+                       placeholder="Nhập tên khuyến mãi..."/>
+                <button type="submit" class="btn  btn-danger">Tìm kiếm</button>
+                <p class="fw-bold" th:if="${voucherList.content.size() ==0 }">Không tìm thấy tên "<span
+                        style="color: red" th:text="${search}"></span> " khuyến mãi này!!!!</p>
+            </form>
         </div>
         <table class="table">
             <thead class="table-dark">
             <tr>
-                <th>Mã khuyến mãi</th>
+                <th>STT</th>
+                <th>Khuyến mãi</th>
                 <th>Ngày hết hạn</th>
                 <th>Số lượng</th>
                 <th>Phần % giảm giá</th>
                 <th>Trạng thái</th>
                 <th>Loại khuyến mãi</th>
-                <th>Thông tin chi tiết</th>
                 <th>Chỉnh sửa</th>
                 <th>Xóa</th>
             </thead>
             <tbody>
             <tr th:each="voucher, iterStat : ${voucherList}">
+                <td th:text="${iterStat.count}"></td>
                 <td th:text="${voucher.nameVoucher}"></td>
                 <td th:text="${#dates.format(voucher.expiredDate, 'dd-MM-yyyy')}"></td>
                 <td th:text="${voucher.amountVoucher}"></td>
                 <td th:text="${voucher.percentDiscount + ' %'}"></td>
-                <td th:text="${voucher.isExpired == 0 ? 'Đã hết hạn' : 'Còn hiệu lực'}"></td>
+                <td th:text="${voucher.isExpired == true ? 'Còn hiệu lực' : 'Đã hết hạn'}"></td>
                 <td th:text="${voucher.typeVoucher?.typeVoucher}"></td>
-                <td>
-                    <!--  Xem thông tin sản phẩm   -->
-                    <a th:href="@{/admin/voucher/detail/{id}(id=${voucher.id})}" class="btn btn-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-file-earmark-text" viewBox="0 0 16 16">
-                            <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"></path>
-                            <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"></path>
-                        </svg>
-                    </a>
-                </td>
                 <!--Chỉnh sửa thông tin-->
                 <td>
                     <a th:href="@{/admin/voucher/update/(id=${voucher.id})}" class="btn btn-primary">
@@ -100,7 +100,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="text-align: center">Xóa voucher</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Xóa Voucher</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="/admin/voucher/delete">
@@ -108,9 +108,11 @@
                     <input hidden type="text" id="idDelete" name="id">
                     <span>Có chắc chắn xóa voucher </span><span style="color: red" class="fw-bolder"
                                                                 id="nameDelete"></span> ?
+                    <br>
+                    <p><span style="color: red" class="fw-bolder">Lưu ý:</span> không thể khôi phục lại được khi đã xóa
+                    </p>
                 </div>
                 <div>
-                    <h5><span style="color: red" class="fw-bolder">Lưu ý:</span> không thể khôi phục lại được khi đã xóa</h5>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -124,30 +126,21 @@
 
 <!--Phân trang-->
 <div class="text-center container">
-    <form action="/admin/voucher" method="get">
-        <div class="d-flex" style="margin-top: 16px; margin-right: 10px">
-            <input type="number" id="pageForm2" placeholder="Nhập số trang...."
-                   th:attr="onchange=|changeData()|">
-            <input type="hidden" id="pageForm1" name="page" placeholder="Nhập số trang....">
-            <input type="submit" class="btn btn-outline-info"
-                   style="width: 136px" pattern="[1-9]+" value="Tìm kiếm">
-        </div>
-    </form>
-    <a class="page-item btn btn-dark page-item" th:if="${voucherList.hasPrevious()}"
+    <a class="page-item btn btn-light page-item" th:if="${voucherList.hasPrevious()}"
        th:href="@{/admin/voucher(page = ${voucherList.number - 1})}">
-        <i class="ti-angle-left">Previous</i>
+        <i class="ti-angle-left">Trước</i>
     </a>
 
-    <a class="page-item number btn btn-dark page-item"
+    <a class="page-item number btn btn-light page-item"
        th:classappend="${pageNumber == voucherList.number + 1} ? 'active' : ''"
        th:each="pageNumber : ${pageNumberList}"
        th:href="@{/admin/voucher(page = ${pageNumber - 1})}"
        th:text="${pageNumber}">
     </a>
 
-    <a class="page-item btn btn-dark page-item" th:if="${voucherList.hasNext()}"
+    <a class="page-item btn btn-light page-item" th:if="${voucherList.hasNext()}"
        th:href="@{/admin/voucher(page = ${voucherList.number + 1})}">
-        <i class="ti-angle-right">Next</i>
+        <i class="ti-angle-right">Sau</i>
     </a>
 </div>
 
@@ -162,6 +155,7 @@
         document.getElementById("pageForm1").value = document.getElementById("pageForm2").value - 1;
     }
 </script>
+
 <div class="footer" th:replace="/home/home :: footer"></div>
 </body>
 </html>

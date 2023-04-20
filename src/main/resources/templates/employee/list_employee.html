@@ -1,14 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/home/home :: head"></head>
-<head>
-    <title>Danh Sách Nhân Viên</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
 <body>
 <div class="header" th:replace="/home/home :: header"></div>
 <h2 class="text-center" style="color: #212529;font-size: 20px;
@@ -16,17 +8,19 @@
 <div class="main">
     <form th:action="@{/admin/employee}" method="get" style="width: 400px">
         <div class="d-flex">
-            <input class="form-control me-2" type="search" id="name" name="name" placeholder="Tìm Kiếm"
+            <input class="form-control me-2" type="search" id="name" name="name" placeholder="Tìm kiếm theo tên...."
                    th:value="${name}">
             <input type="submit" class="btn btn-outline-warning"
                    style="width: 100px" value="Tìm kiếm">
         </div>
     </form>
-    <a href="/admin/employee/create" class="btn btn-primary">Thêm Mới Nhân Viên</a>
+    <a href="/admin/employee/create" class="btn btn-primary mt-3">Thêm Mới Nhân Viên</a>
+    <h4 th:text="${msg}" class="mt-3" style="color: #cd1818"></h4>
+    <h3 class="text-center" style="color: black">Danh Sách Nhân Viên</h3>
     <table class="table mt-5">
         <thead class="table-dark">
         <tr>
-            <th>Mã Nhân Viên</th>
+            <th>STT</th>
             <th>Tên Nhân Viên</th>
             <th>Số Điện Thoại</th>
             <th>Ngày Sinh</th>
@@ -34,9 +28,11 @@
             <th>Chức Vụ</th>
             <th>Phòng Ban</th>
             <th>Giới Tính</th>
+            <th> Chức Năng
             <th></th>
             <th></th>
             <th></th>
+            </td>
         </tr>
         </thead>
         <tbody>
@@ -53,20 +49,23 @@
                 Chi Tiết</a></td>
             <td><a th:href="@{/admin/employee/edit?id=__*{employee.id}__}" class="btn btn-primary btn-sm">Sửa</a></td>
             <td>
-            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modelId"
-                    th:attr="onclick=|infoDelete('${employee.id}', '${employee.nameEmployee}')|">
-                Xóa
-            </button>
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modelId"
+                        th:attr="onclick=|infoDelete('${employee.id}', '${employee.nameEmployee}')|">
+                    Xóa
+                </button>
             </td>
         </tr>
         </tbody>
     </table>
+        <h2 class="text-center" style="color: red" th:if="${list == 0}">Không tìm thấy nhân viên nào có tên là <span
+                style="color: red" th:text="${name}"></span></h2>
+
     <!--    Modal Xóa-->
     <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"> Xóa nhân viên </h5>
+                    <h5 class="modal-title"> Xóa Nhân Viên </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -74,7 +73,7 @@
                 <form action="/admin/employee/delete">
                     <div class="modal-body">
                         <input type="hidden" name="deleteId" id="deleteId">
-                        <span>Bạn Có Chắc Chắn Xóa Nhân Viên</span><span style="color: red" id="deleteName"></span>
+                        <span>Bạn Có Chắc Chắn Xóa Nhân Viên </span><span style="color: red" id="deleteName"></span>
                         Không ?
                     </div>
                     <div class="modal-footer">
@@ -93,19 +92,19 @@
     </script>
     <!--Phân trang-->
     <div class="text-center container">
-        <a class="page-item btn btn-dark page-item" th:if="${employeeList.hasPrevious()}"
+        <a class="page-item btn btn-outline-dark page-item" th:if="${employeeList.hasPrevious()}"
            th:href="@{/admin/employee(page = ${employeeList.number - 1})}">
             <i class="ti-angle-left">Trước</i>
         </a>
 
-        <a class="page-item number btn btn-dark page-item"
+        <a class="page-item number btn btn-outline-dark page-item m-1"
            th:classappend="${pageNumber == employeeList.number + 1} ? 'active' : ''"
            th:each="pageNumber : ${pageNumberList}"
            th:href="@{/admin/employee(page = ${pageNumber - 1})}"
            th:text="${pageNumber}">
         </a>
 
-        <a class="page-item btn btn-dark page-item" th:if="${employeeList.hasNext()}"
+        <a class="page-item btn btn-outline-dark page-item" th:if="${employeeList.hasNext()}"
            th:href="@{/admin/employee(page = ${employeeList.number + 1})}">
             <i class="ti-angle-right">Sau</i>
         </a>
