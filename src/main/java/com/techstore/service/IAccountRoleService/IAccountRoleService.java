@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface IAccountRoleService {
     void saveAccountRole(AccountRole accountRole);
+    Page<AccountRole> getAll(String name, PageRequest pageRequest);
     List<AccountRole> getAll();
 
     AccountRole getById(int id);
