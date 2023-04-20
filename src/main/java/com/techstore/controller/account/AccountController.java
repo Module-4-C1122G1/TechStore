@@ -31,16 +31,21 @@ public class AccountController {
     @GetMapping("")
     public String showListAccount(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String name) {
         Page<AccountRole> listAccountRole = accountRoleService.getAll(name, PageRequest.of(page, 4));
-        model.addAttribute("listAccountRole", listAccountRole);
-        model.addAttribute("name", name);
-        model.addAttribute("page", page);
-        List<Integer> pageNumberList = new ArrayList<>();
-        for (int i = 1; i <= listAccountRole.getTotalPages(); i++) {
-            pageNumberList.add(i);
+        if (listAccountRole.getTotalElements() == 0) {
+            model.addAttribute("emptyList", "Không có sản phẩm \'" + name + "\' nào được tìm thấy");
+        } else {
+            model.addAttribute("listAccountRole", listAccountRole);
+            List<Integer> pageNumberList = new ArrayList<>();
+            for (int i = 1; i <= listAccountRole.getTotalPages(); i++) {
+                pageNumberList.add(i);
+            }
+            model.addAttribute("name", name);
+            model.addAttribute("page", page);
+            model.addAttribute("list", listAccountRole.getTotalElements());
+            model.addAttribute("pageNumberList", pageNumberList);
         }
-        model.addAttribute("list",listAccountRole.getTotalElements());
-        model.addAttribute("pageNumberList", pageNumberList);
-        return "/admin/account/list-account";
+
+        return "admin/account/list-account";
     }
 
     @GetMapping("/detail/{id}")

@@ -28,7 +28,12 @@
       <th class="text-center">Xóa</th>
       </thead>
       <tbody>
-      <tr th:each="accountRole, index: ${listAccountRole}">
+      <tr th:if="${emptyList != null}">
+        <th class="text-center" colspan="10"><i class="fa-regular fa-circle-xmark"></i><span
+                th:text="${emptyList}"></span>
+        </th>
+      </tr>
+      <tr th:each="accountRole, index: ${listAccountRole}" th:if="${emptyList == null}">
         <th th:text="${index.count + (10 * page)}"></th>
         <td th:text="${accountRole.account?.getUserName()}"></td>
         <td th:text="${accountRole.role?.getRoleName()}"></td>
@@ -39,7 +44,7 @@
       </tr>
       </tbody>
     </table>
-    <h2 class="text-center" style="color: red" th:if="${list == 0}">Không tìm thấy tài khoản nào có tên là <span
+    <h2 class="text-center" style="color: black" th:if="${list == 0}" >Không có sản phẩm nào được tìm thấy <span
             style="color: red" th:text="${name}"></span></h2>
     <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal" tabindex="-1">
       <div class="modal-dialog">
