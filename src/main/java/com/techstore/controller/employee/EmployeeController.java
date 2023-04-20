@@ -76,9 +76,10 @@ public class EmployeeController {
     }
 
     @GetMapping("/delete")
-    public String deleteEmployee(@RequestParam int deleteId) {
+    public String deleteEmployee(@RequestParam int deleteId,RedirectAttributes redirect) {
         Employee employee = iEmployeeService.findById(deleteId).get();
         iEmployeeService.deleteEmployee(employee);
+        redirect.addFlashAttribute("msg","Xóa thành công");
         return "redirect:/admin/employee";
     }
 
