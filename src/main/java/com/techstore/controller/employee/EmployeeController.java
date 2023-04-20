@@ -27,6 +27,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/employee")
 public class EmployeeController {
+
     @Autowired
     private IEmployeeService iEmployeeService;
     @Autowired
@@ -41,12 +42,12 @@ public class EmployeeController {
         Pageable sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
         Page<Employee> employeePage = iEmployeeService.findAll(name, (PageRequest) sortedPage);
         model.addAttribute("employeeList", employeePage);
-        model.addAttribute("name",name);
+        model.addAttribute("name", name);
         List<Integer> pageNumberList = new ArrayList<>();
         for (int i = 1; i <= employeePage.getTotalPages(); i++) {
             pageNumberList.add(i);
         }
-        model.addAttribute("list",employeePage.getTotalElements());
+        model.addAttribute("list", employeePage.getTotalElements());
         model.addAttribute("pageNumberList", pageNumberList);
         return "/employee/list_employee";
     }
@@ -68,26 +69,26 @@ public class EmployeeController {
     }
 
     @PostMapping("/create")
-    public String createEmployee(@Valid @ModelAttribute("employeeDTO") EmployeeDTO employeeDTO,Model model, BindingResult bindingResult,RedirectAttributes redirect) {
+    public String createEmployee(@Valid @ModelAttribute("employeeDTO") EmployeeDTO employeeDTO, BindingResult bindingResult, Model model, RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("msgError", "Thêm mới thất bại");
             model.addAttribute("employeeDTO", employeeDTO);
             model.addAttribute("positionList", iPositionService.findAll());
             model.addAttribute("departmentList", iDepartmentService.findAll());
             model.addAttribute("genderList", iGenderService.findAll());
-            model.addAttribute("msgError","Thêm mới thất bại");
             return "employee/create_employee";
-        }else {
+        } else {
             iEmployeeService.createEmployee(employeeDTO);
-            redirect.addFlashAttribute("msgSuccess","Thêm mới " + employeeDTO.getNameEmployee() + " thành công");
+            redirect.addFlashAttribute("msgSuccess", "Thêm mới " + employeeDTO.getNameEmployee() + " thành công");
             return "redirect:/admin/employee";
         }
     }
 
     @GetMapping("/delete")
-    public String deleteEmployee(@RequestParam int deleteId,RedirectAttributes redirect) {
+    public String deleteEmployee(@RequestParam int deleteId, RedirectAttributes redirect) {
         Employee employee = iEmployeeService.findById(deleteId).get();
         iEmployeeService.deleteEmployee(employee);
-        redirect.addFlashAttribute("msg","Xóa thành công");
+        redirect.addFlashAttribute("msgSuccess", "Xóa " + employee.getNameEmployee() + " thành công");
         return "redirect:/admin/employee";
     }
 
@@ -101,17 +102,17 @@ public class EmployeeController {
     }
 
     @PostMapping("/edit")
-    public String editEmployee(@Valid @ModelAttribute("employeeDTO") EmployeeDTO employeeDTO,Model model, BindingResult bindingResult,RedirectAttributes redirect) {
-        if(bindingResult.hasErrors()) {
+    public String editEmployee(@Valid @ModelAttribute("employeeDTO") EmployeeDTO employeeDTO, BindingResult bindingResult, Model model, RedirectAttributes redirect) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("msgError", "Chỉnh sửa thất bại");
             model.addAttribute("employeeDTO", employeeDTO);
             model.addAttribute("positionList", iPositionService.findAll());
             model.addAttribute("departmentList", iDepartmentService.findAll());
             model.addAttribute("genderList", iGenderService.findAll());
-            model.addAttribute("msgError","Chỉnh sửa thất bại");
             return "employee/edit_employee";
-        }else {
+        } else {
             iEmployeeService.editEmployee(employeeDTO);
-            redirect.addFlashAttribute("msgSuccess","Chỉnh sửa " + employeeDTO.getNameEmployee() + " thành công");
+            redirect.addFlashAttribute("msgSuccess", "Chỉnh sửa " + employeeDTO.getNameEmployee() + " thành công");
             return "redirect:/admin/employee";
         }
     }
