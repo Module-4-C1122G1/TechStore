@@ -45,8 +45,9 @@
                 <th th:text="${index.count + (10 * pageCurrent)}"></th>
                 <td th:if="${product.getImage().contains('http')}"><img alt="" style="width: 100px"
                                                                         th:src="${product.getImage()}"></td>
-                <td th:if="${product.getImage().startsWith('/images/')}"><img alt="123" style="width: 100px; height: 66.66px"
-                                                                         th:src="@{${product.getImage()}}"></td>
+                <td th:if="${product.getImage().startsWith('/images/')}"><img alt="123"
+                                                                              style="width: 100px; height: 66.66px"
+                                                                              th:src="@{${product.getImage()}}"></td>
                 <td th:text="${product.getNameProduct()}"></td>
                 <td th:text="${product.getOperatingSystem()}"></td>
                 <td th:text="${product.getTimePublic()}"></td>
@@ -57,7 +58,8 @@
                 <td class="text-center fs-4"><a th:href="@{'/admin/product/update/' + ${product.getId()}}"><i
                         class="fa-regular fa-pen-to-square text-warning"></i></a>
                 </td>
-                <td class="text-center fs-4"><a data-bs-target="#exampleModal" data-bs-toggle="modal" th:attr="onclick=|passValueToModal('${product.getId()}', '${product.getNameProduct()}')|">
+                <td class="text-center fs-4"><a data-bs-target="#exampleModal" data-bs-toggle="modal"
+                                                th:attr="onclick=|passValueToModal('${product.getId()}', '${product.getNameProduct()}')|">
                     <i class="fa-regular fa-trash-can text-danger"></i></a></td>
             </tr>
             </tbody>

@@ -5,48 +5,67 @@
     <meta charset="UTF-8">
     <title>Chỉnh Sửa Nhân Viên</title>
     <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/createProduct.css}">
 </head>
 <body>
 <div class="header" th:replace="/home/home :: header"></div>
 <div class="main d-flex justify-content-center align-items-center mt-5">
-    <p th:text="${msg}" style="color: #cd1818"></p>
+    <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${msgSuccess != null}">
+        <div class="toast-header bg-warning">
+            <strong class="me-auto">Thông báo</strong>
+            <small>1 second ago</small>
+            <button aria-label="Close" class="btn-close" data-bs-dismiss="toast" type="button"></button>
+        </div>
+        <div class="toast-body" th:text="${msgSuccess}">
+        </div>
+    </div>
+    <div aria-atomic="true" aria-live="assertive" class="toast show" role="alert" th:if="${msgError != null}">
+        <div class="toast-header bg-danger">
+            <strong class="me-auto">Thông báo</strong>
+            <small>1 second ago</small>
+            <button aria-label="Close" class="btn-close" data-bs-dismiss="toast" type="button"></button>
+        </div>
+        <div class="toast-body" th:text="${msgError}">
+        </div>
+    </div>
     <form class="d-flex flex-column" id="form-login" th:action="@{/admin/employee/edit}" method="post"
           th:object="${employeeDTO}">
         <h2 class="text-center" style="color: #212529;font-size: 20px;
         font-weight: 500; padding: 10px 24px;">Chỉnh Sửa Nhân Viên</h2>
         <input type="hidden" class="mb-3 username" th:field="${employeeDTO.id}">
-        <label for="nameEmployee">Điền Tên Nhân Viên : <span style="color: red">*</span></label>
+        <label for="nameEmployee" class="fw-bold">Điền Tên Nhân Viên : <span style="color: red">*</span></label>
         <input class="mb-3 username" type="text" th:field="*{nameEmployee}" name="nameEmployee" id="nameEmployee">
         <span style="color: red" th:if="${#fields.hasErrors('nameEmployee')}" th:errors="*{nameEmployee}"></span>
 
-        <label for="phoneNumber">Điền Số Điện Thoại : <span style="color: red">*</span></label>
+        <label for="phoneNumber" class="fw-bold">Điền Số Điện Thoại : <span style="color: red">*</span></label>
         <input type="text" class="mb-3 username" th:field="*{phoneNumber}" name="phoneNumber" id="phoneNumber">
         <span style="color: red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
 
-        <label for="dateOfBirth">Điền Ngày Sinh : <span style="color: red">*</span></label>
+        <label for="dateOfBirth" class="fw-bold">Điền Ngày Sinh : <span style="color: red">*</span></label>
         <input type="date" class="mb-3 username" th:field="*{dateOfBirth}" name="dateOfBirth" id="dateOfBirth">
         <span style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
 
-        <label th:text="${'Thành phố:'}"></label><select class="username" id="city" name="city"
-                                                         th:onclick="selectDistrict()"></select>
-        <label th:text="${'Quận huyện:'}"></label><select class="username" id="district" name="district"
-                                                          th:onclick="selectTown()" th:text="${'--Quận huyện--'}">--Quận
+        <label th:text="${'Thành phố:'}" class="fw-bold"></label><select class="username" id="city" name="city"
+                                                                         th:onclick="selectDistrict()"></select>
+        <label th:text="${'Quận huyện:'}" class="fw-bold"></label><select class="username" id="district" name="district"
+                                                                          th:onclick="selectTown()"
+                                                                          th:text="${'--Quận huyện--'}">--Quận
         huyện--</select>
-        <label th:text="${'Xã, phường:'}"></label><select class="username mb-3" id="town" name="town"
-                                                          th:text="${'--Xã phường--'}"></select>
+        <label th:text="${'Xã, phường:'}" class="fw-bold"></label><select class="username mb-3" id="town" name="town"
+                                                                          th:text="${'--Xã phường--'}"></select>
         <input id="address" name="address" type="hidden">
-        <label>Chức Vụ :</label>
-        <select th:field="*{position}">
+        <label class="fw-bold">Chức Vụ :</label>
+        <select class="username" th:field="*{position}">
             <option th:each="position : ${positionList}" th:text="${position.namePosition}"
                     th:value="${position.id}"></option>
         </select>
-        <label>Phòng Ban :</label>
-        <select th:field="*{department}">
+        <label class="fw-bold ">Phòng Ban :</label>
+        <select class="username" th:field="*{department}">
             <option th:each="department : ${departmentList}" th:text="${department.nameDepartment}"
                     th:value="${department.id}"></option>
         </select>
-        <label>Giới Tính :</label>
-        <select th:field="*{gender}">
+        <label class="fw-bold">Giới Tính :</label>
+        <select class="username" th:field="*{gender}">
             <option th:each="gender : ${genderList}" th:text="${gender.nameGender}" th:value="${gender.id}"></option>
         </select>
         <div class="mt-3">
@@ -108,6 +127,14 @@
             = townElm.options[townElm.selectedIndex].text + ", " + districtElm.options[districtElm.selectedIndex].text + ", " + cityElm.options[cityElm.selectedIndex].text;
         console.log(document.getElementById("address").value);
     }
+</script>
+<script>
+    setTimeout(() => {
+        let toast = document.getElementsByClassName("toast")[0];
+        toast.style.transform = "translate("+0+"," + 100 + "%)";
+        toast.style.opacity = 0;
+        toast.style.transition = 0.5+"s transform, "+ 1 + "s opacity";
+    }, 2500);
 </script>
 </body>
 </html>
