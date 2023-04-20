@@ -9,17 +9,19 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class EmployeeDTO implements Validator {
+
     private int id;
 
-    @NotBlank(message = "Không được để trống")
+    @NotNull(message = "Không được để trống")
     @Pattern(regexp = "^[^@;,.=+\\\\-]+$", message = "Tên Không chứa kí tự đặc biệt")
     private String nameEmployee;
 
-    @NotBlank(message = "Không được để trống")
+    @NotNull(message = "Không được để trống")
     @Pattern(regexp = "\\d{9,11}", message = "SDT phải từ 9 đến 11")
     private String phoneNumber;
 
