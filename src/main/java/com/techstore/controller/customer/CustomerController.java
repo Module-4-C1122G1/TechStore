@@ -30,7 +30,7 @@ public class CustomerController {
     private ICustomerService iCustomerService;
 
     @GetMapping("")
-    public String list(Model model, @PageableDefault(sort = {"id"}, size = 2, direction = Sort.Direction.DESC) Pageable pageable,
+    public String list(Model model, @PageableDefault(sort = {"id"}, size = 5, direction = Sort.Direction.DESC) Pageable pageable,
                        @RequestParam(defaultValue = "") String search) {
         model.addAttribute("list", iCustomerService.list(pageable, search));
         List<Integer> pageNumberList = new ArrayList<>();
