@@ -51,7 +51,7 @@ public class VoucherController {
     @GetMapping("/delete")
     public String deleteVoucher(@RequestParam int id, RedirectAttributes redirect) {
         voucherService.delete(id);
-        redirect.addFlashAttribute("msg", "xóa thành công");
+        redirect.addFlashAttribute("messageSuccess", "xóa thành công");
         return "redirect:/admin/voucher";
     }
 

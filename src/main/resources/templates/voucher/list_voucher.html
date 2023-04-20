@@ -76,27 +76,43 @@
                 </td>
 
                 <!--Xóa sản phẩm-->
-                <td class="text-center fs-4"><a data-bs-target="#deleteVoucher" data-bs-toggle="modal"
-                                                th:attr="onclick=|infoDelete('${voucher.id}','${voucher.nameVoucher}')|">
-                    <i class="fa-regular fa-trash-can text-danger"></i></a>
+                <td>
+                    <button type="button"
+                            th:attr="onclick=|infoDelete('${voucher.id}','${voucher.nameVoucher}')|"
+                            class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteVoucher">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
                 </td>
             </tr>
             </tbody>
         </table>
-        <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="deleteVoucher" tabindex="-1">
+        <p class="fw-bold" style="text-align: center" th:if="${voucherList.content.size() ==0 }">Không tìm thấy tên " <span
+                style="color: red" th:text="${search}"></span> " khuyến mãi này!!!!</p>
+
+        <div class="modal fade" id="deleteVoucher" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Xác nhận</h1>
-                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                        <h5 class="modal-title" id="exampleModalLabel">Xóa Voucher</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="modal-delete-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Hủy bỏ</button>
-                        <button class="btn btn-danger" id="delete-product-btn" type="button">Xóa ngay</button>
-                    </div>
+                    <form action="/admin/voucher/delete">
+                        <div class="modal-body">
+                            <input hidden type="text" id="idDelete" name="id">
+                            <span>Có chắc chắn xóa voucher </span><span style="color: red" class="fw-bolder"
+                                                                        id="nameDelete"></span> ?
+                            <br>
+                            <p><span style="color: red" class="fw-bolder">Lưu ý:</span> không thể khôi phục lại được khi
+                                đã xóa
+                            </p>
+                        </div>
+                        <div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-danger">Xóa</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -127,10 +143,8 @@
 
 <script>
     function infoDelete(id, name) {
-        document.getElementById("modal-delete-body").innerHTML = "Xác nhận xóa <span class='fw-bold'>" + name + "</span> ?";
-        document.getElementById("delete-product-btn").onclick = () => {
-            window.location = '/admin/voucher/delete/' + id;
-        }
+        document.getElementById("idDelete").value = id;
+        document.getElementById("nameDelete").innerText = name;
     }
 </script>
 
