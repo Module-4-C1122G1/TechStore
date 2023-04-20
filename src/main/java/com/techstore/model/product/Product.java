@@ -22,17 +22,17 @@ public class Product {
     private String nameProduct;
     @Column(columnDefinition = "text")
     private String image;
-    @NotNull(message = "Không được để trống trường ngày")
+    @NotNull(message = "Không được để trống trường này")
     @Min(value = 1000, message = "Bắt buộc lớn hơn 1000 (vnd)")
     @Column(columnDefinition = "double")
     private Double price;
-    @NotBlank(message = "Không được để trống trường ngày")
+    @NotBlank(message = "Không được để trống trường này")
     @Column(columnDefinition = "varchar(255)")
     private String screenTechnology;
-    @NotBlank(message = "Không được để trống trường ngày")
+    @NotBlank(message = "Không được để trống trường này")
     @Column(columnDefinition = "varchar(255)")
     private String operatingSystem;
-    @NotBlank(message = "Không được để trống trường ngày")
+    @NotBlank(message = "Không được để trống trường này")
     @Column(columnDefinition = "varchar(255)")
     private String chip;
 
